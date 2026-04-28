@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Design System Preview — Capital Unique (Direction B)</title>
+  <meta name="description" content="Phase 2 design system reference. All tokens, type scale, buttons, partials in one page.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap">
+
+  <link rel="stylesheet" href="../src/shared/tokens.css">
+  <link rel="stylesheet" href="../src/shared/direction-b.css">
+
+  <style>
+    /* Preview-page chrome — separate from product styles. */
+    body { background: var(--bg); color: var(--fg); }
+
+    .preview-banner {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--accent); color: var(--fg-on-dark);
+      padding: var(--space-3) var(--space-6);
+      font-family: var(--font-body); font-size: var(--text-sm); font-weight: var(--fw-semibold);
+      display: flex; gap: var(--space-6); align-items: center; justify-content: space-between;
+    }
+    .preview-banner a { color: inherit; text-decoration: underline; }
+
+    .preview-toc {
+      max-width: 1280px; margin: 0 auto; padding: var(--space-6) var(--gutter-mobile);
+      display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-6);
+      font-size: var(--text-sm); color: var(--fg-muted);
+      border-bottom: 1px solid var(--border-soft);
+    }
+    .preview-toc a { color: var(--fg); font-weight: var(--fw-medium); }
+    .preview-toc a:hover { color: var(--accent); }
+
+    .ds-section {
+      max-width: 1280px; margin: 0 auto; padding: var(--space-16) var(--gutter-mobile);
+      border-top: 1px solid var(--border-soft);
+    }
+    .ds-section:first-of-type { border-top: 0; }
+    .ds-section h2 {
+      font-family: var(--font-display); font-weight: var(--fw-black);
+      font-size: var(--text-3xl); line-height: 1.1;
+      margin: 0 0 var(--space-8);
+    }
+    .ds-section .lede {
+      max-width: 60ch; color: var(--fg-muted);
+      margin: calc(-1 * var(--space-6)) 0 var(--space-10);
+      font-size: var(--text-md);
+    }
+
+    /* Color swatches */
+    .swatch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--space-4); }
+    .swatch {
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--bg);
+    }
+    .swatch__chip { aspect-ratio: 16/9; }
+    .swatch__meta {
+      padding: var(--space-3) var(--space-4);
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: var(--text-xs);
+    }
+    .swatch__name { font-family: var(--font-body); font-weight: var(--fw-semibold); font-size: var(--text-sm); margin-bottom: var(--space-1); display: block; }
+    .swatch__token { color: var(--fg-muted); display: block; }
+    .swatch__hex { color: var(--accent); display: block; }
+
+    /* Type scale */
+    .type-row { display: grid; grid-template-columns: 80px 1fr; gap: var(--space-6); padding: var(--space-3) 0; border-bottom: 1px solid var(--border-soft); align-items: baseline; }
+    .type-row:last-child { border-bottom: 0; }
+    .type-row__label { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: var(--text-xs); color: var(--fg-muted); }
+    .type-row__sample { font-family: var(--font-display); font-weight: var(--fw-bold); line-height: 1.05; color: var(--fg); }
+    .type-row--body .type-row__sample { font-family: var(--font-body); font-weight: var(--fw-regular); line-height: 1.55; }
+    .type-row--eyebrow .type-row__sample { font-family: var(--font-eyebrow); font-weight: var(--fw-semibold); text-transform: uppercase; letter-spacing: var(--ls-eyebrow); }
+
+    /* Spacing scale */
+    .space-row { display: grid; grid-template-columns: 80px 80px 1fr; gap: var(--space-4); padding: var(--space-2) 0; align-items: center; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: var(--text-xs); color: var(--fg-muted); }
+    .space-row__bar { height: 12px; background: var(--accent); border-radius: 2px; }
+
+    /* Logo display */
+    .logo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); }
+    .logo-card { border: 1px solid var(--border-soft); border-radius: var(--radius-md); padding: var(--space-8); text-align: center; }
+    .logo-card--dark { background: var(--bg-dark); color: var(--fg-on-dark); }
+    .logo-card img { max-width: 240px; height: auto; margin: 0 auto var(--space-6); }
+    .logo-card .logo-card__label { font-family: var(--font-body); font-size: var(--text-sm); color: inherit; opacity: 0.7; }
+    .logo-card .logo-card__note { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: var(--text-xs); margin-top: var(--space-2); display: block; opacity: 0.6; }
+
+    /* Photography inventory */
+    .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: var(--space-3); }
+    .photo-card {
+      aspect-ratio: 4/3; overflow: hidden;
+      border-radius: var(--radius-sm);
+      background: var(--bg-alt);
+      position: relative;
+      border: 1px solid var(--border-soft);
+    }
+    .photo-card img { width: 100%; height: 100%; object-fit: cover; }
+    .photo-card__caption {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      padding: var(--space-2) var(--space-3);
+      background: linear-gradient(180deg, transparent, oklch(0% 0 0 / 0.7));
+      color: white;
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 10px;
+      pointer-events: none;
+    }
+
+    /* Buttons demo */
+    .btn-row { display: flex; gap: var(--space-4); flex-wrap: wrap; align-items: center; padding: var(--space-4); background: var(--bg-alt); border-radius: var(--radius-md); margin-bottom: var(--space-4); }
+    .btn-row--dark { background: var(--bg-dark); }
+    .btn-row__label { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: var(--text-xs); color: var(--fg-muted); margin-right: auto; }
+    .btn-row--dark .btn-row__label { color: var(--fg-on-dark-muted); }
+
+    /* Partial preview frames */
+    .partial-frame {
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-bottom: var(--space-12);
+    }
+    .partial-frame__bar {
+      padding: var(--space-3) var(--space-4);
+      background: var(--bg-alt);
+      border-bottom: 1px solid var(--border-soft);
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: var(--text-xs);
+      color: var(--fg-muted);
+      display: flex; gap: var(--space-4); justify-content: space-between; align-items: center;
+    }
+    .partial-frame__bar strong { color: var(--fg); font-family: var(--font-body); font-weight: var(--fw-semibold); font-size: var(--text-sm); }
+    .partial-frame__body {
+      /* Children (the partials) inherit Direction B's body styling — we re-set body bg here for accurate preview */
+    }
+    .partial-frame--light .partial-frame__body { background: var(--bg); color: var(--fg); }
+    .partial-frame--dark .partial-frame__body { background: var(--bg-dark); color: var(--fg-on-dark); }
+    /* Disable navbar/footer sticky inside the preview frame */
+    .partial-frame__body .navbar { position: static; top: 0; }
+
+    code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 0.9em; padding: 1px 4px; background: var(--bg-alt); border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+  <div class="preview-banner">
+    <span><strong>Design System Preview · Direction B "The Vault"</strong> &nbsp;—&nbsp; tokens, type, buttons, partials</span>
+    <span>
+      <a href="direction-a.html">A</a> &nbsp;·&nbsp;
+      <a href="direction-b.html">B (live)</a> &nbsp;·&nbsp;
+      <a href="direction-c.html">C</a> &nbsp;·&nbsp;
+      <a href="brand-spec.md">brand-spec</a>
+    </span>
+  </div>
+
+  <nav class="preview-toc" aria-label="Section navigation">
+    <a href="#colors">Colors</a>
+    <a href="#typography">Typography</a>
+    <a href="#spacing">Spacing</a>
+    <a href="#logo">Logo</a>
+    <a href="#photography">Photography</a>
+    <a href="#buttons">Buttons</a>
+    <a href="#cards">Cards</a>
+    <a href="#partial-navbar">Navbar</a>
+    <a href="#partial-logo-strip">Logo strip</a>
+    <a href="#partial-process">How funding works</a>
+    <a href="#partial-cta">Charles A.I CTA</a>
+    <a href="#partial-testimonial">Testimonial</a>
+    <a href="#partial-footer">Footer</a>
+  </nav>
+
+  <!-- ═══ Colors ════════════════════════════════════════════════ -->
+  <section class="ds-section" id="colors">
+    <h2>Colors</h2>
+    <p class="lede">All values converted to OKLCH per huashu-design's protocol. Hex shown for reference. Components reference semantic aliases (<code>--bg</code>, <code>--accent</code> etc.), not raw color tokens.</p>
+
+    <h3 style="font-size: var(--text-xl); margin-bottom: var(--space-4);">Neutrals (7-step)</h3>
+    <div class="swatch-grid" style="margin-bottom: var(--space-10);">
+      <div class="swatch"><div class="swatch__chip" style="background: var(--color-neutral-lightest);"></div><div class="swatch__meta"><span class="swatch__name">Neutral Lightest</span><span class="swatch__token">--color-neutral-lightest</span><span class="swatch__hex">#F2F2F2</span></div></div>
+      <div class="swatch"><div class="swatch__chip" style="background: var(--color-neutral-lighter);"></div><div class="swatch__meta"><span class="swatch__name">Neutral Lighter</span><span class="swatch__token">--color-neutral-lighter</span><span class="swatch__hex">#DAD9D9</span></div></div>
+      <div class="swatch"><div class="swatch__chip" style="background: var(--color-neutral-light);"></div><div class="swatch__meta"><span class="swatch__name">Neutral Light</span><span class="swatch__token">--color-neutral-light</span><span class="swatch__hex">#B5B4B3</span></div></div>
+      <div class="swatch"><div class="swatch__chip" style="background: var(--color-neutral);"></div><div class="swatch__meta"><span class="swatch__name">Neutral</span><span class="swatch__token">--color-neutral</span><span class="swatch__hex">#848380</span></div></div>
+      <div class="swatch"><div class="swatch__chip" style="background: var(--color-neutral-dark);"></div><div class="swatch__meta"><span class="swatch__name">Neutral Dark</span><span class="swatch__token">--color-neutral-dark</span><span class="swatch__hex">#53514D</span></div></div>
+      <div class="swatch"><div class="swatch__chip" style="background: var(--color-neutral-darker);"></div><div class="swatch__meta"><span class="swatch__name">Neutral Darker</span><span class="swatch__token">--color-neutral-darker</span><span class="swatch__hex">#221F1B</span></div></div>
+      <div class="swatch"><div class="swatch__chip" style="background: var(--color-neutral-darkest);"></div><div class="swatch__meta"><span class="swatch__name">Neutral Darkest</span><span class="swatch__token">--color-neutral-darkest</span><span class="swatch__hex">#0A0702</span></div></div>
+    </div>
+
+    <h3 style="font-size: var(--text-xl); margin-bottom: var(--space-4);">Warm accents — bronze family</h3>
+    <div class="swatch-grid" style="margin-bottom: var(--space-10);">
+      <div class="swatch"><div class="swatch__chip" style="background: var(--color-brandy-punch);"></div><div class="swatch__meta"><span class="swatch__name">Brandy Punch (primary accent)</span><span class="swatch__token">--color-brandy-punch · --accent</span><span class="swatch__hex">#CD722D</span></div></div>
+      <div class="swatch"><div class="swatch__chip" style="background: var(--color-marigold);"></div><div class="swatch__meta"><span class="swatch__name">Marigold</span><span class="swatch__token">--color-marigold · --accent-strong</span><span class="swatch__hex">#BF862A</span></div></div>
+      <div class="swatch"><div class="swatch__chip" style="background: var(--color-amber);"></div><div class="swatch__meta"><span class="swatch__name">Amber</span><span class="swatch__token">--color-amber · --accent-bright · --focus-ring</span><span class="swatch__hex">#FFC400</span></div></div>
+    </div>
+
+    <h3 style="font-size: var(--text-xl); margin-bottom: var(--space-4);">Cool accents — navy family</h3>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch__chip" style="background: var(--color-cloud-burst);"></div><div class="swatch__meta"><span class="swatch__name">Cloud Burst (border default)</span><span class="swatch__token">--color-cloud-burst · --border</span><span class="swatch__hex">#273166</span></div></div>
+      <div class="swatch"><div class="swatch__chip" style="background: var(--color-ship-cove);"></div><div class="swatch__meta"><span class="swatch__name">Ship Cove</span><span class="swatch__token">--color-ship-cove</span><span class="swatch__hex">#7B8CBD</span></div></div>
+    </div>
+  </section>
+
+  <!-- ═══ Typography ═══════════════════════════════════════════ -->
+  <section class="ds-section" id="typography">
+    <h2>Typography</h2>
+    <p class="lede">Display: Montserrat 700/800 · Body: Inter 400/500/600 · Eyebrow: Montserrat 600/700. Loaded via Google Fonts. Scale: Major Third (1.25×).</p>
+
+    <div class="type-row"><span class="type-row__label">5xl · 96px</span><span class="type-row__sample" style="font-size: var(--text-5xl); line-height: 1.0;">Page hero</span></div>
+    <div class="type-row"><span class="type-row__label">4xl · 72px</span><span class="type-row__sample" style="font-size: var(--text-4xl);">Section heading</span></div>
+    <div class="type-row"><span class="type-row__label">3xl · 48px</span><span class="type-row__sample" style="font-size: var(--text-3xl);">H2 default</span></div>
+    <div class="type-row"><span class="type-row__label">2xl · 32px</span><span class="type-row__sample" style="font-size: var(--text-2xl);">H3 default</span></div>
+    <div class="type-row"><span class="type-row__label">xl · 24px</span><span class="type-row__sample" style="font-size: var(--text-xl);">H4 / step heading</span></div>
+    <div class="type-row"><span class="type-row__label">lg · 20px</span><span class="type-row__sample" style="font-size: var(--text-lg);">Step card body</span></div>
+    <div class="type-row type-row--body"><span class="type-row__label">md · 18px</span><span class="type-row__sample" style="font-size: var(--text-md);">Body emphasis · We provide non-bank lending for complex scenarios where traditional finance falls short.</span></div>
+    <div class="type-row type-row--body"><span class="type-row__label">base · 16px</span><span class="type-row__sample" style="font-size: var(--text-base);">Body default · Capital Unique exists where traditional banking ends. We understand complex commercial deals, unconventional scenarios, and the investors who fund them.</span></div>
+    <div class="type-row type-row--eyebrow"><span class="type-row__label">sm · 14px</span><span class="type-row__sample" style="font-size: var(--text-sm);">Eyebrow caps · The Process</span></div>
+    <div class="type-row type-row--body"><span class="type-row__label">xs · 12px</span><span class="type-row__sample" style="font-size: var(--text-xs); color: var(--fg-muted);">Caption · © 2026 Capital Unique. All rights reserved.</span></div>
+  </section>
+
+  <!-- ═══ Spacing ══════════════════════════════════════════════ -->
+  <section class="ds-section" id="spacing">
+    <h2>Spacing</h2>
+    <p class="lede">4-based scale. Use <code>--space-N</code> tokens. Section vertical padding: 96px desktop / 64px tablet / 48px mobile. Hero sections: 128px.</p>
+    <div>
+      <div class="space-row"><span>--space-1</span><span>4px</span><div class="space-row__bar" style="width: 4px;"></div></div>
+      <div class="space-row"><span>--space-2</span><span>8px</span><div class="space-row__bar" style="width: 8px;"></div></div>
+      <div class="space-row"><span>--space-3</span><span>12px</span><div class="space-row__bar" style="width: 12px;"></div></div>
+      <div class="space-row"><span>--space-4</span><span>16px</span><div class="space-row__bar" style="width: 16px;"></div></div>
+      <div class="space-row"><span>--space-5</span><span>20px</span><div class="space-row__bar" style="width: 20px;"></div></div>
+      <div class="space-row"><span>--space-6</span><span>24px</span><div class="space-row__bar" style="width: 24px;"></div></div>
+      <div class="space-row"><span>--space-8</span><span>32px</span><div class="space-row__bar" style="width: 32px;"></div></div>
+      <div class="space-row"><span>--space-10</span><span>40px</span><div class="space-row__bar" style="width: 40px;"></div></div>
+      <div class="space-row"><span>--space-12</span><span>48px</span><div class="space-row__bar" style="width: 48px;"></div></div>
+      <div class="space-row"><span>--space-16</span><span>64px</span><div class="space-row__bar" style="width: 64px;"></div></div>
+      <div class="space-row"><span>--space-20</span><span>80px</span><div class="space-row__bar" style="width: 80px;"></div></div>
+      <div class="space-row"><span>--space-24</span><span>96px</span><div class="space-row__bar" style="width: 96px;"></div></div>
+      <div class="space-row"><span>--space-32</span><span>128px</span><div class="space-row__bar" style="width: 128px;"></div></div>
+    </div>
+  </section>
+
+  <!-- ═══ Logo ═════════════════════════════════════════════════ -->
+  <section class="ds-section" id="logo">
+    <h2>Logo</h2>
+    <p class="lede">Two finishes with locked pairing rules: bronze on dark backgrounds, silver/chrome on light. Never tint, recolor, or redraw the logo — always reference the asset file.</p>
+    <div class="logo-grid">
+      <div class="logo-card logo-card--dark">
+        <img src="../../Image%20Assets/Logo%20Square.png" alt="Capital Unique logo (bronze on dark)">
+        <span class="logo-card__label">Bronze on dark</span>
+        <span class="logo-card__note">Use on Neutral Darkest / Darker / hero / footer / CTA dark sections.</span>
+      </div>
+      <div class="logo-card">
+        <img src="../../Image%20Assets/1.png" alt="Capital Unique logo (silver on light)" style="max-width: 360px;">
+        <span class="logo-card__label">Silver / chrome on light</span>
+        <span class="logo-card__note">Use on Neutral Lightest / Lighter / drapery gradient backgrounds. (Shown via brand-kit cover; standalone silver SVG TBD.)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Photography ═════════════════════════════════════════ -->
+  <section class="ds-section" id="photography">
+    <h2>Photography inventory</h2>
+    <p class="lede">25 photographic shots from <code>Image Assets/John_Capital Unique_*</code>. Phase 4 maps each <code>[data-image]</code> wireframe slot to one of these (or to a Gemini-generated companion). Real photography only — no SVG silhouettes, no CSS shape stand-ins.</p>
+    <div class="photo-grid">
+      <div class="photo-card"><img src="../../Image%20Assets/John_Capital%20Unique_BlueBooks.png" alt=""><span class="photo-card__caption">BlueBooks</span></div>
+      <div class="photo-card"><img src="../../Image%20Assets/John_Capital%20Unique_Book_Car_Married_Finance.jpeg" alt=""><span class="photo-card__caption">Book / Car / Finance</span></div>
+      <div class="photo-card"><img src="../../Image%20Assets/John_Capital%20Unique_Book_Serious_Investors.jpeg" alt=""><span class="photo-card__caption">Serious Investors</span></div>
+      <div class="photo-card"><img src="../../Image%20Assets/John_Capital%20Unique_Book_Shelf.jpeg" alt=""><span class="photo-card__caption">Book Shelf</span></div>
+      <div class="photo-card"><img src="../../Image%20Assets/John_Capital%20Unique_Calculator.jpeg" alt=""><span class="photo-card__caption">Calculator</span></div>
+      <div class="photo-card"><img src="../../Image%20Assets/John_Capital%20Unique_Calculator_Abstract.jpeg" alt=""><span class="photo-card__caption">Calculator (Abstract)</span></div>
+      <div class="photo-card"><img src="../../Image%20Assets/John_Capital%20Unique_Desk_Coffee.jpeg" alt=""><span class="photo-card__caption">Desk / Coffee</span></div>
+      <div class="photo-card"><img src="../../Image%20Assets/John_Capital%20Unique_Empty_Desk.jpeg" alt=""><span class="photo-card__caption">Empty Desk</span></div>
+      <div class="photo-card"><img src="../../Image%20Assets/John_Capital%20Unique_Footer_Pressure.jpeg" alt=""><span class="photo-card__caption">Footer / Pressure (final-CTA hero)</span></div>
+      <div class="photo-card"><img src="../../Image%20Assets/John_Capital%20Unique_Hand_Shake.jpeg" alt=""><span class="photo-card__caption">Hand Shake</span></div>
+      <div class="photo-card"><img src="../../Image%20Assets/John_Capital%20Unique_Headshot_Dark.jpeg" alt=""><span class="photo-card__caption">Headshot / Dark</span></div>
+      <div class="photo-card"><img src="../../Image%20Assets/John_Capital%20Unique_Headshot_Tan_Golden.jpeg" alt=""><span class="photo-card__caption">Headshot / Golden</span></div>
+      <div class="photo-card"><img src="../../Image%20Assets/John_Capital%20Unique_Meeting_BoardRoom.png" alt=""><span class="photo-card__caption">Meeting / Boardroom</span></div>
+      <div class="photo-card"><img src="../../Image%20Assets/John_Capital%20Unique_Meeting_Sign.png" alt=""><span class="photo-card__caption">Meeting / Sign</span></div>
+      <div class="photo-card"><img src="../../Image%20Assets/John_Capital%20Unique_Meeting_Women.png" alt=""><span class="photo-card__caption">Meeting / Women</span></div>
+      <div class="photo-card"><img src="../../Image%20Assets/John_Capital%20Unique_Office_Profile_Seated.jpeg" alt=""><span class="photo-card__caption">Office / Profile</span></div>
+      <div class="photo-card"><img src="../../Image%20Assets/John_Capital%20Unique_Office_Seated.jpeg" alt=""><span class="photo-card__caption">Office / Seated</span></div>
+      <div class="photo-card"><img src="../../Image%20Assets/John_Capital%20Unique_Review_Documents.png" alt=""><span class="photo-card__caption">Review Documents</span></div>
+      <div class="photo-card"><img src="../../Image%20Assets/John_Capital%20Unique_Strategy_CHess.jpeg" alt=""><span class="photo-card__caption">Strategy / Chess</span></div>
+      <div class="photo-card"><img src="../../Image%20Assets/John_Capital%20Unique_Table_Coffee_Paper.jpeg" alt=""><span class="photo-card__caption">Table / Coffee / Paper</span></div>
+      <div class="photo-card"><img src="../../Image%20Assets/John_Capital%20Unique_WaitRoom_Painting.jpeg" alt=""><span class="photo-card__caption">Wait Room</span></div>
+    </div>
+  </section>
+
+  <!-- ═══ Buttons ══════════════════════════════════════════════ -->
+  <section class="ds-section" id="buttons">
+    <h2>Buttons</h2>
+    <p class="lede">Three primitives: <code>.btn--primary</code> (bronze fill, white text), <code>.btn--secondary</code> (outline), <code>.btn--link</code> (text + arrow). Min height 44px for accessibility.</p>
+
+    <div class="btn-row">
+      <span class="btn-row__label">On light surface</span>
+      <a href="#" class="btn btn--primary">Borrow</a>
+      <a href="#" class="btn btn--secondary">Fund</a>
+      <a href="#" class="btn btn--link">Learn more</a>
+    </div>
+    <div class="btn-row btn-row--dark">
+      <span class="btn-row__label">On dark surface</span>
+      <a href="#" class="btn btn--primary">Borrow</a>
+      <a href="#" class="btn btn--secondary" style="color: var(--fg-on-dark); border-color: oklch(70% 0 0 / 0.4);">Fund</a>
+      <a href="#" class="btn btn--link" style="color: var(--accent);">Charles A.I →</a>
+    </div>
+  </section>
+
+  <!-- ═══ Card primitives ══════════════════════════════════════ -->
+  <section class="ds-section" id="cards" style="background: var(--bg-dark-alt); margin: 0; max-width: none; padding-inline: var(--gutter-mobile); border-radius: 0;">
+    <div style="max-width: 1280px; margin: 0 auto;">
+      <h2 style="color: var(--fg-on-dark);">Card — vault variant</h2>
+      <p class="lede" style="color: var(--fg-on-dark-muted);">Direction B's <code>.vcard</code> primitive. Dark gradient, 1px charcoal border, bronze top-edge glow on hover, photo with cinematic vignette.</p>
+
+      <div class="approach-vault__grid" style="grid-template-columns: 1fr 1fr 1fr; grid-template-areas: none;">
+        <article class="vcard">
+          <div class="vcard__img"><img src="../../Image%20Assets/John_Capital%20Unique_Office_Seated.jpeg" alt=""></div>
+          <div class="vcard__body">
+            <span class="vcard__eyebrow">Borrowers</span>
+            <h3>For borrowers seeking finance</h3>
+            <p>Capital when banks say no. Fast assessment on deals others decline.</p>
+            <div class="vcard__ctas"><a href="#" class="btn btn--secondary">Explore</a><a href="#" class="btn btn--link">Learn</a></div>
+          </div>
+        </article>
+        <article class="vcard vcard--icon">
+          <span class="vcard__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 2l2 5h5l-4 3 1.5 5L12 12.5 7.5 15 9 10 5 7h5z"/></svg>
+          </span>
+          <span class="vcard__eyebrow">Discipline</span>
+          <h3>Intelligent, <span class="hl">discreet</span>, reliable</h3>
+          <p>We move quietly, think carefully, and deliver with precision.</p>
+          <a href="#" class="btn btn--link">Explore</a>
+        </article>
+        <article class="vcard">
+          <div class="vcard__img"><img src="../../Image%20Assets/John_Capital%20Unique_Headshot_Tan_Golden.jpeg" alt=""></div>
+          <div class="vcard__body">
+            <span class="vcard__eyebrow">Investors</span>
+            <h3>For investors seeking returns</h3>
+            <p>Structured opportunities with clear governance.</p>
+            <a href="#" class="btn btn--link">Explore</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PARTIAL: Navbar ══════════════════════════════════════ -->
+  <section class="ds-section" id="partial-navbar">
+    <h2>Partial · Navbar</h2>
+    <p class="lede">From <code>partials/navbar.html</code>. Sticky on scroll, dark frosted glass, bronze logo coin, bronze Login CTA.</p>
+    <div class="partial-frame partial-frame--dark">
+      <div class="partial-frame__bar"><strong>partials/navbar.html</strong><span>.navbar · uses Logo Square.png · sticky on scroll</span></div>
+      <div class="partial-frame__body">
+        <header class="navbar">
+          <div class="container navbar__inner">
+            <a href="#" class="navbar__brand"><img src="../../Image%20Assets/Logo%20Square.png" alt="" width="40" height="40"><span>capital unique</span></a>
+            <nav class="navbar__nav" aria-label="Primary">
+              <a href="#">Capital ▾</a>
+              <a href="#">Waitlist</a>
+              <a href="#">Insights &amp; Resources ▾</a>
+              <a href="#">Charles A.I</a>
+              <a href="#">About</a>
+            </nav>
+            <a href="#" class="navbar__cta">Login</a>
+          </div>
+        </header>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PARTIAL: Logo strip ═════════════════════════════════ -->
+  <section class="ds-section" id="partial-logo-strip">
+    <h2>Partial · Logo strip</h2>
+    <p class="lede">From <code>partials/logo-strip.html</code>. Light "moment of breath" between dark sections. Currently awaiting real partner / publication logos — placeholder text labels for now.</p>
+    <div class="partial-frame partial-frame--light">
+      <div class="partial-frame__bar"><strong>partials/logo-strip.html</strong><span>.trust · awaiting-content · light scene</span></div>
+      <div class="partial-frame__body">
+        <section class="trust"><div class="container">
+          <h2 class="trust__heading">Trusted by Australia's most discerning investors</h2>
+          <div class="trust__logos">
+            <span class="trust__logo">[Logo 1]</span>
+            <span class="trust__logo">[Logo 2]</span>
+            <span class="trust__logo">[Logo 3]</span>
+            <span class="trust__logo">[Logo 4]</span>
+            <span class="trust__logo">[Logo 5]</span>
+            <span class="trust__logo">[Logo 6]</span>
+          </div>
+        </div></section>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PARTIAL: How funding works ═══════════════════════════ -->
+  <section class="ds-section" id="partial-process">
+    <h2>Partial · How funding works (4-step)</h2>
+    <p class="lede">From <code>partials/how-funding-works.html</code>. Used on home, overview, get-capital + adapted on most service pages. Bronze step numerals + thin bronze top-edge per card.</p>
+    <div class="partial-frame partial-frame--dark">
+      <div class="partial-frame__bar"><strong>partials/how-funding-works.html</strong><span>.process-vault · 4 steps · dark</span></div>
+      <div class="partial-frame__body">
+        <section class="process-vault"><div class="container process-vault__inner">
+          <div class="process-vault__intro">
+            <span class="eyebrow">The Process</span>
+            <h2>How funding works</h2>
+            <p>We start by understanding your objectives and assessing the opportunity with care. From there, we structure the right solution and guide the process through to funding with clarity at every stage. The approach is deliberate, transparent, and designed to move forward with confidence.</p>
+            <div style="display:flex; gap: var(--space-4); flex-wrap: wrap;">
+              <a href="#" class="btn btn--primary">Book Quick Chat</a>
+              <a href="#" class="btn btn--link" style="color: var(--accent);">Charles A.I</a>
+            </div>
+          </div>
+          <ol class="process-vault__steps">
+            <li class="vstep"><span class="vstep__num">01</span><h3 class="vstep__title"><span class="hl">Understand</span> the deal</h3><p class="vstep__body">We discuss your business objectives, timing, and structure so we can <span class="hl">understand</span> what you're trying to achieve.</p></li>
+            <li class="vstep"><span class="vstep__num">02</span><h3 class="vstep__title">Assess options</h3><p class="vstep__body">We review the information and identify the most suitable funding approach based on your needs.</p></li>
+            <li class="vstep"><span class="vstep__num">03</span><h3 class="vstep__title">Confirm terms</h3><p class="vstep__body">We clearly explain the proposed terms, costs, and conditions before anything moves forward.</p></li>
+            <li class="vstep"><span class="vstep__num">04</span><h3 class="vstep__title">Deploy funding</h3><p class="vstep__body">Once agreed, we manage the process through to funding and remain involved as the capital is deployed.</p></li>
+          </ol>
+        </div></section>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PARTIAL: Charles A.I CTA ═════════════════════════════ -->
+  <section class="ds-section" id="partial-cta">
+    <h2>Partial · Charles A.I CTA</h2>
+    <p class="lede">From <code>partials/cta-charles-ai.html</code>. Reused on Business, Property Development, Private Capital, Agriculture, How It Works + others. Cinematic bronze hero photo below the CTA, deep gradient fade-in.</p>
+    <div class="partial-frame partial-frame--dark">
+      <div class="partial-frame__bar"><strong>partials/cta-charles-ai.html</strong><span>.final-vault · cinematic dark + bronze hero photo</span></div>
+      <div class="partial-frame__body">
+        <section class="final-vault">
+          <div class="container">
+            <div class="final-vault__inner">
+              <span class="final-vault__eyebrow">Start with clarity</span>
+              <h2>Speak with <span class="hl">Charles A.I</span></h2>
+              <p>Get a clear read on your scenario in minutes. Charles asks the right questions, structures your context, and prepares the conversation before our team even joins.</p>
+              <div class="final-vault__ctas">
+                <a href="#" class="btn btn--primary">Use Charles A.I</a>
+                <a href="#" class="btn btn--secondary">Book a call</a>
+              </div>
+            </div>
+          </div>
+          <div class="final-vault__hero" aria-hidden="true">
+            <img src="../../Image%20Assets/John_Capital%20Unique_Footer_Pressure.jpeg" alt="">
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PARTIAL: Testimonial ═════════════════════════════════ -->
+  <section class="ds-section" id="partial-testimonial">
+    <h2>Partial · Testimonial</h2>
+    <p class="lede">From <code>partials/testimonial.html</code>. Reused on home, overview, about, get-capital. Currently <code>data-status="awaiting-content"</code> — bracketed placeholders pending real quotes.</p>
+    <div class="partial-frame partial-frame--dark">
+      <div class="partial-frame__bar"><strong>partials/testimonial.html</strong><span>.testimonials-vault · awaiting-content · dark alt</span></div>
+      <div class="partial-frame__body">
+        <section class="testimonials-vault"><div class="container">
+          <div class="testimonials-vault__head">
+            <span class="eyebrow">Voices</span>
+            <h2>What clients say</h2>
+            <p>Those who've worked with us speak to the difference clarity and speed make.</p>
+          </div>
+          <div class="testimonials-vault__grid">
+            <article class="vquote">
+              <div class="vquote__stars">★ ★ ★ ★ ★</div>
+              <blockquote>"[Quote 1 — pending real testimonial copy]"</blockquote>
+              <div class="vquote__author"><span class="avatar"></span><span><strong>[Name]</strong>[Role], [Company]</span></div>
+            </article>
+            <article class="vquote">
+              <div class="vquote__stars">★ ★ ★ ★ ★</div>
+              <blockquote>"[Quote 2 — pending real testimonial copy]"</blockquote>
+              <div class="vquote__author"><span class="avatar"></span><span><strong>[Name]</strong>[Role], [Company]</span></div>
+            </article>
+            <div class="pending-strip"><strong>Awaiting content:</strong> 2–4 short quotes with name + role + company. Tracked in <code>docs/copy-gaps.md</code>.</div>
+          </div>
+        </div></section>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PARTIAL: Footer ═════════════════════════════════════ -->
+  <section class="ds-section" id="partial-footer">
+    <h2>Partial · Footer</h2>
+    <p class="lede">From <code>partials/footer.html</code>. 5-column grid (logo + Capital + Insights & Resources + Connect + Subscribe form). Dark background. Email subscribe with bronze "Join" button.</p>
+    <div class="partial-frame partial-frame--dark">
+      <div class="partial-frame__bar"><strong>partials/footer.html</strong><span>.footer · 5 columns · dark</span></div>
+      <div class="partial-frame__body">
+        <footer class="footer"><div class="container">
+          <div class="footer__top">
+            <a href="#" class="footer__brand"><img src="../../Image%20Assets/Logo%20Square.png" alt="" width="40" height="40"><span>capital unique</span></a>
+            <div class="footer__col"><h4>Capital</h4><ul><li><a href="#">Borrow Capital</a></li><li><a href="#">Fund Capital</a></li><li><a href="#">Subscribe</a></li><li><a href="#">Account Login</a></li><li><a href="#">Waitlist</a></li></ul></div>
+            <div class="footer__col"><h4>Insights &amp; Resources</h4><ul><li><a href="#">Guides</a></li><li><a href="#">Resources</a></li><li><a href="#">Calculators</a></li><li><a href="#">Charles A.I</a></li></ul></div>
+            <div class="footer__col"><h4>Connect</h4><ul><li><a href="#">About us</a></li><li><a href="#">Contact us</a></li><li><a href="#">Join Investors Network</a></li></ul></div>
+            <div class="footer__col footer__subscribe">
+              <h4>Connect</h4>
+              <p>Receive insights on private finance, market shifts, and Capital Unique updates.</p>
+              <form onsubmit="event.preventDefault();">
+                <input type="email" placeholder="Your email address" aria-label="Email">
+                <button type="submit" class="btn btn--primary">Join</button>
+              </form>
+              <small>By subscribing you agree to our Privacy Policy.</small>
+            </div>
+          </div>
+          <div class="footer__bottom">
+            <span>© 2026 Capital Unique. All rights reserved.</span>
+            <div class="footer__legal"><a href="#">Privacy policy</a><a href="#">Terms and conditions</a><a href="#">Cookie settings</a></div>
+            <div class="footer__social"><a href="#">f</a><a href="#">○</a><a href="#">𝕏</a><a href="#">in</a><a href="#">▶</a></div>
+          </div>
+        </div></footer>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
