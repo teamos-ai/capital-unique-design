@@ -51,8 +51,6 @@ export const libraryImages: LibraryImage[] = [
   { src: 'footer/footerjohn-rock.jpeg',                alt: 'A balanced cairn of smooth river stones in graduated earth tones, stacked in a pyramid against a warm copper gradient — 3D still life evoking stillness, balance, and considered judgement.', ratio: '16:9', license: 'Brand-owned' },
   { src: 'footer/footerjohn-shapes.jpeg',              alt: 'A grouping of soft 3D geometric primitives — cylinders, rounded cubes, and spheres in copper and tan tones — clustered at the bottom of a warm copper gradient.', ratio: '16:9', license: 'Brand-owned' },
   { src: 'footer/footerjohn-shuffle-cards.jpeg',       alt: 'A vertical fan of curved blade-shaped panels layered like a deck of cards being riffled, rendered in graduated peach and bronze translucent tones against a warm copper gradient.', ratio: '16:9', license: 'Brand-owned' },
-  { src: 'footer/footerjohn-cards.jpeg',               alt: 'TODO — describe the cards image (likely bank cards / playing cards laid out against a warm copper gradient).', ratio: '16:9', license: 'Brand-owned' },
-  { src: 'footer/footerjohn-calculator-abstract.jpeg', alt: 'TODO — describe the calculator-abstract image (smaller-resolution variant; abstract calculator-themed render).', ratio: '16:9', license: 'Brand-owned' },
 
   // ── abstract ──
   { src: 'abstract/lightbulb-icon.png', alt: 'A glowing yellow 3D-rendered lightbulb with radiating idea-rays, isolated on white.', ratio: '1:1', license: 'Brand-owned' },
