@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+# Repo uses bun.lock as the canonical lockfile — keep package-lock.json out
+package-lock.json
+
+# Build output
+dist/
+.vite/
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Local env
+.env
+.env.local
+.env.*.local
+
+# Migration scripts (single-use, machine-specific paths)
+rename-library.mjs
+
+# Misc local-only files
+*.tmp
+.npm/

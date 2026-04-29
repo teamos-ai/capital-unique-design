@@ -13,20 +13,20 @@ const clearspaceRules = [
 ];
 
 const lockups = [
-  { label: "Square Coin — void surface",    bg: "#080808", border: "border-[#1A1A1A]", textColor: "text-[#878787]" },
-  { label: "Rectangle Long — void surface", bg: "#080808", border: "border-[#1A1A1A]", textColor: "text-[#878787]", wide: true },
-  { label: "Square Coin — vault surface",   bg: "#111111", border: "border-white/8",   textColor: "text-[#878787]" },
-  { label: "Rectangle Long — vault surface",bg: "#111111", border: "border-white/8",   textColor: "text-[#878787]", wide: true },
+  { label: "Square Coin — void surface",    bg: "var(--background)", border: "border-cu-neutral-darker", textColor: "text-muted-foreground" },
+  { label: "Rectangle Long — void surface", bg: "var(--background)", border: "border-cu-neutral-darker", textColor: "text-muted-foreground", wide: true },
+  { label: "Square Coin — vault surface",   bg: "var(--card)", border: "border-white/8",   textColor: "text-muted-foreground" },
+  { label: "Rectangle Long — vault surface",bg: "var(--card)", border: "border-white/8",   textColor: "text-muted-foreground", wide: true },
 ];
 
 export function LogoSection() {
   return (
-    <section id="logo">
+    <section id="logo" aria-labelledby="logo-heading">
       <div className="mb-8">
-        <p className="text-xs font-semibold tracking-widest uppercase text-[#CD722D] mb-2">Brand Identity</p>
-        <h2 className="text-[#F2F2F2] mb-3">Logo</h2>
-        <p className="text-[#878787] max-w-xl leading-relaxed">
-          Two lockups — Square Coin (icon) and Rectangle Long (horizontal wordmark). Platinum on pure black, silver/chrome on dark surface. Locked pairing rules apply.
+        <p className="text-xs font-semibold tracking-widest uppercase text-cu-brandy mb-2">Brand Identity</p>
+        <h2 id="logo-heading" className="text-foreground mb-3">Logo</h2>
+        <p className="text-muted-foreground max-w-xl leading-relaxed">
+          Two lockups — Square Coin (icon) and Rectangle Long (horizontal wordmark). Pair the chrome finish with Void or Vault surfaces; pair the dark finish with Neutral Lightest. Never tint, redraw, or add effects to the mark.
         </p>
       </div>
 
@@ -49,12 +49,12 @@ export function LogoSection() {
       </div>
 
       {/* Usage rules */}
-      <div className="bg-[#111111] border border-white/8 rounded-xl p-6 mb-10">
-        <h4 className="text-[#F2F2F2] font-semibold mb-4">Usage Rules</h4>
+      <div className="bg-card border border-white/8 rounded-xl p-6 mb-10">
+        <h4 className="text-foreground font-semibold mb-4">Usage Rules</h4>
         <ul className="space-y-2">
           {clearspaceRules.map((r, i) => (
-            <li key={i} className="flex items-start gap-3 text-sm text-[#878787]">
-              <span className="text-[#CD722D] mt-0.5 shrink-0">·</span>
+            <li key={i} className="flex items-start gap-3 text-sm text-muted-foreground">
+              <span className="text-cu-brandy mt-0.5 shrink-0">·</span>
               {r}
             </li>
           ))}
@@ -63,10 +63,10 @@ export function LogoSection() {
 
       {/* Don'ts */}
       <div>
-        <h4 className="text-[#878787] text-xs font-semibold tracking-widest uppercase mb-4">Logo Don'ts</h4>
+        <h4 className="text-muted-foreground text-xs font-semibold mb-4">Logo Don'ts</h4>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
           {["Recolor", "Add shadow", "Stretch", "Rotate", "On busy BG", "Too small"].map((dont) => (
-            <div key={dont} className="bg-[#111111] border border-white/6 rounded-lg p-4 flex flex-col items-center gap-3">
+            <div key={dont} className="bg-card border border-white/6 rounded-lg p-4 flex flex-col items-center gap-3">
               <div className="relative w-10 h-10 flex items-center justify-center">
                 <img src={logoSquare} alt="" className="w-8 h-8 opacity-30" style={
                   dont === "Recolor" ? { filter: "hue-rotate(180deg)" } :
@@ -77,7 +77,7 @@ export function LogoSection() {
                   <div className="w-10 h-0.5 bg-red-500 rotate-45 rounded-full opacity-70" />
                 </div>
               </div>
-              <span className="text-xs text-[#525252] text-center">{dont}</span>
+              <span className="text-xs text-cu-neutral text-center">{dont}</span>
             </div>
           ))}
         </div>

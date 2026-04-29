@@ -31,29 +31,29 @@ const iconSizes = [
 
 export function IconographySection() {
   return (
-    <section id="iconography">
+    <section id="iconography" aria-labelledby="iconography-heading">
       <div className="mb-8">
-        <p className="text-xs font-semibold tracking-widest uppercase text-[#CD722D] mb-2">Foundation</p>
-        <h2 className="text-[#F2F2F2] mb-3">Iconography</h2>
-        <p className="text-[#878787] max-w-xl leading-relaxed">
+        <p className="text-xs font-semibold tracking-widest uppercase text-cu-brandy mb-2">Foundation</p>
+        <h2 id="iconography-heading" className="text-foreground mb-3">Iconography</h2>
+        <p className="text-muted-foreground max-w-xl leading-relaxed">
           Icon library: Lucide React (1.5px stroke, rounded caps/joins). Size scale: 16 / 20 / 24 / 32 / 48px. Always use 24px in UI contexts unless specified. Color: inherit from text context.
         </p>
       </div>
 
       {/* Icon grid */}
       <div className="mb-10">
-        <h4 className="text-[#878787] text-xs font-semibold tracking-widest uppercase mb-4">Core Icons — 24px</h4>
-        <div className="bg-[#111111] border border-white/8 rounded-xl p-6">
+        <h4 className="text-muted-foreground text-xs font-semibold mb-4">Core Icons — 24px</h4>
+        <div className="bg-card border border-white/8 rounded-xl p-6">
           <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-9 gap-4">
             {icons.map((icon) => (
               <div key={icon.name} className="group flex flex-col items-center gap-2 cursor-default">
-                <div className="w-10 h-10 rounded-lg bg-[#1A1A1A] border border-white/8 flex items-center justify-center text-[#878787]
-                  group-hover:border-[#CD722D]/40 group-hover:text-[#CD722D] transition-all duration-150">
+                <div className="w-10 h-10 rounded-lg bg-cu-surface-char border border-white/8 flex items-center justify-center text-muted-foreground
+                  group-hover:border-cu-brandy/40 group-hover:text-cu-brandy transition-all duration-150">
                   <div className="w-5 h-5 [&_svg]:w-5 [&_svg]:h-5">
                     {React.cloneElement(icon.svg, { width: 20, height: 20, className: "text-inherit" })}
                   </div>
                 </div>
-                <span className="text-[10px] text-[#525252] text-center leading-tight">{icon.name}</span>
+                <span className="text-xs text-cu-neutral text-center leading-tight">{icon.name}</span>
               </div>
             ))}
           </div>
@@ -62,17 +62,17 @@ export function IconographySection() {
 
       {/* Sizes */}
       <div className="mb-10">
-        <h4 className="text-[#878787] text-xs font-semibold tracking-widest uppercase mb-4">Icon Sizes</h4>
-        <div className="bg-[#111111] border border-white/8 rounded-xl p-6">
+        <h4 className="text-muted-foreground text-xs font-semibold mb-4">Icon Sizes</h4>
+        <div className="bg-card border border-white/8 rounded-xl p-6">
           <div className="flex items-end gap-8 flex-wrap">
             {iconSizes.map(({ label, size }) => (
               <div key={label} className="flex flex-col items-center gap-3">
-                <div className="flex items-center justify-center text-[#CD722D]" style={{ width: size, height: size }}>
+                <div className="flex items-center justify-center text-cu-brandy" style={{ width: size, height: size }}>
                   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M5 12h14M12 5l7 7-7 7"/>
                   </svg>
                 </div>
-                <span className="font-mono text-xs text-[#525252]">{label}</span>
+                <span className="font-mono text-xs text-cu-neutral">{label}</span>
               </div>
             ))}
           </div>
@@ -81,16 +81,16 @@ export function IconographySection() {
 
       {/* In context */}
       <div>
-        <h4 className="text-[#878787] text-xs font-semibold tracking-widest uppercase mb-4">Icons In Context</h4>
+        <h4 className="text-muted-foreground text-xs font-semibold mb-4">Icons In Context</h4>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {[
             { label: "With button", content: (
               <div className="flex flex-col gap-3">
-                <button className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-[#CD722D] text-white text-sm font-medium cursor-pointer hover:bg-[#DC9C6C] transition-colors" style={{ boxShadow: "0 3px 0 0 #A45B24" }}>
+                <button className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-cu-brandy text-white text-sm font-medium cursor-pointer hover:bg-cu-brandy-light transition-colors" >
                   Download guide
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                 </button>
-                <button className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md border border-white/15 text-[#878787] text-sm font-medium cursor-pointer hover:text-[#F2F2F2] transition-colors">
+                <button className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md border border-white/15 text-muted-foreground text-sm font-medium cursor-pointer hover:text-foreground transition-colors">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
                   Save for later
                 </button>
@@ -99,9 +99,9 @@ export function IconographySection() {
             { label: "In list items", content: (
               <ul className="space-y-2">
                 {["Fast 72-hour decisions", "Transparent terms", "No unnecessary friction", "Direct lender access"].map(item => (
-                  <li key={item} className="flex items-center gap-3 text-sm text-[#B5B5B5]">
-                    <div className="w-5 h-5 rounded-full bg-[#CD722D]/15 border border-[#CD722D]/30 flex items-center justify-center shrink-0">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#CD722D" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20,6 9,17 4,12"/></svg>
+                  <li key={item} className="flex items-center gap-3 text-sm text-cu-neutral-light">
+                    <div className="w-5 h-5 rounded-full bg-cu-brandy/15 border border-cu-brandy/30 flex items-center justify-center shrink-0">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--cu-brandy-punch)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20,6 9,17 4,12"/></svg>
                     </div>
                     {item}
                   </li>
@@ -119,8 +119,8 @@ export function IconographySection() {
                   <button
                     key={title}
                     title={title}
-                    className="w-9 h-9 rounded-lg border border-white/10 flex items-center justify-center text-[#878787]
-                      hover:border-white/25 hover:text-[#D0D0D0] transition-all duration-150 cursor-pointer bg-[#1A1A1A]"
+                    className="w-9 h-9 rounded-lg border border-white/10 flex items-center justify-center text-muted-foreground
+                      hover:border-white/25 hover:text-cu-neutral-lighter transition-all duration-150 cursor-pointer bg-cu-surface-char"
                   >
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                       <path d={path}/>
@@ -130,8 +130,8 @@ export function IconographySection() {
               </div>
             )},
           ].map(({ label, content }) => (
-            <div key={label} className="bg-[#111111] border border-white/8 rounded-xl p-5">
-              <p className="font-mono text-xs text-[#525252] mb-4">{label}</p>
+            <div key={label} className="bg-card border border-white/8 rounded-xl p-5">
+              <p className="font-mono text-xs text-cu-neutral mb-4">{label}</p>
               {content}
             </div>
           ))}
