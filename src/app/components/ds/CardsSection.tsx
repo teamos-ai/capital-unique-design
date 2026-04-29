@@ -9,29 +9,25 @@ function VaultCardPhoto({ eyebrow, title, body, imageSrc }: {
   imageSrc: string;
 }) {
   return (
-    <article className="group relative rounded-xl overflow-hidden border border-white/8 bg-[#111111]
-      hover:border-[#CD722D]/30 transition-all duration-300 cursor-pointer"
+    <article className="group relative rounded-xl overflow-hidden border border-border bg-card
+      transition-colors duration-300 cursor-pointer hover:bg-cu-surface-vault"
     >
-      {/* Brandy Punch top glow on hover */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#CD722D] to-transparent
-        opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
-
       <div className="aspect-video relative overflow-hidden">
         <ImageWithFallback
           src={imageSrc}
           alt={title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
         />
-        {/* Cinematic vignette */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent" />
+        {/* Photo card hover: vignette deepens (its differentiated treatment) */}
+        <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-500" />
       </div>
       <div className="p-6">
-        <span className="text-xs font-semibold tracking-widest uppercase text-[#CD722D] block mb-2">{eyebrow}</span>
-        <h3 className="text-[#F2F2F2] mb-3" style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 700, fontSize: "20px", lineHeight: 1.25 }}>
+        <span className="text-xs font-medium text-cu-brandy block mb-2">{eyebrow}</span>
+        <h3 className="text-foreground mb-3" style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontWeight: 700, fontSize: "20px", lineHeight: 1.25 }}>
           {title}
         </h3>
-        <p className="text-[#878787] text-sm leading-relaxed mb-5">{body}</p>
-        <button className="inline-flex items-center gap-2 text-sm font-medium text-[#CD722D] hover:text-[#DC9C6C] transition-colors">
+        <p className="text-muted-foreground text-sm leading-relaxed mb-5">{body}</p>
+        <button className="inline-flex items-center gap-2 text-sm font-medium text-cu-brandy hover:text-cu-brandy-light transition-colors">
           Explore
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M5 12h14M12 5l7 7-7 7" />
@@ -50,20 +46,19 @@ function VaultCardIcon({ eyebrow, title, body, icon }: {
   icon: React.ReactNode;
 }) {
   return (
-    <article className="group relative rounded-xl p-6 border border-white/8 bg-[#111111]
-      hover:border-[#CD722D]/30 transition-all duration-300 cursor-pointer">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#CD722D] to-transparent
-        opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-      <div className="w-12 h-12 rounded-lg bg-[#CD722D]/10 border border-[#CD722D]/25 flex items-center justify-center text-[#CD722D] mb-5">
+    <article className="group relative rounded-xl p-6 border border-border bg-card
+      transition-colors duration-300 cursor-pointer hover:bg-cu-surface-vault">
+      {/* Icon card hover: icon plate fills with brandy (its differentiated treatment) */}
+      <div className="w-12 h-12 rounded-lg bg-cu-brandy/10 border border-cu-brandy/25 flex items-center justify-center text-cu-brandy mb-5
+        transition-colors duration-300 group-hover:bg-cu-brandy group-hover:text-cu-neutral-darkest group-hover:border-cu-brandy">
         {icon}
       </div>
-      <span className="text-xs font-semibold tracking-widest uppercase text-[#CD722D] block mb-2">{eyebrow}</span>
-      <h3 className="text-[#F2F2F2] mb-3" style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 700, fontSize: "20px", lineHeight: 1.25 }}>
+      <span className="text-xs font-medium text-cu-brandy block mb-2">{eyebrow}</span>
+      <h3 className="text-foreground mb-3" style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontWeight: 700, fontSize: "20px", lineHeight: 1.25 }}>
         {title}
       </h3>
-      <p className="text-[#878787] text-sm leading-relaxed mb-5">{body}</p>
-      <button className="inline-flex items-center gap-2 text-sm font-medium text-[#CD722D] hover:text-[#DC9C6C] transition-colors">
+      <p className="text-muted-foreground text-sm leading-relaxed mb-5">{body}</p>
+      <button className="inline-flex items-center gap-2 text-sm font-medium text-cu-brandy hover:text-cu-brandy-light transition-colors">
         Explore
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M5 12h14M12 5l7 7-7 7" />
@@ -81,25 +76,24 @@ function VaultCardHorizontal({ eyebrow, title, body, imageSrc }: {
   imageSrc: string;
 }) {
   return (
-    <article className="group relative rounded-xl overflow-hidden border border-white/8 bg-[#111111]
-      hover:border-[#CD722D]/30 transition-all duration-300 flex cursor-pointer">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#CD722D] to-transparent
-        opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
+    <article className="group relative rounded-xl overflow-hidden border border-border bg-card
+      transition-colors duration-300 flex cursor-pointer hover:bg-cu-surface-vault">
       <div className="w-2/5 relative overflow-hidden shrink-0">
         <ImageWithFallback
           src={imageSrc}
           alt={title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 absolute inset-0"
+          className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] absolute inset-0"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#111111]" />
+        {/* Horizontal card hover: gradient sharpens (its differentiated treatment) */}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent to-card transition-opacity duration-500 opacity-95 group-hover:opacity-100" />
       </div>
       <div className="p-6 flex flex-col justify-center">
-        <span className="text-xs font-semibold tracking-widest uppercase text-[#CD722D] block mb-2">{eyebrow}</span>
-        <h3 className="text-[#F2F2F2] mb-3" style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 700, fontSize: "20px", lineHeight: 1.25 }}>
+        <span className="text-xs font-medium text-cu-brandy block mb-2">{eyebrow}</span>
+        <h3 className="text-foreground mb-3" style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontWeight: 700, fontSize: "20px", lineHeight: 1.25 }}>
           {title}
         </h3>
-        <p className="text-[#878787] text-sm leading-relaxed mb-4">{body}</p>
-        <button className="inline-flex items-center gap-2 text-sm font-medium text-[#CD722D] hover:text-[#DC9C6C] transition-colors">
+        <p className="text-muted-foreground text-sm leading-relaxed mb-4">{body}</p>
+        <button className="inline-flex items-center gap-2 text-sm font-medium text-cu-brandy hover:text-cu-brandy-light transition-colors">
           Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
         </button>
       </div>
@@ -110,64 +104,82 @@ function VaultCardHorizontal({ eyebrow, title, body, imageSrc }: {
 // Testimonial card
 function TestimonialCard({ quote, name, role, rating }: { quote: string; name: string; role: string; rating: number }) {
   return (
-    <article className="rounded-xl p-6 border border-white/8 bg-[#111111]">
+    <article className="rounded-xl p-6 border border-white/8 bg-card">
       <div className="flex gap-1 mb-4">
         {Array.from({ length: 5 }).map((_, i) => (
-          <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill={i < rating ? "#CD722D" : "#222222"}>
+          <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill={i < rating ? "var(--cu-brandy-punch)" : "var(--muted)"}>
             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
           </svg>
         ))}
       </div>
-      <p className="text-[#B5B5B5] text-sm leading-relaxed mb-5 italic">"{quote}"</p>
+      <p className="text-cu-neutral-light text-sm leading-relaxed mb-5 italic">"{quote}"</p>
       <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-full bg-[#CD722D]/15 border border-[#CD722D]/30 flex items-center justify-center text-[#CD722D] font-semibold text-sm">
+        <div className="w-10 h-10 rounded-full bg-cu-brandy/15 border border-cu-brandy/30 flex items-center justify-center text-cu-brandy font-semibold text-sm">
           {name[0]}
         </div>
         <div>
-          <p className="text-[#F2F2F2] text-sm font-semibold">{name}</p>
-          <p className="text-[#525252] text-xs">{role}</p>
+          <p className="text-foreground text-sm font-semibold">{name}</p>
+          <p className="text-cu-neutral text-xs">{role}</p>
         </div>
       </div>
     </article>
   );
 }
 
-// Process step card
+// Process step card — number leads, no decorative stripe.
 function StepCard({ num, title, body }: { num: string; title: string; body: string }) {
   return (
-    <article className="relative rounded-xl p-6 border border-white/8 bg-[#111111]">
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-[#CD722D] to-transparent" />
-      <span className="font-mono text-xs text-[#CD722D] font-semibold mb-3 block">{num}</span>
-      <h4 className="text-[#F2F2F2] font-semibold mb-2" style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "16px" }}>{title}</h4>
-      <p className="text-[#878787] text-sm leading-relaxed">{body}</p>
+    <article className="group relative rounded-xl p-6 border border-border bg-card hover:bg-cu-surface-vault transition-colors duration-300">
+      <div className="flex items-baseline gap-3 mb-3">
+        <span
+          className="text-cu-brandy/60 group-hover:text-cu-brandy transition-colors duration-300"
+          style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontWeight: 700, fontSize: "32px", lineHeight: 1 }}
+        >
+          {num}
+        </span>
+        <h4 className="text-foreground font-semibold" style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "17px", lineHeight: 1.3 }}>
+          {title}
+        </h4>
+      </div>
+      <p className="text-muted-foreground text-sm leading-relaxed pl-[3.4rem]">{body}</p>
     </article>
   );
 }
 
-// Stat card
-function StatCard({ value, label }: { value: string; label: string }) {
+// Headline stat — single, with context. Replaces the banned hero-metric 4-up grid.
+function HeadlineStat({ value, label, context }: { value: string; label: string; context: string }) {
   return (
-    <article className="rounded-xl p-6 border border-white/8 bg-[#111111] text-center">
-      <p className="text-[#CD722D] mb-1" style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 800, fontSize: "48px", lineHeight: 1 }}>{value}</p>
-      <p className="text-[#878787] text-sm">{label}</p>
+    <article className="rounded-xl p-8 border border-border bg-card flex flex-col gap-4 max-w-2xl">
+      <div className="flex items-baseline gap-4 flex-wrap">
+        <p
+          className="text-foreground"
+          style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontWeight: 600, fontSize: "64px", lineHeight: 0.95, letterSpacing: "-0.02em" }}
+        >
+          {value}
+        </p>
+        <p className="text-cu-brandy text-xs font-semibold tracking-widest uppercase">{label}</p>
+      </div>
+      <p className="text-muted-foreground text-sm leading-relaxed max-w-md" style={{ lineHeight: 1.65 }}>
+        {context}
+      </p>
     </article>
   );
 }
 
 export function CardsSection() {
   return (
-    <section id="cards">
+    <section id="cards" aria-labelledby="cards-heading">
       <div className="mb-8">
-        <p className="text-xs font-semibold tracking-widest uppercase text-[#CD722D] mb-2">Components</p>
-        <h2 className="text-[#F2F2F2] mb-3">Cards — Vault Variant</h2>
-        <p className="text-[#878787] max-w-xl leading-relaxed">
-          All cards use pure dark surfaces, 1px cool-white border, and Brandy Punch top-edge glow on hover. Photo cards include a cinematic vignette. Hover states reveal the warm accent line at the card crown.
+        <p className="text-xs font-semibold tracking-widest uppercase text-cu-brandy mb-2">Components</p>
+        <h2 id="cards-heading" className="text-foreground mb-3">Cards</h2>
+        <p className="text-muted-foreground max-w-xl leading-relaxed">
+          Cards live one step above the page on the Vault surface. Each variant has its own hover treatment so the kind of card matters: photos deepen their vignette, icon plates fill with Brandy, horizontals sharpen their image mask, step numbers brighten. Cards never share one trick.
         </p>
       </div>
 
       {/* Photo cards */}
       <div className="mb-10">
-        <h4 className="text-[#878787] text-xs font-semibold tracking-widest uppercase mb-4">Photo Card — Vertical</h4>
+        <h4 className="text-muted-foreground text-xs font-semibold mb-4">Photo Card — Vertical</h4>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <VaultCardPhoto
             eyebrow="Borrowers"
@@ -192,7 +204,7 @@ export function CardsSection() {
 
       {/* Icon cards */}
       <div className="mb-10">
-        <h4 className="text-[#878787] text-xs font-semibold tracking-widest uppercase mb-4">Icon Card — Feature</h4>
+        <h4 className="text-muted-foreground text-xs font-semibold mb-4">Icon Card — Feature</h4>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <VaultCardIcon
             eyebrow="Clarity"
@@ -217,7 +229,7 @@ export function CardsSection() {
 
       {/* Horizontal cards */}
       <div className="mb-10">
-        <h4 className="text-[#878787] text-xs font-semibold tracking-widest uppercase mb-4">Horizontal Card</h4>
+        <h4 className="text-muted-foreground text-xs font-semibold mb-4">Horizontal Card</h4>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <VaultCardHorizontal
             eyebrow="For borrowers"
@@ -236,7 +248,7 @@ export function CardsSection() {
 
       {/* Testimonial cards */}
       <div className="mb-10">
-        <h4 className="text-[#878787] text-xs font-semibold tracking-widest uppercase mb-4">Testimonial Card</h4>
+        <h4 className="text-muted-foreground text-xs font-semibold mb-4">Testimonial Card</h4>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <TestimonialCard
             quote="Capital Unique moved faster than any lender I've worked with. Complex deal — resolved in 72 hours."
@@ -261,7 +273,7 @@ export function CardsSection() {
 
       {/* Process step cards */}
       <div className="mb-10">
-        <h4 className="text-[#878787] text-xs font-semibold tracking-widest uppercase mb-4">Process Step Card</h4>
+        <h4 className="text-muted-foreground text-xs font-semibold mb-4">Process Step Card</h4>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <StepCard num="01" title="Understand the deal" body="We review your scenario thoroughly, asking the right questions from the start." />
           <StepCard num="02" title="Assess options" body="Multiple pathways evaluated for structure, risk, and return alignment." />
@@ -270,16 +282,16 @@ export function CardsSection() {
         </div>
       </div>
 
-      {/* Stat cards */}
+      {/* Headline stat — replaces 4-up hero-metric template (impeccable anti-pattern). */}
       <div className="mb-4">
-        <h4 className="text-[#878787] text-xs font-semibold tracking-widest uppercase mb-4">Stat / KPI Card</h4>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <StatCard value="$2.4B+" label="Capital deployed" />
-          <StatCard value="72h" label="Average decision time" />
-          <StatCard value="98%" label="Client satisfaction rate" />
-          <StatCard value="340+" label="Deals completed" />
-        </div>
+        <h4 className="text-muted-foreground text-xs font-semibold mb-4">Headline Stat</h4>
+        <HeadlineStat
+          value="$2.4B+"
+          label="Capital deployed"
+          context="Across 340+ structured deals since 2019. Average decision time 72 hours, with a 98% client satisfaction rate measured at deal close."
+        />
       </div>
+
     </section>
   );
 }

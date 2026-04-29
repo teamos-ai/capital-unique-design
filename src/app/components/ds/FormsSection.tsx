@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 function Label({ children }: { children: React.ReactNode }) {
-  return <label className="block text-sm font-medium text-[#B5B5B5] mb-1.5">{children}</label>;
+  return <label className="block text-sm font-medium text-cu-neutral-light mb-1.5">{children}</label>;
 }
 
 function Input({ placeholder, type = "text", error }: { placeholder?: string; type?: string; error?: string }) {
@@ -10,9 +10,9 @@ function Input({ placeholder, type = "text", error }: { placeholder?: string; ty
       <input
         type={type}
         placeholder={placeholder}
-        className={`w-full px-4 py-3 rounded-lg bg-[#1A1A1A] border text-[#F2F2F2] text-sm
-          placeholder-[#525252] outline-none transition-all duration-150
-          focus:border-[#CD722D] focus:ring-2 focus:ring-[#CD722D]/15
+        className={`w-full px-4 py-3 rounded-lg bg-cu-surface-char border text-foreground text-sm
+          placeholder-cu-neutral outline-none transition-all duration-150
+          focus:border-cu-brandy focus:ring-2 focus:ring-cu-brandy/15
           ${error ? "border-red-700" : "border-white/10"}`}
       />
       {error && <p className="mt-1.5 text-xs text-red-400">{error}</p>}
@@ -25,9 +25,9 @@ function Textarea({ placeholder, rows = 4 }: { placeholder?: string; rows?: numb
     <textarea
       placeholder={placeholder}
       rows={rows}
-      className="w-full px-4 py-3 rounded-lg bg-[#1A1A1A] border border-white/10 text-[#F2F2F2] text-sm
-        placeholder-[#525252] outline-none resize-none transition-all duration-150
-        focus:border-[#CD722D] focus:ring-2 focus:ring-[#CD722D]/15"
+      className="w-full px-4 py-3 rounded-lg bg-cu-surface-char border border-white/10 text-foreground text-sm
+        placeholder-cu-neutral outline-none resize-none transition-all duration-150
+        focus:border-cu-brandy focus:ring-2 focus:ring-cu-brandy/15"
     />
   );
 }
@@ -35,12 +35,12 @@ function Textarea({ placeholder, rows = 4 }: { placeholder?: string; rows?: numb
 function Select({ options }: { options: string[] }) {
   return (
     <select
-      className="w-full px-4 py-3 rounded-lg bg-[#1A1A1A] border border-white/10 text-[#F2F2F2] text-sm
+      className="w-full px-4 py-3 rounded-lg bg-cu-surface-char border border-white/10 text-foreground text-sm
         outline-none transition-all duration-150 cursor-pointer
-        focus:border-[#CD722D] focus:ring-2 focus:ring-[#CD722D]/15"
+        focus:border-cu-brandy focus:ring-2 focus:ring-cu-brandy/15"
     >
       {options.map((o) => (
-        <option key={o} className="bg-[#1A1A1A]">{o}</option>
+        <option key={o} className="bg-cu-surface-char">{o}</option>
       ))}
     </select>
   );
@@ -53,7 +53,7 @@ function Checkbox({ label, checked = false }: { label: string; checked?: boolean
       <div
         onClick={() => setOn(!on)}
         className={`w-5 h-5 rounded border flex items-center justify-center transition-all duration-150 shrink-0
-          ${on ? "bg-[#CD722D] border-[#CD722D]" : "bg-transparent border-white/20 group-hover:border-[#CD722D]/50"}`}
+          ${on ? "bg-cu-brandy border-cu-brandy" : "bg-transparent border-white/20 group-hover:border-cu-brandy/50"}`}
       >
         {on && (
           <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
@@ -61,7 +61,7 @@ function Checkbox({ label, checked = false }: { label: string; checked?: boolean
           </svg>
         )}
       </div>
-      <span className="text-sm text-[#B5B5B5]">{label}</span>
+      <span className="text-sm text-cu-neutral-light">{label}</span>
     </label>
   );
 }
@@ -73,11 +73,11 @@ function Radio({ label, name, checked = false }: { label: string; name: string; 
       <div
         onClick={() => setOn(!on)}
         className={`w-5 h-5 rounded-full border flex items-center justify-center transition-all duration-150 shrink-0
-          ${on ? "border-[#CD722D]" : "border-white/20 group-hover:border-[#CD722D]/50"}`}
+          ${on ? "border-cu-brandy" : "border-white/20 group-hover:border-cu-brandy/50"}`}
       >
-        {on && <div className="w-2.5 h-2.5 rounded-full bg-[#CD722D]" />}
+        {on && <div className="w-2.5 h-2.5 rounded-full bg-cu-brandy" />}
       </div>
-      <span className="text-sm text-[#B5B5B5]">{label}</span>
+      <span className="text-sm text-cu-neutral-light">{label}</span>
     </label>
   );
 }
@@ -89,7 +89,7 @@ function Toggle({ label, on: defaultOn = false }: { label: string; on?: boolean 
       <div
         onClick={() => setOn(!on)}
         className={`relative w-10 h-5.5 rounded-full transition-colors duration-200 shrink-0
-          ${on ? "bg-[#CD722D]" : "bg-[#222222] border border-white/10"}`}
+          ${on ? "bg-cu-brandy" : "bg-muted border border-white/10"}`}
         style={{ height: "22px" }}
       >
         <div
@@ -102,14 +102,14 @@ function Toggle({ label, on: defaultOn = false }: { label: string; on?: boolean 
           }}
         />
       </div>
-      <span className="text-sm text-[#B5B5B5]">{label}</span>
+      <span className="text-sm text-cu-neutral-light">{label}</span>
     </label>
   );
 }
 
 function CodeBlock({ code }: { code: string }) {
   return (
-    <pre className="bg-[#080808] border border-white/6 rounded-lg p-4 text-xs font-mono text-[#878787] overflow-x-auto mt-4">
+    <pre className="bg-background border border-white/6 rounded-lg p-4 text-xs font-mono text-muted-foreground overflow-x-auto mt-4">
       {code}
     </pre>
   );
@@ -117,19 +117,19 @@ function CodeBlock({ code }: { code: string }) {
 
 export function FormsSection() {
   return (
-    <section id="forms">
+    <section id="forms" aria-labelledby="forms-heading">
       <div className="mb-8">
-        <p className="text-xs font-semibold tracking-widest uppercase text-[#CD722D] mb-2">Components</p>
-        <h2 className="text-[#F2F2F2] mb-3">Form Elements</h2>
-        <p className="text-[#878787] max-w-xl leading-relaxed">
-          All inputs use the pure dark surface palette with a Brandy Punch focus ring. Minimum touch target 44px. Error states use destructive red.
+        <p className="text-xs font-semibold tracking-widest uppercase text-cu-brandy mb-2">Components</p>
+        <h2 id="forms-heading" className="text-foreground mb-3">Form Elements</h2>
+        <p className="text-muted-foreground max-w-xl leading-relaxed">
+          Inputs sit on the Char surface with a Brandy Punch focus ring (3:1 against any surface). Touch targets default to 44px. Error states use the destructive token.
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
         {/* Text inputs */}
-        <div className="bg-[#111111] border border-white/8 rounded-xl p-6 space-y-5">
-          <h4 className="text-[#F2F2F2] font-semibold mb-2" style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "16px" }}>Text Inputs</h4>
+        <div className="bg-card border border-white/8 rounded-xl p-6 space-y-5">
+          <h4 className="text-foreground font-semibold mb-2" style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "16px" }}>Text Inputs</h4>
 
           <div>
             <Label>Default</Label>
@@ -150,25 +150,25 @@ export function FormsSection() {
         </div>
 
         {/* Controls */}
-        <div className="bg-[#111111] border border-white/8 rounded-xl p-6">
-          <h4 className="text-[#F2F2F2] font-semibold mb-5" style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "16px" }}>Controls</h4>
+        <div className="bg-card border border-white/8 rounded-xl p-6">
+          <h4 className="text-foreground font-semibold mb-5" style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "16px" }}>Controls</h4>
 
           <div className="space-y-3 mb-8">
-            <p className="text-xs font-semibold tracking-widest uppercase text-[#525252] mb-3">Checkboxes</p>
+            <p className="text-xs font-semibold tracking-widest uppercase text-cu-neutral mb-3">Checkboxes</p>
             <Checkbox label="I agree to the Terms and Conditions" checked />
             <Checkbox label="Subscribe to market updates" />
             <Checkbox label="I am an accredited investor" />
           </div>
 
           <div className="space-y-3 mb-8">
-            <p className="text-xs font-semibold tracking-widest uppercase text-[#525252] mb-3">Radio Buttons</p>
+            <p className="text-xs font-semibold tracking-widest uppercase text-cu-neutral mb-3">Radio Buttons</p>
             <Radio label="Borrower" name="role" checked />
             <Radio label="Investor" name="role" />
             <Radio label="Advisor / Broker" name="role" />
           </div>
 
           <div className="space-y-3">
-            <p className="text-xs font-semibold tracking-widest uppercase text-[#525252] mb-3">Toggles</p>
+            <p className="text-xs font-semibold tracking-widest uppercase text-cu-neutral mb-3">Toggles</p>
             <Toggle label="Email notifications" on={true} />
             <Toggle label="Two-factor authentication" />
             <Toggle label="Public profile visible" on={true} />
@@ -177,9 +177,9 @@ export function FormsSection() {
       </div>
 
       {/* Complete form example */}
-      <div className="bg-[#0D0D0D] border border-white/8 rounded-xl p-8">
-        <h4 className="text-[#F2F2F2] font-semibold mb-2" style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "20px" }}>Example — Enquiry Form</h4>
-        <p className="text-[#878787] text-sm mb-6">As seen in context: borrower enquiry form pattern</p>
+      <div className="bg-sidebar border border-white/8 rounded-xl p-8">
+        <h4 className="text-foreground font-semibold mb-2" style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "20px" }}>Example — Enquiry Form</h4>
+        <p className="text-muted-foreground text-sm mb-6">As seen in context: borrower enquiry form pattern</p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div>
@@ -208,9 +208,7 @@ export function FormsSection() {
         </div>
         <button
           className="relative inline-flex items-center justify-center px-8 py-3 rounded-md font-medium text-white cursor-pointer
-            bg-[#CD722D] hover:bg-[#DC9C6C] active:translate-y-0.5 transition-all duration-150"
-          style={{ boxShadow: "0 4px 0 0 #A45B24" }}
-        >
+            bg-cu-brandy hover:bg-cu-brandy-light active:translate-y-0.5 transition-all duration-150" >
           Submit enquiry
         </button>
       </div>
