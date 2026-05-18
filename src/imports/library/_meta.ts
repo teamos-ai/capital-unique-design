@@ -139,4 +139,6 @@ export const libraryImages: LibraryImage[] = [
   { src: 'office/document-signing-cool-001.png', alt: 'Close crop of hands in a navy knit sweater signing paperwork with a black pen at a desk stacked with navy and white cards and a black lens cap; cool blue palette.', ratio: '4:5', license: 'Brand-owned' },
   { src: 'brand-deck/logo-lockup-silver-horizontal.png', alt: 'Capital Unique horizontal logo lockup — brushed-silver M monogram on a navy rounded-square badge beside the lowercase black wordmark, on white.', ratio: '21:9', license: 'Brand-owned' },
   { src: 'brand-deck/logo-icon-silver-square.png', alt: 'Capital Unique app-style icon — brushed-silver M monogram with a small bead detail on a navy rounded-square badge with a silver bezel.', ratio: '1:1', license: 'Brand-owned' },
+  { src: 'footer/footerjohn-cards.jpeg',               alt: 'A radial fan of overlapping translucent petal-blade panels arcing up from the bottom edge against a warm copper gradient — an abstract fanned-deck motif in semi-transparent peach and bronze.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'footer/footerjohn-wave-002.jpeg',            alt: 'Layered flowing wave ridges in graduated copper, amber, and deep brown tones sweeping across a warm gradient — a smooth 3D undulating wave motif.', ratio: '16:9', license: 'Brand-owned' },
 ];
