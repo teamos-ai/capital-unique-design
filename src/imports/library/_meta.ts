@@ -213,4 +213,7 @@ export const libraryImages: LibraryImage[] = [
   { src: 'people/clients-couple-laptop-lounge-001.png', alt: 'A young Asian couple sit close on a tan leather sofa in a warm timber-framed lounge, the man pointing at a laptop on the coffee table while the woman smiles at the screen; an orange notebook and ceramic mug on the table, garden greenery through the window.', ratio: '21:9', license: 'Brand-owned' },
   { src: 'people/clients-couple-laptop-lounge-002.png', alt: 'The same Asian couple on the tan leather sofa, the man in a navy sweater leaning in to point at the laptop while the woman in a cream knit smiles; navy notebook, ceramic mug, garden window — alternate angle.', ratio: '21:9', license: 'Brand-owned' },
   { src: 'people/clients-walking-conversation-cafe-001.png', alt: 'Two casually-dressed young men in their late 20s walk and talk through a sunlit, plant-filled cafe/co-working interior, one carrying a laptop under his arm; warm timber millwork and soft lounge seating behind.', ratio: '21:9', license: 'Brand-owned' },
+
+  // ── 2026-05-21 ──
+  { src: 'people/clients-chess-garden-001.png', alt: 'A man in a rust corduroy jacket leans in to move a piece on a wooden chess set on a garden bistro table while an Asian woman in a cream turtleneck considers the board, chin on hand; rose-covered pergola and a classical marble statue softly defocused behind — a quiet, considered two-person scene of strategy.', ratio: '16:9', license: 'Brand-owned' },
 ];
