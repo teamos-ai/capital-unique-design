@@ -216,4 +216,6 @@ export const libraryImages: LibraryImage[] = [
 
   // ── 2026-05-21 ──
   { src: 'people/clients-chess-garden-001.png', alt: 'A man in a rust corduroy jacket leans in to move a piece on a wooden chess set on a garden bistro table while an Asian woman in a cream turtleneck considers the board, chin on hand; rose-covered pergola and a classical marble statue softly defocused behind — a quiet, considered two-person scene of strategy.', ratio: '16:9', license: 'Brand-owned' },
+
+  { src: 'people/developers-residential-scale-model-001.png', alt: 'A development trio review plans on a residential build site at golden hour: a woman in a cream blazer holding a tablet, a man in a blue shirt smiling, and a builder in a yellow hard hat and plaid shirt; in front of them a detailed scale model of a contemporary house with landscaping, an orange leather notebook, rolled blueprints and a navy mug, with the timber frame of a house under construction softly defocused behind.', ratio: '16:9', license: 'Brand-owned' },
 ];
