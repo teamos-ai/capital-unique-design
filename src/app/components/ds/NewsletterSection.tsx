@@ -82,18 +82,23 @@ const LOGO_URL =
 
 /* ── Preview chrome ───────────────────────────────────────────────── */
 
+const BUILD_LABEL: Record<Scheme, string> = {
+  dark: "Dark — The Vault",
+  light: "Light — Inkwell",
+};
+
+/* Renders the same markup once per selected build, so nothing is hidden
+   behind toggle state when "Both" is active. */
 function Frame({
   id,
   caption,
-  p,
-  children,
-  pad = true,
+  builds,
+  render,
 }: {
   id: string;
   caption: string;
-  p: Palette;
-  children: React.ReactNode;
-  pad?: boolean;
+  builds: Scheme[];
+  render: (p: Palette) => React.ReactNode;
 }) {
   return (
     <div className="rounded-xl border border-border overflow-hidden mb-6">
@@ -102,17 +107,29 @@ function Frame({
         <span className="opacity-40">·</span>
         <span>{caption}</span>
       </div>
-      <div style={{ background: p.outer, padding: pad ? "28px 20px" : 0 }}>
-        <table
-          role="presentation"
-          cellPadding={0}
-          cellSpacing={0}
-          border={0}
-          style={{ width: "600px", maxWidth: "100%", margin: "0 auto", background: p.body, borderCollapse: "collapse" }}
-        >
-          <tbody>{children}</tbody>
-        </table>
-      </div>
+      {builds.map((s) => {
+        const p = EMAIL[s];
+        return (
+          <div key={s}>
+            {builds.length > 1 && (
+              <div className="px-3 py-1 bg-muted border-b border-border font-mono text-xs text-muted-foreground">
+                {BUILD_LABEL[s]}
+              </div>
+            )}
+            <div style={{ background: p.outer, padding: "28px 20px" }}>
+              <table
+                role="presentation"
+                cellPadding={0}
+                cellSpacing={0}
+                border={0}
+                style={{ width: "600px", maxWidth: "100%", margin: "0 auto", background: p.body, borderCollapse: "collapse" }}
+              >
+                <tbody>{render(p)}</tbody>
+              </table>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -522,9 +539,24 @@ function SwatchRow({ p, scheme }: { p: Palette; scheme: Scheme }) {
 
 /* ── Section ──────────────────────────────────────────────────────── */
 
+/* Every header × footer pairing, so the frame decision can be made by
+   looking rather than by imagining. */
+const HEADERS = [
+  { id: "A", label: "Masthead",  Cmp: HeaderMasthead },
+  { id: "B", label: "Compact",   Cmp: HeaderCompact },
+  { id: "C", label: "Nameplate", Cmp: HeaderNameplate },
+];
+
+const FOOTERS = [
+  { id: "A", label: "Standard", Cmp: FooterStandard },
+  { id: "B", label: "Minimal",  Cmp: FooterMinimal },
+];
+
+type View = Scheme | "both";
+
 export function NewsletterSection() {
-  const [scheme, setScheme] = useState<Scheme>("dark");
-  const p = EMAIL[scheme];
+  const [view, setView] = useState<View>("both");
+  const builds: Scheme[] = view === "both" ? ["dark", "light"] : [view];
 
   return (
     <section id="newsletter" aria-labelledby="newsletter-heading">
@@ -533,10 +565,10 @@ export function NewsletterSection() {
         <h2 id="newsletter-heading" className="text-foreground mb-3">Newsletter (Email)</h2>
         <p className="text-muted-foreground max-w-xl leading-relaxed">
           The brand restated in the subset email can actually render: hex only, tables
-          only, inline styles only, 600px wide. Three headers, two footers, and the body
-          blocks a simple issue needs — each in a dark and a light build. Every preview
-          below is real table markup, so the export is a transcription rather than a
-          re-interpretation.
+          only, inline styles only, 600px wide. Three headers, two footers, every body
+          block a simple issue needs, and all six header/footer pairings — each one built
+          in both a dark and a light build. Every preview below is real table markup, so
+          the export is a transcription rather than a re-interpretation.
         </p>
       </div>
 
@@ -553,24 +585,28 @@ export function NewsletterSection() {
         </ul>
       </div>
 
-      {/* Scheme toggle */}
+      {/* Build filter — "Both" is the default so nothing is hidden behind state. */}
       <div className="flex items-center gap-3 mb-8 sticky top-[68px] z-20 py-2" style={{ background: "color-mix(in oklch, var(--background) 92%, transparent)", backdropFilter: "blur(8px)" }}>
         <span className="text-xs font-semibold tracking-widest uppercase text-muted-foreground">Build</span>
         <div className="inline-flex rounded-lg border border-border overflow-hidden">
-          {(["dark", "light"] as Scheme[]).map((s) => (
+          {([
+            { v: "both",  label: "Both" },
+            { v: "dark",  label: "Dark — The Vault" },
+            { v: "light", label: "Light — Inkwell" },
+          ] as { v: View; label: string }[]).map(({ v, label }) => (
             <button
-              key={s}
-              onClick={() => setScheme(s)}
-              aria-pressed={scheme === s}
-              className={`px-4 py-1.5 text-xs font-medium cursor-pointer transition-colors duration-150
+              key={v}
+              onClick={() => setView(v)}
+              aria-pressed={view === v}
+              className={`px-4 py-1.5 text-xs font-medium cursor-pointer transition-colors duration-150 border-r border-border last:border-r-0
                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cu-brandy-light
-                ${scheme === s ? "bg-cu-brandy/15 text-cu-brandy" : "text-muted-foreground hover:text-foreground"}`}
+                ${view === v ? "bg-cu-brandy/15 text-cu-brandy" : "text-muted-foreground hover:text-foreground"}`}
             >
-              {s === "dark" ? "Dark — The Vault" : "Light — Inkwell"}
+              {label}
             </button>
           ))}
         </div>
-        <span className="text-xs font-mono text-muted-foreground hidden sm:inline">600px · {scheme}</span>
+        <span className="text-xs font-mono text-muted-foreground hidden sm:inline">600px</span>
       </div>
 
       {/* ── Palette ─────────────────────────────────────────────── */}
@@ -584,7 +620,16 @@ export function NewsletterSection() {
           surfaces rather than the web ones: links are 8.5:1 on Void and 6.5:1 on white,
           and every value below clears AA.
         </p>
-        <SwatchRow p={p} scheme={scheme} />
+        <div className="space-y-6">
+          {builds.map((s) => (
+            <div key={s}>
+              {builds.length > 1 && (
+                <p className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-2">{BUILD_LABEL[s]}</p>
+              )}
+              <SwatchRow p={EMAIL[s]} scheme={s} />
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* ── Headers ─────────────────────────────────────────────── */}
@@ -597,17 +642,17 @@ export function NewsletterSection() {
           with its brand device intact.
         </p>
 
-        <Frame id="HEADER-A" caption="Masthead — centred, ceremonial. Coin + wordmark + brand rule + issue line." p={p}>
-          <HeaderMasthead p={p} />
-        </Frame>
+        <Frame id="HEADER-A" builds={builds}
+          caption="Masthead — centred, ceremonial. Coin + wordmark + brand rule + issue line."
+          render={(p) => <HeaderMasthead p={p} />} />
 
-        <Frame id="HEADER-B" caption="Compact bar — single row, minimum height. Content starts sooner." p={p}>
-          <HeaderCompact p={p} />
-        </Frame>
+        <Frame id="HEADER-B" builds={builds}
+          caption="Compact bar — single row, minimum height. Content starts sooner."
+          render={(p) => <HeaderCompact p={p} />} />
 
-        <Frame id="HEADER-C" caption="Nameplate — editorial. 3px accent bar renders even with images off." p={p}>
-          <HeaderNameplate p={p} />
-        </Frame>
+        <Frame id="HEADER-C" builds={builds}
+          caption="Nameplate — editorial. 3px accent bar renders even with images off."
+          render={(p) => <HeaderNameplate p={p} />} />
       </div>
 
       {/* ── Body blocks ─────────────────────────────────────────── */}
@@ -619,52 +664,70 @@ export function NewsletterSection() {
           information — body copy, labels, legal.
         </p>
 
-        <Frame id="BLOCK-INTRO" caption="Greeting + lede. Serif lede sets the issue's argument in one sentence." p={p}>
-          <BlockIntro p={p} />
-        </Frame>
+        <Frame id="BLOCK-INTRO" builds={builds}
+          caption="Greeting + lede. Serif lede sets the issue's argument in one sentence."
+          render={(p) => <BlockIntro p={p} />} />
 
-        <Frame id="BLOCK-ARTICLE" caption="Article — eyebrow, serif headline, body, underlined link." p={p}>
-          <BlockArticle p={p} />
-        </Frame>
+        <Frame id="BLOCK-ARTICLE" builds={builds}
+          caption="Article — eyebrow, serif headline, body, underlined link."
+          render={(p) => <BlockArticle p={p} />} />
 
-        <Frame id="BLOCK-CALLOUT" caption="Pull quote — tinted surface, led by the same short accent rule as the masthead." p={p}>
-          <BlockCallout p={p} />
-        </Frame>
+        <Frame id="BLOCK-CALLOUT" builds={builds}
+          caption="Pull quote — tinted surface, led by the same short accent rule as the masthead."
+          render={(p) => <BlockCallout p={p} />} />
 
-        <Frame id="BLOCK-FIGURES" caption="Three-figure row — serif numerals under a single accent rule." p={p}>
-          <BlockFigures p={p} />
-        </Frame>
+        <Frame id="BLOCK-FIGURES" builds={builds}
+          caption="Three-figure row — serif numerals under a single accent rule."
+          render={(p) => <BlockFigures p={p} />} />
 
-        <Frame id="BLOCK-CTA" caption="Bulletproof button — table cell fill, not a styled anchor." p={p}>
-          <BlockButton p={p} />
-        </Frame>
+        <Frame id="BLOCK-CTA" builds={builds}
+          caption="Bulletproof button — table cell fill, not a styled anchor."
+          render={(p) => <BlockButton p={p} />} />
 
-        <Frame id="BLOCK-SIGNATURE" caption="Sign-off — serif name, quiet cadence line." p={p}>
-          <BlockSignature p={p} />
-        </Frame>
+        <Frame id="BLOCK-SIGNATURE" builds={builds}
+          caption="Sign-off — serif name, quiet cadence line."
+          render={(p) => <BlockSignature p={p} />} />
 
-        <Frame id="RULE-A / RULE-B" caption="Dividers — full-width hairline, and centred 28px accent rule for section breaks." p={p}>
-          <tr><td style={{ height: "24px", fontSize: 0, lineHeight: "24px" }}>&nbsp;</td></tr>
-          <RuleHairline p={p} />
-          <RuleBrand p={p} />
-          <RuleHairline p={p} />
-          <tr><td style={{ height: "24px", fontSize: 0, lineHeight: "24px" }}>&nbsp;</td></tr>
-        </Frame>
+        <Frame id="RULE-A / RULE-B" builds={builds}
+          caption="Dividers — full-width hairline, and centred 28px accent rule for section breaks."
+          render={(p) => (
+            <>
+              <tr><td style={{ height: "24px", fontSize: 0, lineHeight: "24px" }}>&nbsp;</td></tr>
+              <RuleHairline p={p} />
+              <RuleBrand p={p} />
+              <RuleHairline p={p} />
+              <tr><td style={{ height: "24px", fontSize: 0, lineHeight: "24px" }}>&nbsp;</td></tr>
+            </>
+          )} />
 
-        {/* Preheader */}
+        {/* Preheader — not a table block, so it renders outside Frame. */}
         <div className="rounded-xl border border-border overflow-hidden mb-6">
           <div className="px-3 py-1.5 bg-background border-b border-border font-mono text-xs text-muted-foreground flex items-center gap-2">
             <span className="text-cu-brandy font-semibold">PREHEADER</span>
             <span className="opacity-40">·</span>
             <span>hidden in the email — this is the inbox preview line</span>
           </div>
-          <div className="p-5" style={{ background: p.outer }}>
-            <div className="rounded-lg p-4" style={{ background: p.body, border: `1px dashed ${p.ruleStrong}` }}>
-              <div style={{ fontFamily: SANS, fontSize: "13px", color: p.textSoft, lineHeight: 1.6 }}>
-                Settlement timelines, not rate, are what kill complex deals.
+          {builds.map((s) => {
+            const p = EMAIL[s];
+            return (
+              <div key={s}>
+                {builds.length > 1 && (
+                  <div className="px-3 py-1 bg-muted border-b border-border font-mono text-xs text-muted-foreground">
+                    {BUILD_LABEL[s]}
+                  </div>
+                )}
+                <div className="p-5" style={{ background: p.outer }}>
+                  <div className="rounded-lg p-4" style={{ background: p.body, border: `1px dashed ${p.ruleStrong}` }}>
+                    <div style={{ fontFamily: SANS, fontSize: "13px", color: p.textSoft, lineHeight: 1.6 }}>
+                      Settlement timelines, not rate, are what kill complex deals.
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-            <p className="mt-3 text-xs text-muted-foreground leading-relaxed max-w-xl">
+            );
+          })}
+          <div className="px-5 py-4 border-t border-border">
+            <p className="text-xs text-muted-foreground leading-relaxed max-w-xl">
               Sits immediately after <code className="text-cu-brandy">&lt;body&gt;</code> in a{" "}
               <code className="text-cu-brandy">display:none;max-height:0;overflow:hidden;mso-hide:all</code> div,
               padded with zero-width non-joiners so the client does not pull the masthead
@@ -683,36 +746,70 @@ export function NewsletterSection() {
           a working unsubscribe are legal requirements under the Spam Act, not design choices.
         </p>
 
-        <Frame id="FOOTER-A" caption="Standard — coin, positioning line, nav, legal block, compliance line." p={p}>
-          <FooterStandard p={p} />
-        </Frame>
+        <Frame id="FOOTER-A" builds={builds}
+          caption="Standard — coin, positioning line, nav, legal block, compliance line."
+          render={(p) => <FooterStandard p={p} />} />
 
-        <Frame id="FOOTER-B" caption="Minimal — the legal floor and nothing else. Pairs with HEADER-B." p={p}>
-          <FooterMinimal p={p} />
-        </Frame>
+        <Frame id="FOOTER-B" builds={builds}
+          caption="Minimal — the legal floor and nothing else. Pairs with HEADER-B."
+          render={(p) => <FooterMinimal p={p} />} />
       </div>
 
-      {/* ── Assembled ───────────────────────────────────────────── */}
-      <div className="mb-8">
-        <h3 className="text-foreground mb-2">Assembled issue</h3>
+      {/* ── All header × footer combinations ────────────────────── */}
+      <div className="mb-12">
+        <h3 className="text-foreground mb-2">Every combination</h3>
         <p className="text-sm text-muted-foreground max-w-xl leading-relaxed mb-5">
-          HEADER-A + FOOTER-A with a representative body, at true 600px. This is the
-          combination to judge — individual blocks always look fine in isolation; the
-          rhythm between them is what either holds or does not.
+          All six header/footer pairings, in both builds. The body is deliberately short
+          here — these are for judging the frame the newsletter sits in, not the content.
+          The full-length rhythm test is the reference send below.
         </p>
 
-        <Frame id="ISSUE-014" caption="Full send — masthead, lede, article, pull quote, figures, CTA, sign-off, standard footer" p={p}>
-          <HeaderMasthead p={p} />
-          <BlockIntro p={p} />
-          <BlockArticle p={p} />
-          <BlockCallout p={p} />
-          <BlockFigures p={p} />
-          <BlockButton p={p} />
-          <RuleHairline p={p} />
-          <tr><td style={{ height: "26px", fontSize: 0, lineHeight: "26px" }}>&nbsp;</td></tr>
-          <BlockSignature p={p} />
-          <FooterStandard p={p} />
-        </Frame>
+        {HEADERS.flatMap((h) =>
+          FOOTERS.map((f) => (
+            <Frame
+              key={`${h.id}${f.id}`}
+              id={`HEADER-${h.id} + FOOTER-${f.id}`}
+              caption={`${h.label} over ${f.label.toLowerCase()} — short body`}
+              builds={builds}
+              render={(p) => (
+                <>
+                  <h.Cmp p={p} />
+                  <BlockIntro p={p} />
+                  <BlockArticle p={p} />
+                  <BlockButton p={p} />
+                  <f.Cmp p={p} />
+                </>
+              )}
+            />
+          ))
+        )}
+      </div>
+
+      {/* ── Full-length reference send ──────────────────────────── */}
+      <div className="mb-8">
+        <h3 className="text-foreground mb-2">Reference send</h3>
+        <p className="text-sm text-muted-foreground max-w-xl leading-relaxed mb-5">
+          HEADER-A + FOOTER-A with every body block in play, at true 600px. Individual
+          blocks always look fine in isolation; the rhythm between them is what either
+          holds or does not.
+        </p>
+
+        <Frame id="ISSUE-014" builds={builds}
+          caption="Full send — masthead, lede, article, pull quote, figures, CTA, sign-off, standard footer"
+          render={(p) => (
+            <>
+              <HeaderMasthead p={p} />
+              <BlockIntro p={p} />
+              <BlockArticle p={p} />
+              <BlockCallout p={p} />
+              <BlockFigures p={p} />
+              <BlockButton p={p} />
+              <RuleHairline p={p} />
+              <tr><td style={{ height: "26px", fontSize: 0, lineHeight: "26px" }}>&nbsp;</td></tr>
+              <BlockSignature p={p} />
+              <FooterStandard p={p} />
+            </>
+          )} />
       </div>
 
       {/* ── Next step ───────────────────────────────────────────── */}
