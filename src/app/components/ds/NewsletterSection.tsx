@@ -53,19 +53,22 @@ const EMAIL: Record<Scheme, Palette> = {
     btnBg:      "#C56A31",
     btnText:    "#080808",  /* matches --primary-foreground in .dark */
   },
+  /* Blue on white. Inkwell rather than Brandy, matching the system's own
+     light-mode icon treatment (--cu-icon-fg is Inkwell in light, Brandy in
+     dark). Every value clears AA on white, including the button. */
   light: {
-    outer:      "#F2F2F2",  /* --cu-neutral-lightest */
+    outer:      "#E4EDF2",  /* --cu-inkwell-lightest — pale blue gutter */
     body:       "#FFFFFF",
-    surface:    "#F4F4F4",
-    rule:       "#E2E2E2",
-    ruleStrong: "#D9D9D9",
-    text:       "#080808",
-    textSoft:   "#525252",  /* --cu-neutral-dark */
-    textQuiet:  "#6B6B6B",  /* email-only step — #878787 is 3.2:1 here */
-    accent:     "#924F26",  /* Brandy Dark — 6.2:1, AA on white */
-    link:       "#924F26",
-    btnBg:      "#C56A31",
-    btnText:    "#FFFFFF",
+    surface:    "#F2F7FA",  /* email-only step between white and Inkwell Lightest */
+    rule:       "#DAE5EC",
+    ruleStrong: "#C3D5E0",
+    text:       "#091C2C",  /* --cu-inkwell-darker — near-black with a blue cast */
+    textSoft:   "#46616F",  /* email-only slate — 6.6:1 */
+    textQuiet:  "#5C7484",  /* email-only slate — 4.9:1 */
+    accent:     "#2C628D",  /* --cu-inkwell — 6.5:1 on white */
+    link:       "#2C628D",
+    btnBg:      "#2C628D",
+    btnText:    "#FFFFFF",  /* 6.5:1 — AA at any size */
   },
 };
 
@@ -202,7 +205,7 @@ function HeaderNameplate({ p }: { p: Palette }) {
   return (
     <>
       <tr>
-        <td style={{ height: "3px", lineHeight: "3px", fontSize: 0, background: "#C56A31" }}>&nbsp;</td>
+        <td style={{ height: "3px", lineHeight: "3px", fontSize: 0, background: p.accent }}>&nbsp;</td>
       </tr>
       <tr>
         <td style={{ padding: "26px 32px 22px", borderBottom: `1px solid ${p.rule}` }}>
@@ -338,17 +341,17 @@ function BlockFigures({ p }: { p: Palette }) {
   );
 }
 
-function BlockButton({ p, label = "Talk to a specialist", fill, text }: { p: Palette; label?: string; fill?: string; text?: string }) {
+function BlockButton({ p, label = "Talk to a specialist" }: { p: Palette; label?: string }) {
   return (
     <tr>
       <td style={{ padding: "4px 32px 30px", textAlign: "center" }}>
         <table role="presentation" cellPadding={0} cellSpacing={0} border={0} style={{ margin: "0 auto", borderCollapse: "separate" }}>
           <tbody>
             <tr>
-              <td style={{ background: fill ?? p.btnBg, borderRadius: "6px", padding: "14px 30px", textAlign: "center" }}>
+              <td style={{ background: p.btnBg, borderRadius: "6px", padding: "14px 30px", textAlign: "center" }}>
                 <a
                   href="#"
-                  style={{ fontFamily: SANS, fontSize: "15px", fontWeight: 600, color: text ?? p.btnText, textDecoration: "none", display: "inline-block", letterSpacing: "0.01em" }}
+                  style={{ fontFamily: SANS, fontSize: "15px", fontWeight: 600, color: p.btnText, textDecoration: "none", display: "inline-block", letterSpacing: "0.01em" }}
                 >
                   {label}
                 </a>
@@ -474,16 +477,16 @@ function FooterMinimal({ p }: { p: Palette }) {
 
 function SwatchRow({ p, scheme }: { p: Palette; scheme: Scheme }) {
   const rows: { key: keyof Palette; role: string; from: string }[] = [
-    { key: "outer",      role: "Outer canvas",        from: scheme === "dark" ? "pure black gutter" : "--cu-neutral-lightest" },
+    { key: "outer",      role: "Outer canvas",        from: scheme === "dark" ? "pure black gutter" : "--cu-inkwell-lightest" },
     { key: "body",       role: "Email body",          from: scheme === "dark" ? "--cu-surface-void" : "--card" },
-    { key: "surface",    role: "Callout surface",     from: scheme === "dark" ? "--cu-surface-vault" : "--muted (lifted)" },
-    { key: "rule",       role: "Hairline rule",       from: scheme === "dark" ? "white 8% flattened" : "black 12% flattened" },
-    { key: "text",       role: "Primary text",        from: scheme === "dark" ? "--cu-neutral-lightest" : "--cu-neutral-darkest" },
-    { key: "textSoft",   role: "Body / secondary",    from: scheme === "dark" ? "--cu-neutral-light" : "--cu-neutral-dark" },
-    { key: "textQuiet",  role: "Legal / meta",        from: scheme === "dark" ? "--cu-neutral" : "email-only step" },
-    { key: "accent",     role: "Eyebrows & rules",    from: scheme === "dark" ? "--cu-brandy-punch" : "--cu-brandy-dark" },
-    { key: "link",       role: "Links",               from: scheme === "dark" ? "--cu-brandy-light" : "--cu-brandy-dark" },
-    { key: "btnBg",      role: "Button fill",         from: "--cu-brandy-punch" },
+    { key: "surface",    role: "Callout surface",     from: scheme === "dark" ? "--cu-surface-vault" : "email-only step" },
+    { key: "rule",       role: "Hairline rule",       from: scheme === "dark" ? "white 8% flattened" : "Inkwell-tinted hairline" },
+    { key: "text",       role: "Primary text",        from: scheme === "dark" ? "--cu-neutral-lightest" : "--cu-inkwell-darker" },
+    { key: "textSoft",   role: "Body / secondary",    from: scheme === "dark" ? "--cu-neutral-light" : "email-only slate" },
+    { key: "textQuiet",  role: "Legal / meta",        from: scheme === "dark" ? "--cu-neutral" : "email-only slate" },
+    { key: "accent",     role: "Eyebrows & rules",    from: scheme === "dark" ? "--cu-brandy-punch" : "--cu-inkwell" },
+    { key: "link",       role: "Links",               from: scheme === "dark" ? "--cu-brandy-light" : "--cu-inkwell" },
+    { key: "btnBg",      role: "Button fill",         from: scheme === "dark" ? "--cu-brandy-punch" : "--cu-inkwell" },
     { key: "btnText",    role: "Button label",        from: scheme === "dark" ? "--cu-neutral-darkest" : "#FFFFFF" },
   ];
 
@@ -563,7 +566,7 @@ export function NewsletterSection() {
                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cu-brandy-light
                 ${scheme === s ? "bg-cu-brandy/15 text-cu-brandy" : "text-muted-foreground hover:text-foreground"}`}
             >
-              {s === "dark" ? "Dark — The Vault" : "Light — Paper"}
+              {s === "dark" ? "Dark — The Vault" : "Light — Inkwell"}
             </button>
           ))}
         </div>
@@ -574,10 +577,12 @@ export function NewsletterSection() {
       <div className="mb-12">
         <h3 className="text-foreground mb-2">Email palette</h3>
         <p className="text-sm text-muted-foreground max-w-xl leading-relaxed mb-5">
-          OKLCH resolved to sRGB hex. Contrast was re-checked against the email
-          surfaces rather than the web ones, which is why links differ per build:
-          Brandy Light on Void (8.5:1), Brandy Dark on white (6.2:1). Brandy Punch
-          itself is only 3.8:1 on white — fine as a button fill, not as body-copy link.
+          OKLCH resolved to sRGB hex. The two builds run different accent families —
+          Brandy Punch in the dark build, Inkwell in the light one — which mirrors how
+          the system already handles iconography (<code className="text-cu-brandy text-xs px-1 py-0.5 bg-muted rounded">--cu-icon-fg</code>{" "}
+          is Inkwell in light, Brandy in dark). Contrast was re-checked against the email
+          surfaces rather than the web ones: links are 8.5:1 on Void and 6.5:1 on white,
+          and every value below clears AA.
         </p>
         <SwatchRow p={p} scheme={scheme} />
       </div>
@@ -600,7 +605,7 @@ export function NewsletterSection() {
           <HeaderCompact p={p} />
         </Frame>
 
-        <Frame id="HEADER-C" caption="Nameplate — editorial. 3px Brandy bar renders even with images off." p={p}>
+        <Frame id="HEADER-C" caption="Nameplate — editorial. 3px accent bar renders even with images off." p={p}>
           <HeaderNameplate p={p} />
         </Frame>
       </div>
@@ -622,11 +627,11 @@ export function NewsletterSection() {
           <BlockArticle p={p} />
         </Frame>
 
-        <Frame id="BLOCK-CALLOUT" caption="Pull quote — Vault surface, led by the same short Brandy rule as the masthead." p={p}>
+        <Frame id="BLOCK-CALLOUT" caption="Pull quote — tinted surface, led by the same short accent rule as the masthead." p={p}>
           <BlockCallout p={p} />
         </Frame>
 
-        <Frame id="BLOCK-FIGURES" caption="Three-figure row — serif numerals under a single Brandy rule." p={p}>
+        <Frame id="BLOCK-FIGURES" caption="Three-figure row — serif numerals under a single accent rule." p={p}>
           <BlockFigures p={p} />
         </Frame>
 
@@ -634,30 +639,11 @@ export function NewsletterSection() {
           <BlockButton p={p} />
         </Frame>
 
-        {scheme === "light" && (
-          <div className="rounded-xl border border-cu-amber-dark/40 dark:border-cu-amber/30 bg-cu-amber/10 p-4 mb-6 max-w-3xl">
-            <p className="text-xs font-semibold tracking-widest uppercase text-cu-amber-dark dark:text-cu-amber-light mb-2">Contrast note — light build only</p>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              White on Brandy Punch is <strong className="text-foreground">3.8:1</strong> — it clears AA for large text
-              but not for a 15px button label. The dark build has no such problem (Void on Brandy Punch is 5.2:1).
-              If the light newsletter should pass AA outright, use the Brandy Dark fill below at{" "}
-              <strong className="text-foreground">6.2:1</strong>. Brand fidelity versus accessibility is your call —
-              tell me which and I'll lock it into the export.
-            </p>
-          </div>
-        )}
-
-        {scheme === "light" && (
-          <Frame id="BLOCK-CTA-AA" caption="Alternative button — Brandy Dark #924F26 fill, 6.2:1. Passes AA at any size." p={p}>
-            <BlockButton p={p} fill="#924F26" text="#FFFFFF" />
-          </Frame>
-        )}
-
         <Frame id="BLOCK-SIGNATURE" caption="Sign-off — serif name, quiet cadence line." p={p}>
           <BlockSignature p={p} />
         </Frame>
 
-        <Frame id="RULE-A / RULE-B" caption="Dividers — full-width hairline, and centred 28px Brandy rule for section breaks." p={p}>
+        <Frame id="RULE-A / RULE-B" caption="Dividers — full-width hairline, and centred 28px accent rule for section breaks." p={p}>
           <tr><td style={{ height: "24px", fontSize: 0, lineHeight: "24px" }}>&nbsp;</td></tr>
           <RuleHairline p={p} />
           <RuleBrand p={p} />
