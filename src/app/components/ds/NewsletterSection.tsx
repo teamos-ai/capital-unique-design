@@ -1,0 +1,751 @@
+import React, { useState } from "react";
+import logoSquare from "../../../imports/Logo_Square.png";
+import { CopyableToken } from "./CopyableToken";
+
+/* ─────────────────────────────────────────────────────────────────────
+   NEWSLETTER (EMAIL) — Capital Unique
+
+   Email is not the web. The rest of this design system runs on OKLCH
+   tokens, CSS custom properties, flexbox and hover states — none of
+   which survive Outlook, and only some of which survive Gmail. So this
+   section restates the brand in the subset email can actually render:
+
+     • hex colours only (OKLCH → hex conversions locked in EMAIL below)
+     • tables for layout, never flex/grid
+     • inline styles, never CSS variables
+     • 600px body, fluid below
+     • web-safe fallbacks doing the real typographic work
+
+   Everything previewed here is written as literal table markup with
+   inline styles, so the HTML/CSS export is a direct transcription of
+   what you see rather than a re-interpretation of it.
+───────────────────────────────────────────────────────────────────── */
+
+type Scheme = "dark" | "light";
+
+interface Palette {
+  outer: string;
+  body: string;
+  surface: string;
+  rule: string;
+  ruleStrong: string;
+  text: string;
+  textSoft: string;
+  textQuiet: string;
+  accent: string;   /* eyebrows, rules, button fill */
+  link: string;     /* inline + footer links — AA on `body` */
+  btnBg: string;
+  btnText: string;
+}
+
+const EMAIL: Record<Scheme, Palette> = {
+  dark: {
+    outer:      "#000000",
+    body:       "#080808",  /* Void        — --cu-surface-void  */
+    surface:    "#111111",  /* Vault       — --cu-surface-vault */
+    rule:       "#1F1F1F",
+    ruleStrong: "#2E2E2E",
+    text:       "#F2F2F2",  /* --cu-neutral-lightest */
+    textSoft:   "#B5B5B5",  /* --cu-neutral-light    */
+    textQuiet:  "#878787",  /* --cu-neutral          */
+    accent:     "#C56A31",  /* Brandy Punch */
+    link:       "#D79B7A",  /* Brandy Light — 8.45:1 on Void */
+    btnBg:      "#C56A31",
+    btnText:    "#080808",  /* matches --primary-foreground in .dark */
+  },
+  light: {
+    outer:      "#F2F2F2",  /* --cu-neutral-lightest */
+    body:       "#FFFFFF",
+    surface:    "#F4F4F4",
+    rule:       "#E2E2E2",
+    ruleStrong: "#D9D9D9",
+    text:       "#080808",
+    textSoft:   "#525252",  /* --cu-neutral-dark */
+    textQuiet:  "#6B6B6B",  /* email-only step — #878787 is 3.2:1 here */
+    accent:     "#924F26",  /* Brandy Dark — 6.2:1, AA on white */
+    link:       "#924F26",
+    btnBg:      "#C56A31",
+    btnText:    "#FFFFFF",
+  },
+};
+
+const SERIF = "'Source Serif 4', Georgia, 'Times New Roman', serif";
+const SANS  = "'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
+
+/* Absolute URL the email will actually reference. Local import is only
+   for this preview — email clients cannot resolve bundler paths. */
+const LOGO_URL =
+  "https://raw.githubusercontent.com/teamos-ai/capital-unique-design/main/src/imports/Logo_Square.png";
+
+/* ── Preview chrome ───────────────────────────────────────────────── */
+
+function Frame({
+  id,
+  caption,
+  p,
+  children,
+  pad = true,
+}: {
+  id: string;
+  caption: string;
+  p: Palette;
+  children: React.ReactNode;
+  pad?: boolean;
+}) {
+  return (
+    <div className="rounded-xl border border-border overflow-hidden mb-6">
+      <div className="px-3 py-1.5 bg-background border-b border-border font-mono text-xs text-muted-foreground flex items-center gap-2">
+        <span className="text-cu-brandy font-semibold">{id}</span>
+        <span className="opacity-40">·</span>
+        <span>{caption}</span>
+      </div>
+      <div style={{ background: p.outer, padding: pad ? "28px 20px" : 0 }}>
+        <table
+          role="presentation"
+          cellPadding={0}
+          cellSpacing={0}
+          border={0}
+          style={{ width: "600px", maxWidth: "100%", margin: "0 auto", background: p.body, borderCollapse: "collapse" }}
+        >
+          <tbody>{children}</tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+/* ── Shared email primitives ──────────────────────────────────────── */
+
+function Eyebrow({ p, children, align = "left" }: { p: Palette; children: React.ReactNode; align?: "left" | "center" }) {
+  return (
+    <div
+      style={{
+        fontFamily: SANS,
+        fontSize: "11px",
+        fontWeight: 600,
+        letterSpacing: "0.16em",
+        textTransform: "uppercase",
+        color: p.accent,
+        textAlign: align,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+function Spacer({ h }: { h: number }) {
+  return <div style={{ height: `${h}px`, lineHeight: `${h}px`, fontSize: 0 }}>&nbsp;</div>;
+}
+
+function BrandRule({ p, width = 28, align = "center" }: { p: Palette; width?: number; align?: "left" | "center" }) {
+  return (
+    <div style={{ width: `${width}px`, height: "2px", background: p.accent, margin: align === "center" ? "0 auto" : "0" }} />
+  );
+}
+
+/* ── HEADERS ──────────────────────────────────────────────────────── */
+
+function HeaderMasthead({ p }: { p: Palette }) {
+  return (
+    <tr>
+      <td style={{ padding: "36px 32px 30px", textAlign: "center", borderBottom: `1px solid ${p.rule}` }}>
+        <img src={logoSquare} width={44} height={44} alt="Capital Unique" style={{ display: "inline-block", border: 0 }} />
+        <Spacer h={16} />
+        <div style={{ fontFamily: SERIF, fontSize: "23px", fontWeight: 600, letterSpacing: "0.005em", color: p.text, lineHeight: 1.1 }}>
+          capital unique
+        </div>
+        <Spacer h={16} />
+        <BrandRule p={p} />
+        <Spacer h={16} />
+        <div style={{ fontFamily: SANS, fontSize: "11px", fontWeight: 600, letterSpacing: "0.16em", textTransform: "uppercase", color: p.textQuiet }}>
+          Insights&nbsp; ·&nbsp; Issue 014&nbsp; ·&nbsp; 10 August 2026
+        </div>
+      </td>
+    </tr>
+  );
+}
+
+function HeaderCompact({ p }: { p: Palette }) {
+  return (
+    <tr>
+      <td style={{ padding: "18px 28px", borderBottom: `1px solid ${p.rule}` }}>
+        <table role="presentation" cellPadding={0} cellSpacing={0} border={0} style={{ width: "100%", borderCollapse: "collapse" }}>
+          <tbody>
+            <tr>
+              <td style={{ verticalAlign: "middle" }}>
+                <table role="presentation" cellPadding={0} cellSpacing={0} border={0} style={{ borderCollapse: "collapse" }}>
+                  <tbody>
+                    <tr>
+                      <td style={{ verticalAlign: "middle", paddingRight: "12px" }}>
+                        <img src={logoSquare} width={30} height={30} alt="Capital Unique" style={{ display: "block", border: 0 }} />
+                      </td>
+                      <td style={{ verticalAlign: "middle", fontFamily: SERIF, fontSize: "17px", fontWeight: 600, color: p.text, whiteSpace: "nowrap" }}>
+                        capital unique
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td style={{ verticalAlign: "middle", textAlign: "right", fontFamily: SANS, fontSize: "11px", fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: p.textQuiet, whiteSpace: "nowrap" }}>
+                Issue 014
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  );
+}
+
+function HeaderNameplate({ p }: { p: Palette }) {
+  return (
+    <>
+      <tr>
+        <td style={{ height: "3px", lineHeight: "3px", fontSize: 0, background: "#C56A31" }}>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style={{ padding: "26px 32px 22px", borderBottom: `1px solid ${p.rule}` }}>
+          <table role="presentation" cellPadding={0} cellSpacing={0} border={0} style={{ width: "100%", borderCollapse: "collapse" }}>
+            <tbody>
+              <tr>
+                <td style={{ verticalAlign: "bottom", fontFamily: SERIF, fontSize: "27px", fontWeight: 600, letterSpacing: "-0.01em", color: p.text, lineHeight: 1 }}>
+                  capital unique
+                </td>
+                <td style={{ verticalAlign: "bottom", textAlign: "right", fontFamily: SANS, fontSize: "10px", fontWeight: 600, letterSpacing: "0.16em", textTransform: "uppercase", color: p.textQuiet, lineHeight: 1.6, whiteSpace: "nowrap" }}>
+                  Issue 014<br />10 Aug 2026
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </>
+  );
+}
+
+/* ── BODY BLOCKS ──────────────────────────────────────────────────── */
+
+function BlockIntro({ p }: { p: Palette }) {
+  return (
+    <tr>
+      <td style={{ padding: "30px 32px 4px" }}>
+        <div style={{ fontFamily: SANS, fontSize: "15px", lineHeight: 1.65, color: p.textSoft }}>
+          Good morning —
+        </div>
+        <Spacer h={12} />
+        <div style={{ fontFamily: SERIF, fontSize: "19px", lineHeight: 1.5, color: p.text }}>
+          Three things moved in private credit this fortnight, and one of them
+          changes how we price second-mortgage positions.
+        </div>
+      </td>
+    </tr>
+  );
+}
+
+function BlockArticle({ p }: { p: Palette }) {
+  return (
+    <tr>
+      <td style={{ padding: "26px 32px" }}>
+        <Eyebrow p={p}>Market note</Eyebrow>
+        <Spacer h={10} />
+        <div style={{ fontFamily: SERIF, fontSize: "24px", fontWeight: 600, lineHeight: 1.25, letterSpacing: "-0.01em", color: p.text }}>
+          Why settlement timelines are the real constraint
+        </div>
+        <Spacer h={12} />
+        <div style={{ fontFamily: SANS, fontSize: "15px", lineHeight: 1.68, color: p.textSoft }}>
+          Rate is the number borrowers quote back to us, but it is almost never
+          the binding constraint. When a deal fails it fails on the calendar —
+          a bank that needs six weeks for a scenario that has eleven days left
+          in it.
+        </div>
+        <Spacer h={14} />
+        <a
+          href="#"
+          style={{ fontFamily: SANS, fontSize: "14px", fontWeight: 600, color: p.link, textDecoration: "underline" }}
+        >
+          Read the full piece →
+        </a>
+      </td>
+    </tr>
+  );
+}
+
+function BlockCallout({ p }: { p: Palette }) {
+  return (
+    <tr>
+      <td style={{ padding: "8px 32px 26px" }}>
+        <table role="presentation" cellPadding={0} cellSpacing={0} border={0} style={{ width: "100%", background: p.surface, borderCollapse: "collapse" }}>
+          <tbody>
+            <tr>
+              <td style={{ padding: "24px 26px" }}>
+                <BrandRule p={p} align="left" />
+                <Spacer h={14} />
+                <div style={{ fontFamily: SERIF, fontSize: "18px", fontStyle: "italic", lineHeight: 1.55, color: p.text }}>
+                  “We were three days from losing the site. Capital Unique
+                  settled in nine.”
+                </div>
+                <Spacer h={10} />
+                <div style={{ fontFamily: SANS, fontSize: "12px", letterSpacing: "0.04em", color: p.textQuiet }}>
+                  Developer · Inner-west Melbourne · $4.2M bridge
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  );
+}
+
+function BlockFigures({ p }: { p: Palette }) {
+  const figures = [
+    { value: "9 days", label: "Median settlement" },
+    { value: "$4.2M", label: "Median facility" },
+    { value: "68%", label: "Repeat borrowers" },
+  ];
+  return (
+    <tr>
+      <td style={{ padding: "4px 32px 26px" }}>
+        <table role="presentation" cellPadding={0} cellSpacing={0} border={0} style={{ width: "100%", borderCollapse: "collapse" }}>
+          <tbody>
+            <tr>
+              {figures.map((f, i) => (
+                <td
+                  key={f.label}
+                  style={{
+                    width: "33.33%",
+                    verticalAlign: "top",
+                    paddingRight: i < figures.length - 1 ? "14px" : 0,
+                    borderTop: `2px solid ${p.accent}`,
+                    paddingTop: "12px",
+                  }}
+                >
+                  <div style={{ fontFamily: SERIF, fontSize: "26px", fontWeight: 600, lineHeight: 1.1, letterSpacing: "-0.015em", color: p.text }}>
+                    {f.value}
+                  </div>
+                  <Spacer h={6} />
+                  <div style={{ fontFamily: SANS, fontSize: "11px", fontWeight: 500, letterSpacing: "0.08em", textTransform: "uppercase", color: p.textQuiet, lineHeight: 1.4 }}>
+                    {f.label}
+                  </div>
+                </td>
+              ))}
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  );
+}
+
+function BlockButton({ p, label = "Talk to a specialist", fill, text }: { p: Palette; label?: string; fill?: string; text?: string }) {
+  return (
+    <tr>
+      <td style={{ padding: "4px 32px 30px", textAlign: "center" }}>
+        <table role="presentation" cellPadding={0} cellSpacing={0} border={0} style={{ margin: "0 auto", borderCollapse: "separate" }}>
+          <tbody>
+            <tr>
+              <td style={{ background: fill ?? p.btnBg, borderRadius: "6px", padding: "14px 30px", textAlign: "center" }}>
+                <a
+                  href="#"
+                  style={{ fontFamily: SANS, fontSize: "15px", fontWeight: 600, color: text ?? p.btnText, textDecoration: "none", display: "inline-block", letterSpacing: "0.01em" }}
+                >
+                  {label}
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  );
+}
+
+function BlockSignature({ p }: { p: Palette }) {
+  return (
+    <tr>
+      <td style={{ padding: "4px 32px 32px" }}>
+        <div style={{ fontFamily: SANS, fontSize: "15px", lineHeight: 1.65, color: p.textSoft }}>
+          Until next fortnight,
+        </div>
+        <Spacer h={10} />
+        <div style={{ fontFamily: SERIF, fontSize: "17px", fontWeight: 600, color: p.text }}>
+          The Capital Unique team
+        </div>
+        <Spacer h={4} />
+        <div style={{ fontFamily: SANS, fontSize: "12px", letterSpacing: "0.03em", color: p.textQuiet }}>
+          Insights · Published fortnightly
+        </div>
+      </td>
+    </tr>
+  );
+}
+
+function RuleHairline({ p }: { p: Palette }) {
+  return (
+    <tr>
+      <td style={{ padding: "0 32px" }}>
+        <div style={{ height: "1px", lineHeight: "1px", fontSize: 0, background: p.rule }}>&nbsp;</div>
+      </td>
+    </tr>
+  );
+}
+
+function RuleBrand({ p }: { p: Palette }) {
+  return (
+    <tr>
+      <td style={{ padding: "22px 32px", textAlign: "center" }}>
+        <BrandRule p={p} width={28} />
+      </td>
+    </tr>
+  );
+}
+
+/* ── FOOTERS ──────────────────────────────────────────────────────── */
+
+function FooterStandard({ p }: { p: Palette }) {
+  const links = ["Insights", "Calculator", "Contact"];
+  return (
+    <tr>
+      <td style={{ padding: "32px", textAlign: "center", borderTop: `1px solid ${p.rule}` }}>
+        <img src={logoSquare} width={32} height={32} alt="Capital Unique" style={{ display: "inline-block", border: 0 }} />
+        <Spacer h={14} />
+        <div style={{ fontFamily: SANS, fontSize: "13px", lineHeight: 1.6, color: p.textSoft, maxWidth: "380px", margin: "0 auto" }}>
+          Non-bank lending for complex scenarios where traditional finance falls short.
+        </div>
+        <Spacer h={18} />
+        <div style={{ fontFamily: SANS, fontSize: "12px", fontWeight: 600, color: p.link }}>
+          {links.map((l, i) => (
+            <React.Fragment key={l}>
+              {i > 0 && <span style={{ color: p.ruleStrong, padding: "0 8px" }}>·</span>}
+              <a href="#" style={{ color: p.link, textDecoration: "none" }}>{l}</a>
+            </React.Fragment>
+          ))}
+        </div>
+        <Spacer h={22} />
+        <div style={{ height: "1px", lineHeight: "1px", fontSize: 0, background: p.rule }}>&nbsp;</div>
+        <Spacer h={20} />
+        <div style={{ fontFamily: SANS, fontSize: "11px", lineHeight: 1.7, color: p.textQuiet }}>
+          Capital Unique Pty Ltd · ACN [000 000 000] · Australian Credit Licence [000000]<br />
+          [Street address], [Suburb] [STATE] [Postcode], Australia
+        </div>
+        <Spacer h={14} />
+        <div style={{ fontFamily: SANS, fontSize: "11px", lineHeight: 1.7, color: p.textQuiet }}>
+          You’re receiving this because you subscribed to Capital Unique Insights.<br />
+          <a href="#" style={{ color: p.textQuiet, textDecoration: "underline" }}>Unsubscribe</a>
+          <span style={{ padding: "0 6px" }}>·</span>
+          <a href="#" style={{ color: p.textQuiet, textDecoration: "underline" }}>Update preferences</a>
+          <span style={{ padding: "0 6px" }}>·</span>
+          <a href="#" style={{ color: p.textQuiet, textDecoration: "underline" }}>View in browser</a>
+        </div>
+        <Spacer h={14} />
+        <div style={{ fontFamily: SANS, fontSize: "10px", lineHeight: 1.7, color: p.textQuiet }}>
+          General information only — it does not take account of your objectives,
+          financial situation or needs. [Confirm final wording with compliance.]
+        </div>
+        <Spacer h={12} />
+        <div style={{ fontFamily: SANS, fontSize: "11px", color: p.textQuiet }}>
+          © 2026 Capital Unique. All rights reserved.
+        </div>
+      </td>
+    </tr>
+  );
+}
+
+function FooterMinimal({ p }: { p: Palette }) {
+  return (
+    <tr>
+      <td style={{ padding: "24px 32px", textAlign: "center", borderTop: `1px solid ${p.rule}` }}>
+        <div style={{ fontFamily: SANS, fontSize: "11px", lineHeight: 1.8, color: p.textQuiet }}>
+          Capital Unique Pty Ltd · [Street address], [Suburb] [STATE] [Postcode]<br />
+          <a href="#" style={{ color: p.textQuiet, textDecoration: "underline" }}>Unsubscribe</a>
+          <span style={{ padding: "0 6px" }}>·</span>
+          <a href="#" style={{ color: p.textQuiet, textDecoration: "underline" }}>Preferences</a>
+          <span style={{ padding: "0 6px" }}>·</span>
+          <a href="#" style={{ color: p.textQuiet, textDecoration: "underline" }}>View in browser</a><br />
+          © 2026 Capital Unique
+        </div>
+      </td>
+    </tr>
+  );
+}
+
+/* ── Palette swatch row ───────────────────────────────────────────── */
+
+function SwatchRow({ p, scheme }: { p: Palette; scheme: Scheme }) {
+  const rows: { key: keyof Palette; role: string; from: string }[] = [
+    { key: "outer",      role: "Outer canvas",        from: scheme === "dark" ? "pure black gutter" : "--cu-neutral-lightest" },
+    { key: "body",       role: "Email body",          from: scheme === "dark" ? "--cu-surface-void" : "--card" },
+    { key: "surface",    role: "Callout surface",     from: scheme === "dark" ? "--cu-surface-vault" : "--muted (lifted)" },
+    { key: "rule",       role: "Hairline rule",       from: scheme === "dark" ? "white 8% flattened" : "black 12% flattened" },
+    { key: "text",       role: "Primary text",        from: scheme === "dark" ? "--cu-neutral-lightest" : "--cu-neutral-darkest" },
+    { key: "textSoft",   role: "Body / secondary",    from: scheme === "dark" ? "--cu-neutral-light" : "--cu-neutral-dark" },
+    { key: "textQuiet",  role: "Legal / meta",        from: scheme === "dark" ? "--cu-neutral" : "email-only step" },
+    { key: "accent",     role: "Eyebrows & rules",    from: scheme === "dark" ? "--cu-brandy-punch" : "--cu-brandy-dark" },
+    { key: "link",       role: "Links",               from: scheme === "dark" ? "--cu-brandy-light" : "--cu-brandy-dark" },
+    { key: "btnBg",      role: "Button fill",         from: "--cu-brandy-punch" },
+    { key: "btnText",    role: "Button label",        from: scheme === "dark" ? "--cu-neutral-darkest" : "#FFFFFF" },
+  ];
+
+  return (
+    <div className="rounded-xl border border-border overflow-hidden">
+      <table className="w-full text-left">
+        <thead>
+          <tr className="bg-muted">
+            <th className="px-4 py-2.5 text-xs font-semibold text-foreground w-16">Hex</th>
+            <th className="px-4 py-2.5 text-xs font-semibold text-foreground">Value</th>
+            <th className="px-4 py-2.5 text-xs font-semibold text-foreground">Role in the email</th>
+            <th className="px-4 py-2.5 text-xs font-semibold text-foreground hidden md:table-cell">Derived from</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map(({ key, role, from }) => (
+            <tr key={key} className="border-t border-border">
+              <td className="px-4 py-2">
+                <div className="w-7 h-7 rounded border border-border" style={{ background: p[key] }} />
+              </td>
+              <td className="px-4 py-2">
+                <CopyableToken token={p[key]} className="text-muted-foreground hover:text-cu-brandy" />
+              </td>
+              <td className="px-4 py-2 text-xs text-muted-foreground">{role}</td>
+              <td className="px-4 py-2 text-xs font-mono text-muted-foreground hidden md:table-cell">{from}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+/* ── Section ──────────────────────────────────────────────────────── */
+
+export function NewsletterSection() {
+  const [scheme, setScheme] = useState<Scheme>("dark");
+  const p = EMAIL[scheme];
+
+  return (
+    <section id="newsletter" aria-labelledby="newsletter-heading">
+      <div className="mb-8">
+        <p className="text-xs font-semibold tracking-widest uppercase text-cu-brandy mb-2">Patterns</p>
+        <h2 id="newsletter-heading" className="text-foreground mb-3">Newsletter (Email)</h2>
+        <p className="text-muted-foreground max-w-xl leading-relaxed">
+          The brand restated in the subset email can actually render: hex only, tables
+          only, inline styles only, 600px wide. Three headers, two footers, and the body
+          blocks a simple issue needs — each in a dark and a light build. Every preview
+          below is real table markup, so the export is a transcription rather than a
+          re-interpretation.
+        </p>
+      </div>
+
+      {/* Constraints */}
+      <div className="rounded-xl border border-border bg-card p-5 md:p-6 mb-8 max-w-3xl">
+        <p className="text-xs font-semibold tracking-widest uppercase text-cu-brandy mb-3">Email is not the web</p>
+        <ul className="text-sm text-muted-foreground space-y-2" style={{ lineHeight: 1.6 }}>
+          <li className="flex gap-3"><span className="text-cu-brandy shrink-0">·</span><span><strong className="text-foreground">No OKLCH.</strong> Every brand colour is converted to hex below. Ship those values, not the tokens.</span></li>
+          <li className="flex gap-3"><span className="text-cu-brandy shrink-0">·</span><span><strong className="text-foreground">No CSS variables, no flex, no grid.</strong> Outlook renders through Word. Layout is tables and inline styles.</span></li>
+          <li className="flex gap-3"><span className="text-cu-brandy shrink-0">·</span><span><strong className="text-foreground">Webfonts mostly fail.</strong> Source Serif 4 and Public Sans load in Apple Mail and little else — Georgia and Helvetica are what most subscribers actually see, so the design is tuned to survive the fallback.</span></li>
+          <li className="flex gap-3"><span className="text-cu-brandy shrink-0">·</span><span><strong className="text-foreground">Outlook drops <code className="text-cu-brandy text-xs px-1 py-0.5 bg-muted rounded">letter-spacing</code> and <code className="text-cu-brandy text-xs px-1 py-0.5 bg-muted rounded">border-radius</code>.</strong> Tracked eyebrows read untracked and buttons render square. Both degrade acceptably — nothing breaks.</span></li>
+          <li className="flex gap-3"><span className="text-cu-brandy shrink-0">·</span><span><strong className="text-foreground">Clients force their own dark mode.</strong> Gmail app and Outlook.com re-colour mail regardless of your design. The export declares <code className="text-cu-brandy text-xs px-1 py-0.5 bg-muted rounded">color-scheme: light dark</code> so supporting clients leave it alone — but assume some subscribers see an inverted version of whichever build you pick.</span></li>
+          <li className="flex gap-3"><span className="text-cu-brandy shrink-0">·</span><span><strong className="text-foreground">Images get blocked.</strong> The logo is the only image in these layouts, and every header still reads as Capital Unique with images off.</span></li>
+        </ul>
+      </div>
+
+      {/* Scheme toggle */}
+      <div className="flex items-center gap-3 mb-8 sticky top-[68px] z-20 py-2" style={{ background: "color-mix(in oklch, var(--background) 92%, transparent)", backdropFilter: "blur(8px)" }}>
+        <span className="text-xs font-semibold tracking-widest uppercase text-muted-foreground">Build</span>
+        <div className="inline-flex rounded-lg border border-border overflow-hidden">
+          {(["dark", "light"] as Scheme[]).map((s) => (
+            <button
+              key={s}
+              onClick={() => setScheme(s)}
+              aria-pressed={scheme === s}
+              className={`px-4 py-1.5 text-xs font-medium cursor-pointer transition-colors duration-150
+                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cu-brandy-light
+                ${scheme === s ? "bg-cu-brandy/15 text-cu-brandy" : "text-muted-foreground hover:text-foreground"}`}
+            >
+              {s === "dark" ? "Dark — The Vault" : "Light — Paper"}
+            </button>
+          ))}
+        </div>
+        <span className="text-xs font-mono text-muted-foreground hidden sm:inline">600px · {scheme}</span>
+      </div>
+
+      {/* ── Palette ─────────────────────────────────────────────── */}
+      <div className="mb-12">
+        <h3 className="text-foreground mb-2">Email palette</h3>
+        <p className="text-sm text-muted-foreground max-w-xl leading-relaxed mb-5">
+          OKLCH resolved to sRGB hex. Contrast was re-checked against the email
+          surfaces rather than the web ones, which is why links differ per build:
+          Brandy Light on Void (8.5:1), Brandy Dark on white (6.2:1). Brandy Punch
+          itself is only 3.8:1 on white — fine as a button fill, not as body-copy link.
+        </p>
+        <SwatchRow p={p} scheme={scheme} />
+      </div>
+
+      {/* ── Headers ─────────────────────────────────────────────── */}
+      <div className="mb-12">
+        <h3 className="text-foreground mb-2">Headers</h3>
+        <p className="text-sm text-muted-foreground max-w-xl leading-relaxed mb-5">
+          Three postures. Masthead is the recommended default for a fortnightly issue;
+          Compact is the workhorse when the content should start above the fold;
+          Nameplate is the most editorial and the only one that survives image blocking
+          with its brand device intact.
+        </p>
+
+        <Frame id="HEADER-A" caption="Masthead — centred, ceremonial. Coin + wordmark + brand rule + issue line." p={p}>
+          <HeaderMasthead p={p} />
+        </Frame>
+
+        <Frame id="HEADER-B" caption="Compact bar — single row, minimum height. Content starts sooner." p={p}>
+          <HeaderCompact p={p} />
+        </Frame>
+
+        <Frame id="HEADER-C" caption="Nameplate — editorial. 3px Brandy bar renders even with images off." p={p}>
+          <HeaderNameplate p={p} />
+        </Frame>
+      </div>
+
+      {/* ── Body blocks ─────────────────────────────────────────── */}
+      <div className="mb-12">
+        <h3 className="text-foreground mb-2">Body blocks</h3>
+        <p className="text-sm text-muted-foreground max-w-xl leading-relaxed mb-5">
+          Enough to assemble a simple issue. Serif for anything that carries a voice —
+          headlines, the lede, pull quotes, figures. Sans for anything that carries
+          information — body copy, labels, legal.
+        </p>
+
+        <Frame id="BLOCK-INTRO" caption="Greeting + lede. Serif lede sets the issue's argument in one sentence." p={p}>
+          <BlockIntro p={p} />
+        </Frame>
+
+        <Frame id="BLOCK-ARTICLE" caption="Article — eyebrow, serif headline, body, underlined link." p={p}>
+          <BlockArticle p={p} />
+        </Frame>
+
+        <Frame id="BLOCK-CALLOUT" caption="Pull quote — Vault surface, led by the same short Brandy rule as the masthead." p={p}>
+          <BlockCallout p={p} />
+        </Frame>
+
+        <Frame id="BLOCK-FIGURES" caption="Three-figure row — serif numerals under a single Brandy rule." p={p}>
+          <BlockFigures p={p} />
+        </Frame>
+
+        <Frame id="BLOCK-CTA" caption="Bulletproof button — table cell fill, not a styled anchor." p={p}>
+          <BlockButton p={p} />
+        </Frame>
+
+        {scheme === "light" && (
+          <div className="rounded-xl border border-cu-amber-dark/40 dark:border-cu-amber/30 bg-cu-amber/10 p-4 mb-6 max-w-3xl">
+            <p className="text-xs font-semibold tracking-widest uppercase text-cu-amber-dark dark:text-cu-amber-light mb-2">Contrast note — light build only</p>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              White on Brandy Punch is <strong className="text-foreground">3.8:1</strong> — it clears AA for large text
+              but not for a 15px button label. The dark build has no such problem (Void on Brandy Punch is 5.2:1).
+              If the light newsletter should pass AA outright, use the Brandy Dark fill below at{" "}
+              <strong className="text-foreground">6.2:1</strong>. Brand fidelity versus accessibility is your call —
+              tell me which and I'll lock it into the export.
+            </p>
+          </div>
+        )}
+
+        {scheme === "light" && (
+          <Frame id="BLOCK-CTA-AA" caption="Alternative button — Brandy Dark #924F26 fill, 6.2:1. Passes AA at any size." p={p}>
+            <BlockButton p={p} fill="#924F26" text="#FFFFFF" />
+          </Frame>
+        )}
+
+        <Frame id="BLOCK-SIGNATURE" caption="Sign-off — serif name, quiet cadence line." p={p}>
+          <BlockSignature p={p} />
+        </Frame>
+
+        <Frame id="RULE-A / RULE-B" caption="Dividers — full-width hairline, and centred 28px Brandy rule for section breaks." p={p}>
+          <tr><td style={{ height: "24px", fontSize: 0, lineHeight: "24px" }}>&nbsp;</td></tr>
+          <RuleHairline p={p} />
+          <RuleBrand p={p} />
+          <RuleHairline p={p} />
+          <tr><td style={{ height: "24px", fontSize: 0, lineHeight: "24px" }}>&nbsp;</td></tr>
+        </Frame>
+
+        {/* Preheader */}
+        <div className="rounded-xl border border-border overflow-hidden mb-6">
+          <div className="px-3 py-1.5 bg-background border-b border-border font-mono text-xs text-muted-foreground flex items-center gap-2">
+            <span className="text-cu-brandy font-semibold">PREHEADER</span>
+            <span className="opacity-40">·</span>
+            <span>hidden in the email — this is the inbox preview line</span>
+          </div>
+          <div className="p-5" style={{ background: p.outer }}>
+            <div className="rounded-lg p-4" style={{ background: p.body, border: `1px dashed ${p.ruleStrong}` }}>
+              <div style={{ fontFamily: SANS, fontSize: "13px", color: p.textSoft, lineHeight: 1.6 }}>
+                Settlement timelines, not rate, are what kill complex deals.
+              </div>
+            </div>
+            <p className="mt-3 text-xs text-muted-foreground leading-relaxed max-w-xl">
+              Sits immediately after <code className="text-cu-brandy">&lt;body&gt;</code> in a{" "}
+              <code className="text-cu-brandy">display:none;max-height:0;overflow:hidden;mso-hide:all</code> div,
+              padded with zero-width non-joiners so the client does not pull the masthead
+              alt-text into the preview instead. 40–90 characters.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Footers ─────────────────────────────────────────────── */}
+      <div className="mb-12">
+        <h3 className="text-foreground mb-2">Footers</h3>
+        <p className="text-sm text-muted-foreground max-w-xl leading-relaxed mb-5">
+          Bracketed values are placeholders — ACN, credit licence, postal address and the
+          general-advice wording all need real content before send. A physical address and
+          a working unsubscribe are legal requirements under the Spam Act, not design choices.
+        </p>
+
+        <Frame id="FOOTER-A" caption="Standard — coin, positioning line, nav, legal block, compliance line." p={p}>
+          <FooterStandard p={p} />
+        </Frame>
+
+        <Frame id="FOOTER-B" caption="Minimal — the legal floor and nothing else. Pairs with HEADER-B." p={p}>
+          <FooterMinimal p={p} />
+        </Frame>
+      </div>
+
+      {/* ── Assembled ───────────────────────────────────────────── */}
+      <div className="mb-8">
+        <h3 className="text-foreground mb-2">Assembled issue</h3>
+        <p className="text-sm text-muted-foreground max-w-xl leading-relaxed mb-5">
+          HEADER-A + FOOTER-A with a representative body, at true 600px. This is the
+          combination to judge — individual blocks always look fine in isolation; the
+          rhythm between them is what either holds or does not.
+        </p>
+
+        <Frame id="ISSUE-014" caption="Full send — masthead, lede, article, pull quote, figures, CTA, sign-off, standard footer" p={p}>
+          <HeaderMasthead p={p} />
+          <BlockIntro p={p} />
+          <BlockArticle p={p} />
+          <BlockCallout p={p} />
+          <BlockFigures p={p} />
+          <BlockButton p={p} />
+          <RuleHairline p={p} />
+          <tr><td style={{ height: "26px", fontSize: 0, lineHeight: "26px" }}>&nbsp;</td></tr>
+          <BlockSignature p={p} />
+          <FooterStandard p={p} />
+        </Frame>
+      </div>
+
+      {/* ── Next step ───────────────────────────────────────────── */}
+      <div className="rounded-xl border border-cu-brandy/25 bg-cu-brandy/6 p-5 md:p-6 max-w-3xl">
+        <p className="text-xs font-semibold tracking-widest uppercase text-cu-brandy mb-3">Choosing a build for GoHighLevel</p>
+        <p className="text-sm text-muted-foreground leading-relaxed mb-3">
+          Every variant is labelled — <code className="text-cu-brandy text-xs px-1 py-0.5 bg-muted rounded">HEADER-A</code>,{" "}
+          <code className="text-cu-brandy text-xs px-1 py-0.5 bg-muted rounded">FOOTER-B</code>, and so on. Name a header,
+          a footer, and a build (dark or light) and the paste-ready HTML + CSS gets added
+          to this section, sized for a GoHighLevel custom-code block.
+        </p>
+        <p className="text-xs text-muted-foreground leading-relaxed">
+          One thing to settle at the same time: the logo needs a permanent public URL. These
+          previews use{" "}
+          <code className="text-cu-brandy text-xs px-1 py-0.5 bg-muted rounded break-all">{LOGO_URL}</code>{" "}
+          which works, but hosting it in GoHighLevel's own media library is the more durable
+          choice for mail that stays in circulation.
+        </p>
+      </div>
+    </section>
+  );
+}

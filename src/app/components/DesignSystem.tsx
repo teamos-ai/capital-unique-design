@@ -13,6 +13,7 @@ import { NavigationSection }   from "./ds/NavigationSection";
 import { IconographySection }  from "./ds/IconographySection";
 import { MotionSection }       from "./ds/MotionSection";
 import { SectionsSection }     from "./ds/SectionsSection";
+import { NewsletterSection }   from "./ds/NewsletterSection";
 import { ImageLibrarySection } from "./ds/ImageLibrarySection";
 
 const navGroups = [
@@ -40,7 +41,8 @@ const navGroups = [
   {
     group: "Patterns",
     items: [
-      { id: "sections",  label: "Page Sections" },
+      { id: "sections",   label: "Page Sections" },
+      { id: "newsletter", label: "Newsletter (Email)" },
     ],
   },
   {
@@ -422,6 +424,7 @@ export function DesignSystem() {
             <BadgesSection />
             <NavigationSection />
             <SectionsSection />
+            <NewsletterSection />
             <ImageLibrarySection />
           </div>
 
