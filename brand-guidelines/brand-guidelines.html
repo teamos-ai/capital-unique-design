@@ -1,0 +1,996 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Capital Unique — Brand Guidelines</title>
+<style>{{FONTS}}</style>
+<style>
+/* ═══════════════════════════════════════════════════════════
+   Capital Unique · Brand Guidelines
+   Tokens mirror "The Vault" theme (Direction B, v2.2).
+   OKLCH accents resolved to sRGB hex for print.
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  --brandy:#C56A31; --brandy-light:#D79B7A; --brandy-lighter:#EAC9B7; --brandy-lightest:#F7E8E0;
+  --brandy-dark:#924F26; --brandy-darker:#45240F; --brandy-darkest:#291508;
+  --inkwell:#2C628D; --inkwell-light:#6E99B2; --inkwell-lighter:#B2C8D5; --inkwell-lightest:#E4EDF2;
+  --inkwell-dark:#123B5A; --inkwell-darker:#091C2C; --inkwell-darkest:#030C15;
+  --amber:#D8B349; --amber-light:#E0C16D; --amber-lighter:#F9E3A7; --amber-lightest:#FFF5D7;
+  --amber-dark:#A68023; --amber-darker:#5A440D; --amber-darkest:#342707;
+  --n-lightest:#F2F2F2; --n-lighter:#D9D9D9; --n-light:#B5B5B5; --n:#878787;
+  --n-dark:#525252; --n-darker:#1A1A1A; --n-darkest:#080808;
+  --void:#080808; --abyss:#0D0D0D; --vault:#111111; --char:#1A1A1A; --ember:#222222; --smoke:#525252;
+  --paper:#F2F2F2; --card:#FFFFFF;
+  --serif:'Source Serif 4',Georgia,serif;
+  --sans:'Public Sans',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+body{font-family:var(--sans);font-size:9.5pt;line-height:1.65;color:var(--n-darker);
+  background:var(--paper);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+@page{size:A4 portrait;margin:0;}
+
+.page{width:210mm;height:297mm;position:relative;overflow:hidden;
+  page-break-after:always;break-after:page;background:var(--paper);
+  padding:22mm 20mm 18mm;display:flex;flex-direction:column;}
+.page:last-child{page-break-after:auto;break-after:auto;}
+.page.dark{background:var(--void);color:var(--n-lightest);}
+
+/* ── Type rhythm ─────────────────────────────────────────── */
+.eyebrow{font-family:var(--sans);font-weight:600;font-size:7.5pt;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--brandy);}
+.dark .eyebrow{color:var(--brandy-light);}
+h1{font-family:var(--serif);font-weight:700;font-size:26pt;line-height:1.08;
+  letter-spacing:-.02em;color:var(--n-darkest);margin-top:3mm;}
+.dark h1{color:var(--n-lightest);}
+h2{font-family:var(--serif);font-weight:600;font-size:13pt;line-height:1.25;
+  letter-spacing:-.01em;color:var(--n-darkest);}
+.dark h2{color:var(--n-lightest);}
+h3{font-family:var(--sans);font-weight:600;font-size:9pt;line-height:1.4;color:var(--n-darkest);}
+.dark h3{color:var(--n-lightest);}
+p{color:var(--n-dark);}
+.dark p{color:var(--n-light);}
+.lead{font-size:11pt;line-height:1.6;color:var(--n-dark);max-width:150mm;margin-top:4mm;}
+.dark .lead{color:var(--n-light);}
+.mono{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:7pt;letter-spacing:.01em;}
+strong{font-weight:600;color:var(--n-darkest);}
+.dark strong{color:var(--n-lightest);}
+em{font-style:italic;}
+
+.rule{height:1px;background:rgba(8,8,8,.14);margin:6mm 0;}
+.dark .rule{background:rgba(255,255,255,.12);}
+.body-col{max-width:150mm;}
+.flow > * + *{margin-top:3mm;}
+
+/* ── Page furniture ──────────────────────────────────────── */
+.foot{position:absolute;left:20mm;right:20mm;bottom:10mm;display:flex;
+  justify-content:space-between;align-items:baseline;
+  font-size:6.5pt;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--n);border-top:1px solid rgba(8,8,8,.12);padding-top:2.5mm;}
+.dark .foot{color:var(--n-dark);border-top-color:rgba(255,255,255,.10);}
+.foot .pg{font-weight:600;color:var(--n-dark);}
+.dark .foot .pg{color:var(--n);}
+.content{flex:1;min-height:0;}
+
+/* ── Cards & panels ──────────────────────────────────────── */
+.card{background:var(--card);border:1px solid rgba(8,8,8,.10);border-radius:3mm;padding:6mm;}
+.dark .card{background:var(--vault);border-color:rgba(255,255,255,.10);}
+.panel{background:var(--card);border:1px solid rgba(8,8,8,.10);border-radius:3mm;overflow:hidden;}
+.grid{display:grid;gap:4mm;}
+.g2{grid-template-columns:1fr 1fr;} .g3{grid-template-columns:repeat(3,1fr);}
+.g4{grid-template-columns:repeat(4,1fr);} .g6{grid-template-columns:repeat(6,1fr);}
+.g7{grid-template-columns:repeat(7,1fr);}
+
+/* ── Cover ───────────────────────────────────────────────── */
+.cover{justify-content:space-between;padding:26mm 22mm 20mm;}
+.cover-mark{width:46mm;}
+.cover-title{font-family:var(--serif);font-weight:700;font-size:44pt;line-height:1.02;
+  letter-spacing:-.025em;color:var(--n-lightest);}
+.cover-sub{font-family:var(--serif);font-style:italic;font-weight:400;font-size:16pt;
+  color:var(--brandy-light);margin-top:6mm;letter-spacing:-.01em;}
+.cover-meta{display:flex;gap:14mm;font-size:7.5pt;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--n-dark);}
+.cover-meta b{display:block;color:var(--n-light);font-weight:500;margin-top:1.5mm;letter-spacing:.06em;}
+.hairline{height:1px;background:linear-gradient(90deg,var(--brandy) 0%,var(--brandy-darker) 55%,transparent 100%);}
+
+/* ── Contents ────────────────────────────────────────────── */
+.toc{list-style:none;margin-top:6mm;}
+.toc li{display:flex;align-items:baseline;gap:3mm;padding:2.6mm 0;
+  border-bottom:1px solid rgba(8,8,8,.09);}
+.toc .num{font-family:var(--sans);font-weight:600;font-size:7pt;color:var(--brandy);
+  width:8mm;flex-shrink:0;letter-spacing:.08em;}
+.toc .ttl{font-family:var(--serif);font-weight:600;font-size:10.5pt;color:var(--n-darkest);}
+.toc .dsc{font-size:8pt;color:var(--n);margin-left:auto;text-align:right;max-width:78mm;}
+
+/* ── Swatches ────────────────────────────────────────────── */
+.sw{border-radius:2mm;overflow:hidden;border:1px solid rgba(8,8,8,.10);}
+.sw .chip{height:16mm;}
+.sw .meta{padding:2.2mm 2.4mm;background:var(--card);}
+.sw .nm{font-size:7.5pt;font-weight:600;color:var(--n-darkest);line-height:1.3;}
+.sw .hx{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:6.5pt;color:var(--n);margin-top:.6mm;}
+.ramp{border-radius:2mm;overflow:hidden;border:1px solid rgba(8,8,8,.10);}
+.ramp .row{display:flex;justify-content:space-between;align-items:center;padding:2.4mm 3mm;}
+.ramp .row .l{font-size:7.5pt;font-weight:600;}
+.ramp .row .r{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:6.5pt;opacity:.85;}
+.base-tag{font-size:5.5pt;font-weight:700;letter-spacing:.12em;padding:.4mm 1.4mm;
+  border-radius:1mm;background:rgba(0,0,0,.24);margin-left:2mm;vertical-align:.4mm;}
+
+/* ── Tables ──────────────────────────────────────────────── */
+table{width:100%;border-collapse:collapse;font-size:8pt;}
+th{text-align:left;font-weight:600;font-size:6.5pt;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--n);padding:0 0 2mm;border-bottom:1px solid rgba(8,8,8,.16);}
+td{padding:2.1mm 0;border-bottom:1px solid rgba(8,8,8,.08);vertical-align:top;color:var(--n-dark);}
+td.k{font-weight:600;color:var(--n-darkest);width:42mm;}
+table.narrow td.k{width:23mm;}
+table.compact td{padding:1.7mm 0;}
+.badge{display:inline-block;font-size:6.5pt;font-weight:700;letter-spacing:.08em;
+  padding:.5mm 1.8mm;border-radius:1mm;}
+.b-aaa{background:#DCEFE2;color:#155C33;} .b-aa{background:#E4EDF2;color:var(--inkwell-dark);}
+.b-lg{background:var(--amber-lightest);color:var(--amber-darker);}
+.b-no{background:#F7DEDE;color:#8D1A1E;}
+
+/* ── Do / Don't ──────────────────────────────────────────── */
+.dd{border-radius:2.5mm;padding:4.5mm 5mm;border:1px solid;}
+.do{background:#F1F8F3;border-color:#BFDCC9;}
+.dont{background:#FCF2F2;border-color:#EACFCF;}
+.dd h3{display:flex;align-items:center;gap:2mm;font-size:8pt;letter-spacing:.1em;
+  text-transform:uppercase;font-weight:700;margin-bottom:3mm;}
+.do h3{color:#1B6B3A;} .dont h3{color:#9B2226;}
+.dd ul{list-style:none;} .dd li{position:relative;padding-left:4.5mm;font-size:8pt;
+  line-height:1.55;color:var(--n-dark);}
+.dd li + li{margin-top:2.2mm;}
+.dd li::before{position:absolute;left:0;top:0;font-weight:700;}
+.do li::before{content:"✓";color:#1B6B3A;} .dont li::before{content:"✕";color:#9B2226;}
+.quote{font-family:var(--serif);font-size:9.5pt;line-height:1.45;color:var(--n-darkest);
+  font-style:italic;display:block;margin-top:1mm;}
+
+/* ── Logo specimens ──────────────────────────────────────── */
+.spec{border-radius:2.5mm;overflow:hidden;border:1px solid rgba(8,8,8,.12);}
+.spec .stage{display:flex;align-items:center;justify-content:center;padding:11mm 6mm;}
+.spec .cap{padding:2.2mm 3mm;background:var(--card);border-top:1px solid rgba(8,8,8,.10);}
+.spec .cap .t{font-size:7.5pt;font-weight:600;color:var(--n-darkest);}
+.spec .cap .n{font-size:6.5pt;color:var(--brandy);margin-top:.4mm;}
+.dont-tile{border:1px solid rgba(8,8,8,.10);border-radius:2mm;background:var(--card);
+  padding:4mm 2mm;display:flex;flex-direction:column;align-items:center;gap:2.5mm;}
+.dont-tile .box{position:relative;width:16mm;height:11mm;display:flex;align-items:center;justify-content:center;}
+.dont-tile img{max-width:100%;max-height:100%;opacity:.4;}
+.slash{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+.slash i{display:block;width:15mm;height:.7mm;background:#BA2B2E;transform:rotate(-32deg);
+  border-radius:1mm;opacity:.8;}
+.dont-tile span{font-size:6.5pt;color:var(--n-dark);text-align:center;line-height:1.3;}
+
+/* clear-space diagram */
+.cs-stage{background:var(--void);border-radius:2.5mm;padding:14mm;display:flex;
+  align-items:center;justify-content:center;}
+.cs-wrap{position:relative;padding:9mm;outline:.5mm dashed rgba(197,106,49,.75);outline-offset:0;}
+.cs-wrap img{width:62mm;display:block;}
+.cs-tick{position:absolute;font-family:ui-monospace,Menlo,monospace;font-size:6pt;
+  color:var(--brandy-light);letter-spacing:.04em;}
+
+/* icon tile */
+.tile{display:inline-flex;align-items:center;justify-content:center;background:#fff;
+  border:1px solid rgba(12,13,15,.08);border-radius:30%;
+  box-shadow:0 1px 2px rgba(12,13,15,.06),0 6px 16px rgba(12,13,15,.10);color:var(--inkwell);}
+.tile.on-dark{background:var(--char);border-color:rgba(255,255,255,.08);color:var(--brandy);
+  box-shadow:0 1px 2px rgba(0,0,0,.5),0 8px 20px rgba(0,0,0,.45);}
+.tile svg{width:56%;height:56%;}
+
+/* type specimens */
+.ts{display:flex;align-items:baseline;gap:5mm;padding:2.6mm 0;border-bottom:1px solid rgba(8,8,8,.08);}
+.ts .lb{font-family:ui-monospace,Menlo,monospace;font-size:6.5pt;color:var(--n);
+  width:22mm;flex-shrink:0;}
+.ts .sm{color:var(--n-darkest);overflow:hidden;white-space:nowrap;}
+.fontcard{border:1px solid rgba(8,8,8,.10);border-radius:3mm;background:var(--card);padding:6mm;}
+.glyphs{font-size:15pt;line-height:1.35;color:var(--n-darkest);letter-spacing:.01em;word-spacing:.5mm;}
+
+.callout{border-left:2.5px solid var(--brandy);background:var(--brandy-lightest);
+  padding:4mm 5mm;border-radius:0 2mm 2mm 0;}
+.callout p{color:var(--brandy-darker);font-size:8pt;}
+.callout strong{color:var(--brandy-darkest);}
+.note{border-left:2.5px solid var(--amber-dark);background:var(--amber-lightest);
+  padding:4mm 5mm;border-radius:0 2mm 2mm 0;}
+.note p{color:var(--amber-darker);font-size:8pt;}
+.note strong{color:var(--amber-darkest);}
+
+.kv{display:flex;gap:3mm;font-size:8pt;padding:1.8mm 0;border-bottom:1px solid rgba(255,255,255,.08);}
+.kv .k{width:30mm;flex-shrink:0;color:var(--n-dark);font-size:6.5pt;letter-spacing:.1em;
+  text-transform:uppercase;padding-top:.6mm;}
+.kv .v{color:var(--n-lightest);}
+.kv .v a{color:var(--brandy-light);text-decoration:none;}
+</style>
+</head>
+<body>
+
+<!-- ══════════════ 01 · COVER ══════════════ -->
+<section class="page dark cover">
+  <div>
+    <img class="cover-mark" src="{{LOGO_RECT_BRONZE}}" alt="Capital Unique">
+  </div>
+  <div>
+    <div class="hairline" style="width:38mm;margin-bottom:9mm;"></div>
+    <div class="eyebrow" style="letter-spacing:.24em;">Brand Guidelines</div>
+    <h1 class="cover-title" style="margin-top:5mm;">Capital<br>Unique</h1>
+    <div class="cover-sub">Capital Intelligently Applied</div>
+    <p style="margin-top:9mm;max-width:112mm;font-size:9.5pt;color:var(--n-light);">
+      The definitive reference for anyone representing Capital Unique in press,
+      publishing, or marketing — covering the logo, palette, typography, voice,
+      and the compliance language that must accompany every mention.
+    </p>
+  </div>
+  <div>
+    <div class="hairline" style="margin-bottom:6mm;"></div>
+    <div class="cover-meta">
+      <div>Version<b>1.0</b></div>
+      <div>Issued<b>August 2026</b></div>
+      <div>Theme<b>The Vault · v2.2</b></div>
+      <div>Contact<b>hello@capitalunique.com</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ 02 · CONTENTS ══════════════ -->
+<section class="page">
+  <div class="content">
+    <div class="eyebrow">Contents</div>
+    <h1>What's in this document</h1>
+    <p class="lead">Sections 1–3 cover identity. Sections 4–7 cover the visual
+      system. Sections 8–9 cover language — including the wording that is legally
+      required when writing about Capital Unique.</p>
+    <ol class="toc">
+      <li><span class="num">01</span><span class="ttl">The Brand</span><span class="dsc">Who we are, positioning, approved boilerplate</span></li>
+      <li><span class="num">02</span><span class="ttl">Logo</span><span class="dsc">Two lockups, two finishes, and the ground rule</span></li>
+      <li><span class="num">03</span><span class="ttl">Logo Usage</span><span class="dsc">Clear space, minimum sizes, and don'ts</span></li>
+      <li><span class="num">04</span><span class="ttl">Colour</span><span class="dsc">Brandy Punch, Inkwell, Amber, neutrals, surfaces</span></li>
+      <li><span class="num">05</span><span class="ttl">Colour in Use</span><span class="dsc">Ratios, pairings, and accessibility</span></li>
+      <li><span class="num">06</span><span class="ttl">Typography</span><span class="dsc">Source Serif 4 and Public Sans</span></li>
+      <li><span class="num">07</span><span class="ttl">Iconography &amp; Motion</span><span class="dsc">The squircle tile and movement principles</span></li>
+      <li><span class="num">08</span><span class="ttl">Voice &amp; Tone</span><span class="dsc">How Capital Unique sounds in writing</span></li>
+      <li><span class="num">09</span><span class="ttl">Describing Us</span><span class="dsc">Required compliance language — read before publishing</span></li>
+      <li><span class="num">10</span><span class="ttl">Imagery</span><span class="dsc">Photographic direction and treatment</span></li>
+      <li><span class="num">11</span><span class="ttl">Assets &amp; Contact</span><span class="dsc">Where to get files, who to ask</span></li>
+    </ol>
+    <div class="callout" style="margin-top:8mm;">
+      <p><strong>If you read only one page,</strong> read Section 09 — “Describing Capital Unique”.
+      Capital Unique operates in the wholesale and commercial market and holds neither an
+      Australian Credit Licence nor an AFSL. Certain descriptions are therefore inaccurate
+      and must not be published.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Capital Unique · Brand Guidelines v1.0</span><span class="pg">02</span></div>
+</section>
+
+<!-- ══════════════ 03 · THE BRAND ══════════════ -->
+<section class="page">
+  <div class="content">
+    <div class="eyebrow">01 · The Brand</div>
+    <h1>Capital intelligently applied</h1>
+    <p class="lead">Capital Unique is a private, principal-led capital advisor based in
+      Australia. The firm exists where traditional banking ends — structuring capital for
+      commercial scenarios that mainstream lenders decline.</p>
+    <div class="rule"></div>
+
+    <div class="grid g3" style="margin-bottom:6mm;">
+      <div class="card">
+        <h3 style="color:var(--brandy);">Principal-led</h3>
+        <p style="font-size:8pt;margin-top:2mm;">John Codrington personally oversees every
+          transaction. One decision-maker, end to end — not a committee, not a queue.</p>
+      </div>
+      <div class="card">
+        <h3 style="color:var(--brandy);">Wholesale &amp; commercial</h3>
+        <p style="font-size:8pt;margin-top:2mm;">Business-purpose scenarios only, outside the
+          consumer credit framework. Never a retail or consumer proposition.</p>
+      </div>
+      <div class="card">
+        <h3 style="color:var(--brandy);">Structural, not transactional</h3>
+        <p style="font-size:8pt;margin-top:2mm;">The work is capital structuring and advisory —
+          not product distribution, volume broking, or committee lending.</p>
+      </div>
+    </div>
+
+    <h2>Approved boilerplate</h2>
+    <p style="font-size:8pt;margin-top:1.5mm;">Use verbatim. These are pre-approved and
+      carry the correct regulatory framing.</p>
+
+    <div class="card" style="margin-top:3.5mm;">
+      <div class="eyebrow" style="font-size:6.5pt;">Short — one line</div>
+      <p class="quote">Capital Unique is an Australian private capital advisor structuring
+        finance for complex commercial, property and development scenarios where traditional
+        lending falls short.</p>
+    </div>
+
+    <div class="card" style="margin-top:3.5mm;">
+      <div class="eyebrow" style="font-size:6.5pt;">Standard — press release footer</div>
+      <p class="quote">Capital Unique provides capital advisory and structuring services for
+        commercial borrowers and sophisticated investors across Australia. The firm operates
+        exclusively in the wholesale and commercial market — outside the consumer credit
+        framework. Engagements are principal-led: founder John Codrington personally oversees
+        every transaction. Capital Unique works across property development, construction,
+        business, commercial, agricultural, and private capital scenarios.</p>
+    </div>
+
+    <div class="grid g2" style="margin-top:5mm;">
+      <div>
+        <h3>Naming</h3>
+        <table class="compact narrow" style="margin-top:2mm;">
+          <tr><td class="k">Full name</td><td>Capital Unique</td></tr>
+          <tr><td class="k">Never</td><td>CapitalUnique · Capital&nbsp;U · CU · “Capital Unique Group”</td></tr>
+          <tr><td class="k">Founder</td><td>John Codrington, Founder</td></tr>
+          <tr><td class="k">Tagline</td><td>Capital Intelligently Applied</td></tr>
+        </table>
+      </div>
+      <div>
+        <h3>Company facts</h3>
+        <table class="compact narrow" style="margin-top:2mm;">
+          <tr><td class="k">ABN</td><td>54 695 032 243</td></tr>
+          <tr><td class="k">Office</td><td>Level 26, 1 Bligh Street, Sydney NSW 2000</td></tr>
+          <tr><td class="k">Web</td><td>www.capitalunique.com</td></tr>
+          <tr><td class="k">Sectors</td><td>Property development · Construction · Business · Commercial · Agriculture · Private capital</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>01 · The Brand</span><span class="pg">03</span></div>
+</section>
+
+<!-- ══════════════ 04 · LOGO ══════════════ -->
+<section class="page">
+  <div class="content">
+    <div class="eyebrow">02 · Logo</div>
+    <h1>Two lockups, two finishes</h1>
+    <p class="lead">The identity is a coin device paired with the wordmark. It exists as a
+      <strong>Square Coin</strong> and a <strong>Rectangle Long</strong> lockup, each in a
+      bronze and a silver-on-navy finish.</p>
+
+    <div class="callout" style="margin:5mm 0;">
+      <p><strong>The one rule that governs everything:</strong> the wordmark colour is baked
+      into the artwork. The bronze lockup's wordmark is white; the silver lockup's is black.
+      The finish is therefore dictated by the surface it sits on — <em>light grounds take
+      silver, dark grounds take bronze.</em> Choose the file to match the background, never
+      the other way around.</p>
+    </div>
+
+    <h2 style="margin-bottom:3mm;">Rectangle Long — the ground-dependent lockup</h2>
+    <div class="grid g2" style="margin-bottom:6mm;">
+      <div class="spec">
+        <div class="stage" style="background:#FFFFFF;">
+          <img src="{{LOGO_RECT_SILVER}}" style="width:48mm;" alt="Silver lockup on light">
+        </div>
+        <div class="cap"><div class="t">Silver on light</div><div class="n">Light-mode default</div></div>
+      </div>
+      <div class="spec">
+        <div class="stage" style="background:#080808;">
+          <img src="{{LOGO_RECT_BRONZE}}" style="width:48mm;" alt="Bronze lockup on dark">
+        </div>
+        <div class="cap"><div class="t">Bronze on dark</div><div class="n">Dark-mode default</div></div>
+      </div>
+    </div>
+
+    <h2 style="margin-bottom:3mm;">Square Coin — legible on either ground</h2>
+    <p style="font-size:8pt;margin-bottom:3mm;">The coin carries its own tile, so all four
+      pairings are valid. Match the finish to the theme for cohesion.</p>
+    <div class="grid g4">
+      <div class="spec">
+        <div class="stage" style="background:#FFFFFF;padding:7mm;"><img src="{{LOGO_SQ_SILVER}}" style="width:17mm;" alt=""></div>
+        <div class="cap"><div class="t">Silver / light</div><div class="n">Default</div></div>
+      </div>
+      <div class="spec">
+        <div class="stage" style="background:#080808;padding:7mm;"><img src="{{LOGO_SQ_SILVER}}" style="width:17mm;" alt=""></div>
+        <div class="cap"><div class="t">Silver / dark</div><div class="n">&nbsp;</div></div>
+      </div>
+      <div class="spec">
+        <div class="stage" style="background:#080808;padding:7mm;"><img src="{{LOGO_SQ_BRONZE}}" style="width:17mm;" alt=""></div>
+        <div class="cap"><div class="t">Bronze / dark</div><div class="n">Default</div></div>
+      </div>
+      <div class="spec">
+        <div class="stage" style="background:#FFFFFF;padding:7mm;"><img src="{{LOGO_SQ_BRONZE}}" style="width:17mm;" alt=""></div>
+        <div class="cap"><div class="t">Bronze / light</div><div class="n">&nbsp;</div></div>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:6mm;">
+      <p><strong>Known asset gap.</strong> A silver lockup with a white wordmark (for silver on
+      dark) and a bronze lockup with a black wordmark (for bronze on light) do not yet exist as
+      artwork. Until they do, the rectangle lockup's finish cannot be chosen independently of its
+      background. Request bespoke pairings from the press desk.</p>
+    </div>
+  </div>
+  <div class="foot"><span>02 · Logo</span><span class="pg">04</span></div>
+</section>
+
+<!-- ══════════════ 05 · LOGO USAGE ══════════════ -->
+<section class="page">
+  <div class="content">
+    <div class="eyebrow">03 · Logo Usage</div>
+    <h1>Clear space &amp; minimums</h1>
+    <p class="lead">The logo needs room to hold its authority. Protect it, and never
+      reconstruct it.</p>
+
+    <div class="grid g2" style="margin-top:6mm;align-items:start;">
+      <div>
+        <div class="cs-stage">
+          <div class="cs-wrap">
+            <img src="{{LOGO_RECT_BRONZE}}" alt="Clear space diagram">
+            <span class="cs-tick" style="top:3mm;left:50%;transform:translateX(-50%);">↕ C</span>
+            <span class="cs-tick" style="left:2.5mm;top:50%;transform:translateY(-50%);">↔ C</span>
+          </div>
+        </div>
+        <p style="font-size:8pt;margin-top:3mm;"><strong>Clear space = the cap-height of the
+          “C”</strong> in Capital, applied on all four sides. Nothing — type, image edge, rule,
+          or another logo — may enter this zone.</p>
+      </div>
+      <div>
+        <h2 style="margin-bottom:3mm;">Minimum sizes</h2>
+        <table class="narrow">
+          <tr><td class="k">Rectangle&nbsp;Long</td><td><strong>120&nbsp;px</strong> wide · <span style="color:var(--n);">≈&nbsp;32&nbsp;mm print</span></td></tr>
+          <tr><td class="k">Square&nbsp;Coin</td><td><strong>32&nbsp;px</strong> wide · <span style="color:var(--n);">≈&nbsp;9&nbsp;mm print</span></td></tr>
+        </table>
+        <p style="font-size:8pt;margin-top:3mm;">Below these sizes the coin's interior detail
+          breaks up. If you need the mark smaller, use the Square Coin rather than shrinking
+          the rectangle.</p>
+
+        <h2 style="margin:6mm 0 3mm;">Placement</h2>
+        <ul class="dd" style="border:none;background:none;padding:0;list-style:none;">
+          <li style="padding-left:4.5mm;position:relative;font-size:8pt;line-height:1.55;">
+            <span style="position:absolute;left:0;color:var(--brandy);font-weight:700;">·</span>
+            Never place the logo on a busy photograph without a scrim or solid panel behind it.</li>
+          <li style="padding-left:4.5mm;position:relative;font-size:8pt;line-height:1.55;margin-top:2.2mm;">
+            <span style="position:absolute;left:0;color:var(--brandy);font-weight:700;">·</span>
+            Both square coins carry their own tile, so only the rectangle lockup is
+            ground-dependent.</li>
+          <li style="padding-left:4.5mm;position:relative;font-size:8pt;line-height:1.55;margin-top:2.2mm;">
+            <span style="position:absolute;left:0;color:var(--brandy);font-weight:700;">·</span>
+            In digital builds, use the supplied component rather than importing a file
+            directly — it swaps finish with the theme automatically.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="rule"></div>
+    <h2 style="margin-bottom:3.5mm;">Never do this</h2>
+    <div class="grid g6">
+      <div class="dont-tile"><div class="box"><img src="{{LOGO_SQ_BRONZE}}" style="filter:hue-rotate(150deg) saturate(2);"><span class="slash"><i></i></span></div><span>Recolour</span></div>
+      <div class="dont-tile"><div class="box"><img src="{{LOGO_SQ_BRONZE}}" style="filter:drop-shadow(1.5mm 1.5mm 1mm rgba(0,0,0,.85));"><span class="slash"><i></i></span></div><span>Add effects</span></div>
+      <div class="dont-tile"><div class="box"><img src="{{LOGO_SQ_BRONZE}}" style="transform:scaleX(1.75);"><span class="slash"><i></i></span></div><span>Stretch</span></div>
+      <div class="dont-tile"><div class="box"><img src="{{LOGO_SQ_BRONZE}}" style="transform:rotate(28deg);"><span class="slash"><i></i></span></div><span>Rotate</span></div>
+      <div class="dont-tile"><div class="box" style="background:linear-gradient(45deg,#7a6a55,#3f5d70,#8a7a5f);"><img src="{{LOGO_SQ_BRONZE}}"><span class="slash"><i></i></span></div><span>Busy background</span></div>
+      <div class="dont-tile"><div class="box" style="background:#FFF;"><img src="{{LOGO_RECT_BRONZE}}"><span class="slash"><i></i></span></div><span>Wrong ground</span></div>
+    </div>
+    <p style="font-size:8pt;margin-top:4mm;">Also prohibited: redrawing the mark, separating
+      the coin from the wordmark to create a new lockup, outlining it, applying gradients or
+      textures, or setting it in a different typeface.</p>
+  </div>
+  <div class="foot"><span>03 · Logo Usage</span><span class="pg">05</span></div>
+</section>
+
+<!-- ══════════════ 06 · COLOUR ══════════════ -->
+<section class="page">
+  <div class="content">
+    <div class="eyebrow">04 · Colour</div>
+    <h1>The palette</h1>
+    <p class="lead">Three accent families over a pure-neutral base. The neutrals carry no hue
+      and no chroma — the restraint is deliberate, and it is what makes the accents read as
+      precious.</p>
+
+    <div class="grid g3" style="margin-top:6mm;">
+      <div>
+        <h3 style="margin-bottom:2.5mm;">Brandy Punch <span style="color:var(--n);font-weight:400;">· primary</span></h3>
+        <div class="ramp">
+          <div class="row" style="background:var(--brandy-lightest);color:#1A1A1A;"><span class="l">Lightest</span><span class="r">#F7E8E0</span></div>
+          <div class="row" style="background:var(--brandy-lighter);color:#1A1A1A;"><span class="l">Lighter</span><span class="r">#EAC9B7</span></div>
+          <div class="row" style="background:var(--brandy-light);color:#1A1A1A;"><span class="l">Light</span><span class="r">#D79B7A</span></div>
+          <div class="row" style="background:var(--brandy);color:#FFF;"><span class="l">Base<span class="base-tag">BASE</span></span><span class="r">#C56A31</span></div>
+          <div class="row" style="background:var(--brandy-dark);color:#FFF;"><span class="l">Dark</span><span class="r">#924F26</span></div>
+          <div class="row" style="background:var(--brandy-darker);color:#FFF;"><span class="l">Darker</span><span class="r">#45240F</span></div>
+          <div class="row" style="background:var(--brandy-darkest);color:#FFF;"><span class="l">Darkest</span><span class="r">#291508</span></div>
+        </div>
+        <p style="font-size:7.5pt;margin-top:2.5mm;">The brand's warm signature. Primary
+          actions, links, eyebrows, and emphasis. Use sparingly — it earns its impact
+          from scarcity.</p>
+      </div>
+      <div>
+        <h3 style="margin-bottom:2.5mm;">Inkwell <span style="color:var(--n);font-weight:400;">· counter-tone</span></h3>
+        <div class="ramp">
+          <div class="row" style="background:var(--inkwell-lightest);color:#1A1A1A;"><span class="l">Lightest</span><span class="r">#E4EDF2</span></div>
+          <div class="row" style="background:var(--inkwell-lighter);color:#1A1A1A;"><span class="l">Lighter</span><span class="r">#B2C8D5</span></div>
+          <div class="row" style="background:var(--inkwell-light);color:#1A1A1A;"><span class="l">Light</span><span class="r">#6E99B2</span></div>
+          <div class="row" style="background:var(--inkwell);color:#FFF;"><span class="l">Base<span class="base-tag">BASE</span></span><span class="r">#2C628D</span></div>
+          <div class="row" style="background:var(--inkwell-dark);color:#FFF;"><span class="l">Dark</span><span class="r">#123B5A</span></div>
+          <div class="row" style="background:var(--inkwell-darker);color:#FFF;"><span class="l">Darker</span><span class="r">#091C2C</span></div>
+          <div class="row" style="background:var(--inkwell-darkest);color:#FFF;"><span class="l">Darkest</span><span class="r">#030C15</span></div>
+        </div>
+        <p style="font-size:7.5pt;margin-top:2.5mm;">A desaturated navy that cools the warm
+          primary. Informational states, icon glyphs on light grounds, and secondary data.</p>
+      </div>
+      <div>
+        <h3 style="margin-bottom:2.5mm;">Amber <span style="color:var(--n);font-weight:400;">· semantic</span></h3>
+        <div class="ramp">
+          <div class="row" style="background:var(--amber-lightest);color:#1A1A1A;"><span class="l">Lightest</span><span class="r">#FFF5D7</span></div>
+          <div class="row" style="background:var(--amber-lighter);color:#1A1A1A;"><span class="l">Lighter</span><span class="r">#F9E3A7</span></div>
+          <div class="row" style="background:var(--amber-light);color:#1A1A1A;"><span class="l">Light</span><span class="r">#E0C16D</span></div>
+          <div class="row" style="background:var(--amber);color:#1A1A1A;"><span class="l">Base<span class="base-tag" style="background:rgba(0,0,0,.16);">BASE</span></span><span class="r">#D8B349</span></div>
+          <div class="row" style="background:var(--amber-dark);color:#FFF;"><span class="l">Dark</span><span class="r">#A68023</span></div>
+          <div class="row" style="background:var(--amber-darker);color:#FFF;"><span class="l">Darker</span><span class="r">#5A440D</span></div>
+          <div class="row" style="background:var(--amber-darkest);color:#FFF;"><span class="l">Darkest</span><span class="r">#342707</span></div>
+        </div>
+        <p style="font-size:7.5pt;margin-top:2.5mm;">Reserved for warnings and cautionary
+          notes. Never decorative — if it appears, it means something.</p>
+      </div>
+    </div>
+
+    <div class="rule"></div>
+    <h2 style="margin-bottom:3mm;">Neutrals <span style="font-family:var(--sans);font-size:8pt;font-weight:400;color:var(--n);">— pure cool, zero chroma</span></h2>
+    <div class="grid g7" style="gap:2.5mm;">
+      <div class="sw"><div class="chip" style="background:#F2F2F2;"></div><div class="meta"><div class="nm">Lightest</div><div class="hx">#F2F2F2</div></div></div>
+      <div class="sw"><div class="chip" style="background:#D9D9D9;"></div><div class="meta"><div class="nm">Lighter</div><div class="hx">#D9D9D9</div></div></div>
+      <div class="sw"><div class="chip" style="background:#B5B5B5;"></div><div class="meta"><div class="nm">Light</div><div class="hx">#B5B5B5</div></div></div>
+      <div class="sw"><div class="chip" style="background:#878787;"></div><div class="meta"><div class="nm">Neutral</div><div class="hx">#878787</div></div></div>
+      <div class="sw"><div class="chip" style="background:#525252;"></div><div class="meta"><div class="nm">Dark</div><div class="hx">#525252</div></div></div>
+      <div class="sw"><div class="chip" style="background:#1A1A1A;"></div><div class="meta"><div class="nm">Darker · Char</div><div class="hx">#1A1A1A</div></div></div>
+      <div class="sw"><div class="chip" style="background:#080808;"></div><div class="meta"><div class="nm">Darkest · Void</div><div class="hx">#080808</div></div></div>
+    </div>
+
+    <h2 style="margin:5mm 0 3mm;">Surfaces <span style="font-family:var(--sans);font-size:8pt;font-weight:400;color:var(--n);">— the elevation ladder of “The Vault”</span></h2>
+    <div class="grid g6" style="gap:2.5mm;">
+      <div class="sw"><div class="chip" style="background:#080808;"></div><div class="meta"><div class="nm">00 Void</div><div class="hx">#080808</div></div></div>
+      <div class="sw"><div class="chip" style="background:#0D0D0D;"></div><div class="meta"><div class="nm">01 Abyss</div><div class="hx">#0D0D0D</div></div></div>
+      <div class="sw"><div class="chip" style="background:#111111;"></div><div class="meta"><div class="nm">02 Vault</div><div class="hx">#111111</div></div></div>
+      <div class="sw"><div class="chip" style="background:#1A1A1A;"></div><div class="meta"><div class="nm">03 Char</div><div class="hx">#1A1A1A</div></div></div>
+      <div class="sw"><div class="chip" style="background:#222222;"></div><div class="meta"><div class="nm">04 Ember</div><div class="hx">#222222</div></div></div>
+      <div class="sw"><div class="chip" style="background:#525252;"></div><div class="meta"><div class="nm">05 Smoke</div><div class="hx">#525252</div></div></div>
+    </div>
+  </div>
+  <div class="foot"><span>04 · Colour</span><span class="pg">06</span></div>
+</section>
+
+<!-- ══════════════ 07 · COLOUR IN USE ══════════════ -->
+<section class="page">
+  <div class="content">
+    <div class="eyebrow">05 · Colour in Use</div>
+    <h1>Proportion &amp; contrast</h1>
+    <p class="lead">Capital Unique is dark-first. The palette works because the accents are
+      rationed — the moment Brandy Punch becomes a background rather than a highlight, the
+      brand cheapens.</p>
+
+    <h2 style="margin:6mm 0 3mm;">The 90 / 8 / 2 ratio</h2>
+    <div style="display:flex;height:14mm;border-radius:2mm;overflow:hidden;border:1px solid rgba(8,8,8,.12);">
+      <div style="flex:90;background:#080808;display:flex;align-items:center;padding-left:5mm;color:#F2F2F2;font-size:7.5pt;font-weight:600;letter-spacing:.06em;">90% · Neutrals &amp; surfaces</div>
+      <div style="flex:8;background:#C56A31;display:flex;align-items:center;justify-content:center;color:#FFF;font-size:6.5pt;font-weight:700;letter-spacing:.04em;">8%</div>
+      <div style="flex:2;background:#2C628D;"></div>
+    </div>
+    <p style="font-size:8pt;margin-top:2.5mm;">Roughly nine parts neutral (surfaces and text),
+      one part <strong style="color:var(--brandy-dark);">Brandy Punch</strong>, and a trace of
+      <strong style="color:var(--inkwell);">Inkwell</strong> or Amber. The two secondary
+      accents together should never exceed the footprint of Brandy Punch.</p>
+
+    <div class="rule"></div>
+    <h2 style="margin-bottom:3mm;">Verified contrast pairings</h2>
+    <p style="font-size:8pt;margin-bottom:3mm;">Every body-text pairing must clear WCAG AA
+      (4.5:1). These ratios are measured against the shipped tokens.</p>
+    <table>
+      <thead><tr><th>Foreground</th><th>Background</th><th>Ratio</th><th>Verdict</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Neutral Lightest</td><td>Surface 00 · Void</td><td>16.8 : 1</td><td><span class="badge b-aaa">AAA</span></td></tr>
+        <tr><td class="k">Neutral Lightest</td><td>Surface 02 · Vault</td><td>13.4 : 1</td><td><span class="badge b-aaa">AAA</span></td></tr>
+        <tr><td class="k">Neutral Light</td><td>Surface 02 · Vault</td><td>8.1 : 1</td><td><span class="badge b-aaa">AAA</span></td></tr>
+        <tr><td class="k">Brandy Light</td><td>Surface 02 · Vault</td><td>5.6 : 1</td><td><span class="badge b-aa">AA</span></td></tr>
+        <tr><td class="k">Neutral</td><td>Surface 02 · Vault</td><td>5.0 : 1</td><td><span class="badge b-aa">AA</span></td></tr>
+        <tr><td class="k">Brandy Punch</td><td>Surface 02 · Vault</td><td>4.4 : 1</td><td><span class="badge b-lg">Large text only</span></td></tr>
+        <tr><td class="k">Neutral Dark</td><td>Surface 02 · Vault</td><td>2.5 : 1</td><td><span class="badge b-no">Fail · decorative</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="grid g2" style="margin-top:6mm;">
+      <div class="dd do">
+        <h3>Do</h3>
+        <ul>
+          <li>Let dark surfaces carry the page. Space is part of the brand.</li>
+          <li>Use Brandy Punch for one primary action per view.</li>
+          <li>Step surfaces (Void → Vault → Char) to build hierarchy instead of adding colour.</li>
+          <li>Use Brandy&nbsp;Light rather than Brandy&nbsp;Punch for body-size text on dark.</li>
+        </ul>
+      </div>
+      <div class="dd dont">
+        <h3>Don't</h3>
+        <ul>
+          <li>Fill large areas with Brandy Punch — it reads as a discount brand at scale.</li>
+          <li>Introduce colours outside these families, including gradients between them.</li>
+          <li>Use Amber decoratively. It signals caution and nothing else.</li>
+          <li>Set body copy in Brandy&nbsp;Punch on Vault — it fails AA below 18pt.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>05 · Colour in Use</span><span class="pg">07</span></div>
+</section>
+
+<!-- ══════════════ 08 · TYPOGRAPHY ══════════════ -->
+<section class="page">
+  <div class="content">
+    <div class="eyebrow">06 · Typography</div>
+    <h1>A serif that thinks, a sans that works</h1>
+    <p class="lead">Two typefaces, no exceptions. The pairing carries the brand's whole
+      posture: considered authority in the headline, plain clarity in the body.</p>
+
+    <div class="grid g2" style="margin-top:5mm;">
+      <div class="fontcard" style="padding:5mm;">
+        <div class="eyebrow" style="font-size:6.5pt;">Display</div>
+        <div style="font-family:var(--serif);font-weight:700;font-size:24pt;line-height:1;margin:2mm 0 1mm;color:var(--n-darkest);">Source Serif 4</div>
+        <p style="font-size:7pt;">Transitional serif · optical sizes 8–60 · weights 600, 700</p>
+        <div class="glyphs" style="font-family:var(--serif);font-size:12.5pt;margin-top:2.5mm;">Aa Bb Cc Dd Ee 0123456789</div>
+        <p style="font-size:7pt;margin-top:2.5mm;">All headings, pull quotes, and the tagline.
+          Never used for body copy or UI labels.</p>
+      </div>
+      <div class="fontcard" style="padding:5mm;">
+        <div class="eyebrow" style="font-size:6.5pt;">Body &amp; interface</div>
+        <div style="font-family:var(--sans);font-weight:700;font-size:24pt;line-height:1;margin:2mm 0 1mm;color:var(--n-darkest);letter-spacing:-.02em;">Public Sans</div>
+        <p style="font-size:7pt;">Humanist sans · open apertures · weights 400–700</p>
+        <div class="glyphs" style="font-family:var(--sans);font-size:12.5pt;margin-top:2.5mm;">Aa Bb Cc Dd Ee 0123456789</div>
+        <p style="font-size:7pt;margin-top:2.5mm;">All body copy, labels, buttons, eyebrows,
+          captions, and data.</p>
+      </div>
+    </div>
+
+    <div class="rule" style="margin:5mm 0;"></div>
+    <h2 style="margin-bottom:1.5mm;">Display scale <span style="font-family:var(--sans);font-size:8pt;font-weight:400;color:var(--n);">— perfect fourth, 1.333×</span></h2>
+    <div>
+      <div class="ts"><span class="lb">5xl · 80px</span><span class="sm" style="font-family:var(--serif);font-weight:700;font-size:19pt;line-height:1.02;">Capital Intelligently Applied.</span></div>
+      <div class="ts"><span class="lb">4xl · 60px</span><span class="sm" style="font-family:var(--serif);font-weight:700;font-size:15pt;line-height:1.05;">Section Heading</span></div>
+      <div class="ts"><span class="lb">3xl · 45px</span><span class="sm" style="font-family:var(--serif);font-weight:700;font-size:12pt;line-height:1.1;">Built for those who think differently</span></div>
+      <div class="ts"><span class="lb">2xl · 34px</span><span class="sm" style="font-family:var(--serif);font-weight:600;font-size:9.5pt;line-height:1.15;">For borrowers seeking finance</span></div>
+      <div class="ts"><span class="lb">xl · 25px</span><span class="sm" style="font-family:var(--serif);font-weight:600;font-size:8.5pt;">For investors seeking returns</span></div>
+      <div class="ts"><span class="lb">lg · 19px</span><span class="sm" style="font-family:var(--serif);font-weight:600;font-size:7.5pt;">Step heading / card title</span></div>
+    </div>
+
+    <h2 style="margin:4mm 0 1.5mm;">Body scale <span style="font-family:var(--sans);font-size:8pt;font-weight:400;color:var(--n);">— major second, 1.125×</span></h2>
+    <div>
+      <div class="ts"><span class="lb">md · 20px</span><span class="sm" style="font-size:9pt;color:var(--n-dark);">Non-bank lending for complex scenarios where traditional finance falls short.</span></div>
+      <div class="ts"><span class="lb">base · 18px</span><span class="sm" style="font-size:8.5pt;color:var(--n-dark);">Capital Unique exists where traditional banking ends.</span></div>
+      <div class="ts"><span class="lb">sm · 16px</span><span class="sm" style="font-size:8pt;color:var(--n-dark);">Fast decisions on deals banks decline, with transparent terms.</span></div>
+      <div class="ts"><span class="lb">xs · 14px</span><span class="sm" style="font-size:7.5pt;color:var(--n-dark);">Meta and footnotes. The floor for legible body text.</span></div>
+      <div class="ts"><span class="lb">eyebrow · 12px</span><span class="sm eyebrow" style="font-size:7pt;">APPROACH · BORROWERS · INVESTORS</span></div>
+    </div>
+
+    <div class="callout" style="margin-top:4mm;">
+      <p><strong>Rules:</strong> body copy never falls below 14&nbsp;px (16&nbsp;px is the
+      comfortable default). Eyebrows are Public Sans 600, uppercase, wide tracking, and are
+      reserved for section headers — never for a sentence. Headline line-height tightens as
+      size grows; body holds at 1.65.</p>
+    </div>
+  </div>
+  <div class="foot"><span>06 · Typography</span><span class="pg">08</span></div>
+</section>
+
+<!-- ══════════════ 09 · ICONOGRAPHY & MOTION ══════════════ -->
+<section class="page">
+  <div class="content">
+    <div class="eyebrow">07 · Iconography &amp; Motion</div>
+    <h1>The squircle tile</h1>
+    <p class="lead">Icons appear in one sanctioned container: a soft-cornered tile that lifts
+      off the surface. The glyph adapts to the ground — Inkwell on light, Brandy on dark.</p>
+
+    <div class="grid g2" style="margin-top:6mm;align-items:start;">
+      <div class="panel" style="padding:7mm;background:#F2F2F2;">
+        <div class="eyebrow" style="font-size:6.5pt;margin-bottom:4mm;">On light — Inkwell glyph</div>
+        <div style="display:flex;gap:4mm;align-items:center;">
+          <span class="tile" style="width:11mm;height:11mm;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          <span class="tile" style="width:11mm;height:11mm;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+          <span class="tile" style="width:11mm;height:11mm;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+          <span class="tile" style="width:11mm;height:11mm;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24,7.76 14.12,14.12 7.76,16.24 9.88,9.88"/></svg></span>
+        </div>
+      </div>
+      <div class="panel" style="padding:7mm;background:#080808;border-color:rgba(255,255,255,.10);">
+        <div class="eyebrow" style="font-size:6.5pt;margin-bottom:4mm;color:var(--brandy-light);">On dark — Brandy glyph</div>
+        <div style="display:flex;gap:4mm;align-items:center;">
+          <span class="tile on-dark" style="width:11mm;height:11mm;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          <span class="tile on-dark" style="width:11mm;height:11mm;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+          <span class="tile on-dark" style="width:11mm;height:11mm;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+          <span class="tile on-dark" style="width:11mm;height:11mm;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24,7.76 14.12,14.12 7.76,16.24 9.88,9.88"/></svg></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid g2" style="margin-top:5mm;align-items:start;">
+      <div>
+        <h2 style="margin-bottom:2.5mm;">Glyph specification</h2>
+        <table>
+          <tr><td class="k">Grid</td><td>24 × 24</td></tr>
+          <tr><td class="k">Stroke</td><td>2 px, uniform</td></tr>
+          <tr><td class="k">Caps &amp; joins</td><td>Round</td></tr>
+          <tr><td class="k">Fill</td><td>None — outline only</td></tr>
+          <tr><td class="k">Tile radius</td><td>30% (squircle)</td></tr>
+          <tr><td class="k">Glyph : tile</td><td>≈ 0.46 — the glyph never crowds the tile</td></tr>
+        </table>
+      </div>
+      <div>
+        <h2 style="margin-bottom:2.5mm;">Tile sizes</h2>
+        <table>
+          <tr><td class="k">Small</td><td>40 px tile / 18 px glyph</td></tr>
+          <tr><td class="k">Medium</td><td>48 px tile / 22 px glyph</td></tr>
+          <tr><td class="k">Large</td><td>56 px tile / 26 px glyph</td></tr>
+          <tr><td class="k">Extra large</td><td>64 px tile / 30 px glyph</td></tr>
+        </table>
+        <p style="font-size:7.5pt;margin-top:2.5mm;">Never place a bare glyph without its
+          tile, and never fill the tile with Brandy Punch.</p>
+      </div>
+    </div>
+
+    <div class="rule"></div>
+    <h2 style="margin-bottom:3mm;">Motion</h2>
+    <div class="grid g4">
+      <div class="card" style="padding:4.5mm;"><h3>Restrained</h3><p style="font-size:7.5pt;margin-top:1.5mm;">Movement confirms an action. It never performs.</p></div>
+      <div class="card" style="padding:4.5mm;"><h3>200 ms</h3><p style="font-size:7.5pt;margin-top:1.5mm;">Hover and state changes. 500&nbsp;ms for entrances.</p></div>
+      <div class="card" style="padding:4.5mm;"><h3>Rise, don't bounce</h3><p style="font-size:7.5pt;margin-top:1.5mm;">Fade with a 12&nbsp;px upward translate. No spring, no overshoot.</p></div>
+      <div class="card" style="padding:4.5mm;"><h3>Always reducible</h3><p style="font-size:7.5pt;margin-top:1.5mm;">Honour <span class="mono">prefers-reduced-motion</span> everywhere.</p></div>
+    </div>
+    <p style="font-size:8pt;margin-top:4mm;">Sanctioned hover treatments: a soft Brandy glow,
+      a 1.05× scale, a border reveal, or an underline. Nothing else — no parallax, no
+      auto-playing carousels, no attention-seeking loops.</p>
+  </div>
+  <div class="foot"><span>07 · Iconography &amp; Motion</span><span class="pg">09</span></div>
+</section>
+
+<!-- ══════════════ 10 · VOICE ══════════════ -->
+<section class="page">
+  <div class="content">
+    <div class="eyebrow">08 · Voice &amp; Tone</div>
+    <h1>How Capital Unique sounds</h1>
+    <p class="lead">Calm, direct, and specific. The reader is a commercial borrower or a
+      sophisticated investor — someone who has been sold to before and can detect it
+      instantly. We do not sell. We explain.</p>
+
+    <div class="grid g2" style="margin-top:6mm;">
+      <div class="card">
+        <h3 style="color:var(--brandy);">Direct</h3>
+        <p style="font-size:8pt;margin-top:1.5mm;">Short declarative sentences. Lead with the
+          point. If a sentence can lose a clause, it should.</p>
+      </div>
+      <div class="card">
+        <h3 style="color:var(--brandy);">Specific</h3>
+        <p style="font-size:8pt;margin-top:1.5mm;">Name the sector, the structure, the
+          constraint. Vague reassurance reads as evasion in this market.</p>
+      </div>
+      <div class="card">
+        <h3 style="color:var(--brandy);">Unhurried</h3>
+        <p style="font-size:8pt;margin-top:1.5mm;">No countdowns, no scarcity, no exclamation
+          marks. Authority does not raise its voice.</p>
+      </div>
+      <div class="card">
+        <h3 style="color:var(--brandy);">Plain</h3>
+        <p style="font-size:8pt;margin-top:1.5mm;">Explain structures in plain English. Jargon
+          is used only where it is the precise term, never as decoration.</p>
+      </div>
+    </div>
+
+    <div class="rule"></div>
+    <div class="grid g2">
+      <div class="dd do">
+        <h3>Write like this</h3>
+        <ul>
+          <li><span class="quote">Capital Unique exists where traditional banking ends.</span></li>
+          <li><span class="quote">One decision-maker, end to end.</span></li>
+          <li><span class="quote">Fast decisions on deals banks decline, with transparent terms and no unnecessary friction.</span></li>
+          <li><span class="quote">Staged funding aligned to delivery risk.</span></li>
+        </ul>
+      </div>
+      <div class="dd dont">
+        <h3>Not like this</h3>
+        <ul>
+          <li><span class="quote">Unlock your financial future today!</span></li>
+          <li><span class="quote">We're passionate about empowering our valued clients.</span></li>
+          <li><span class="quote">Guaranteed approval — apply now, limited spots!</span></li>
+          <li><span class="quote">Leveraging synergistic capital solutions at scale.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <h2 style="margin:5mm 0 2.5mm;">Mechanics</h2>
+    <table class="compact">
+      <tr><td class="k">Spelling</td><td>Australian English — organisation, recognise, colour, licence (noun).</td></tr>
+      <tr><td class="k">Currency</td><td>$2.4M or $2,400,000. Always state AUD in international contexts.</td></tr>
+      <tr><td class="k">Numbers</td><td>Spell out one to nine; numerals from 10. Always numerals for money, rates, and dates.</td></tr>
+      <tr><td class="k">Dates</td><td>11 August 2026. Never 08/11/26.</td></tr>
+      <tr><td class="k">Case</td><td>Sentence case for headings. Title Case only for proper nouns.</td></tr>
+      <tr><td class="k">Emphasis</td><td>Bold sparingly. No underlines except links. Never ALL CAPS — that is the eyebrow's job.</td></tr>
+      <tr><td class="k">Claims</td><td>Never guarantee an outcome, rate, or approval. Past transactions illustrate capability; they do not predict results.</td></tr>
+    </table>
+  </div>
+  <div class="foot"><span>08 · Voice &amp; Tone</span><span class="pg">10</span></div>
+</section>
+
+<!-- ══════════════ 11 · COMPLIANCE ══════════════ -->
+<section class="page">
+  <div class="content">
+    <div class="eyebrow">09 · Describing Us</div>
+    <h1>Required language</h1>
+    <p class="lead">Capital Unique operates in a regulated market and holds neither an
+      Australian Credit Licence nor an Australian Financial Services Licence. Certain common
+      descriptions are therefore <strong>factually incorrect</strong> and must not be
+      published.</p>
+
+    <div class="grid g2" style="margin-top:6mm;">
+      <div class="dd do">
+        <h3>Accurate descriptions</h3>
+        <ul>
+          <li>“Private capital advisor”</li>
+          <li>“Non-bank capital advisory firm”</li>
+          <li>“Capital advisory and structuring services”</li>
+          <li>“Principal-led capital advisor”</li>
+          <li>“Operates in the wholesale and commercial market”</li>
+          <li>“Works across property development, construction, business, commercial, agricultural and private capital scenarios”</li>
+        </ul>
+      </div>
+      <div class="dd dont">
+        <h3>Never use</h3>
+        <ul>
+          <li>“Bank” or “banking services” — Capital Unique is not an ADI</li>
+          <li>“Mortgage broker” or “credit adviser” — no Australian Credit Licence is held</li>
+          <li>“Financial adviser” / “financial planner” — no AFSL is held</li>
+          <li>“Home loans”, “personal loans”, or any consumer credit framing</li>
+          <li>“Licensed”, “regulated”, or “accredited” as a descriptor of the firm</li>
+          <li>“Guaranteed”, “approved”, or any promised outcome</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2 style="margin:6mm 0 3mm;">The regulatory position, stated plainly</h2>
+    <div class="card">
+      <p style="font-size:8.5pt;">Capital Unique does not hold an Australian Credit Licence and
+        does not provide consumer credit, credit assistance, or services regulated under the
+        <em>National Consumer Credit Protection Act 2009</em> (Cth). Its services are limited to
+        wholesale, commercial, and business-purpose scenarios that are not regulated under the
+        NCCP Act.</p>
+      <p style="font-size:8.5pt;margin-top:3mm;">Capital Unique does not hold an Australian
+        Financial Services Licence and does not provide financial product advice or financial
+        services within the meaning of the <em>Corporations Act 2001</em> (Cth). Where capital
+        structures, lending, or investment scenarios are discussed, this is general commentary
+        only.</p>
+    </div>
+
+    <h2 style="margin:5mm 0 3mm;">Required disclaimer</h2>
+    <p style="font-size:8pt;margin-bottom:3mm;">Any marketing or published material that
+      describes Capital Unique's services must carry this notice, at minimum:</p>
+    <div class="note">
+      <p><strong>General information only.</strong> Information is general in nature and does
+      not constitute personal financial, legal, or tax advice. Capital Unique does not hold an
+      Australian Credit Licence and does not provide consumer credit, credit assistance, or
+      financial product advice.</p>
+    </div>
+
+    <div class="grid g2" style="margin-top:5mm;">
+      <div>
+        <h3>Case studies &amp; figures</h3>
+        <p style="font-size:8pt;margin-top:1.5mm;">All published case studies are anonymised
+          and figures are rounded. Each outcome is specific to that engagement. Never present
+          one as typical, and never imply it predicts a result.</p>
+      </div>
+      <div>
+        <h3>Before you publish</h3>
+        <p style="font-size:8pt;margin-top:1.5mm;">Anything attributing a quote to John
+          Codrington, or describing the firm's services in new wording, should be checked with
+          the press desk first. Turnaround is usually same-day.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>09 · Describing Us</span><span class="pg">11</span></div>
+</section>
+
+<!-- ══════════════ 12 · IMAGERY ══════════════ -->
+<section class="page">
+  <div class="content">
+    <div class="eyebrow">10 · Imagery</div>
+    <h1>Photographic direction</h1>
+    <p class="lead">Photography should look observed rather than staged — real rooms, real
+      light, real work. The imagery carries the same restraint as the palette.</p>
+
+    <div class="grid g2" style="margin-top:6mm;">
+      <div class="dd do">
+        <h3>Seek</h3>
+        <ul>
+          <li>Natural, directional light — window light, late afternoon, real interiors</li>
+          <li>Considered, unhurried moments: a conversation, a site walk, a signature</li>
+          <li>Australian context — recognisable commercial, rural, and development settings</li>
+          <li>Deep shadow and negative space; images that sit comfortably on a dark ground</li>
+          <li>Architecture, land, and material texture as subjects in their own right</li>
+        </ul>
+      </div>
+      <div class="dd dont">
+        <h3>Avoid</h3>
+        <ul>
+          <li>Generic stock: handshake-on-white, arms-crossed executives, floating graphs</li>
+          <li>Saturated, high-key colour grading or heavy filters</li>
+          <li>Currency, gold bars, rising-arrow motifs, or any wealth cliché</li>
+          <li>Crowded compositions that leave no room for type</li>
+          <li>Visible logos or identifiable clients without written permission</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2 style="margin:6mm 0 3mm;">Treatment</h2>
+    <table>
+      <tr><td class="k">Grade</td><td>Cool, slightly desaturated. Protect shadow detail — blacks fall toward Void (#080808), never crushed to pure black.</td></tr>
+      <tr><td class="k">Crop</td><td>Generous. Leave a quiet quadrant for headline type.</td></tr>
+      <tr><td class="k">Overlay</td><td>Where type sits on an image, apply a Void scrim at 55–75% opacity. Never place type on unscrimmed photography.</td></tr>
+      <tr><td class="k">Radius</td><td>Match the surrounding surface — 12 px for cards, 16–24 px for feature panels.</td></tr>
+      <tr><td class="k">Portraits</td><td>Black-and-white or cool-graded. Eye level, neutral expression, plain ground.</td></tr>
+    </table>
+
+    <div class="callout" style="margin-top:6mm;">
+      <p><strong>The approved press portrait</strong> of John Codrington is available from the
+      press page. Use it unaltered — do not crop to a different aspect ratio, re-grade, or
+      apply filters. Credit is not required but is appreciated.</p>
+    </div>
+  </div>
+  <div class="foot"><span>10 · Imagery</span><span class="pg">12</span></div>
+</section>
+
+<!-- ══════════════ 13 · ASSETS & CONTACT ══════════════ -->
+<section class="page dark">
+  <div class="content" style="display:flex;flex-direction:column;">
+    <div class="eyebrow">11 · Assets &amp; Contact</div>
+    <h1>Getting what you need</h1>
+    <p class="lead">Logos, the approved portrait, and this document are available from the
+      Capital Unique press page. For anything not listed there, the press desk responds
+      directly.</p>
+
+    <div class="grid g2" style="margin-top:8mm;align-items:start;">
+      <div>
+        <div class="eyebrow" style="font-size:6.5pt;margin-bottom:3mm;">Press desk</div>
+        <div class="kv"><span class="k">Name</span><span class="v">John Codrington<br><span style="color:var(--n);font-size:7.5pt;">Founder, Capital Unique</span></span></div>
+        <div class="kv"><span class="k">Email</span><span class="v"><a href="mailto:hello@capitalunique.com">hello@capitalunique.com</a></span></div>
+        <div class="kv"><span class="k">Phone</span><span class="v">1300 889 789</span></div>
+        <div class="kv"><span class="k">Office</span><span class="v">Level 26, 1 Bligh Street<br>Sydney NSW 2000</span></div>
+        <div class="kv"><span class="k">Hours</span><span class="v">Mon–Fri, 9:00–18:00 AEST/AEDT</span></div>
+        <div class="kv" style="border-bottom:none;"><span class="k">ABN</span><span class="v">54 695 032 243</span></div>
+      </div>
+      <div>
+        <div class="eyebrow" style="font-size:6.5pt;margin-bottom:3mm;">Asset library</div>
+        <div class="kv"><span class="k">Press page</span><span class="v"><a href="https://www.capitalunique.com/press">capitalunique.com/press</a></span></div>
+        <div class="kv"><span class="k">Logos</span><span class="v">Square Coin &amp; Rectangle Long, bronze and silver finishes</span></div>
+        <div class="kv"><span class="k">Portrait</span><span class="v">Approved high-resolution press portrait</span></div>
+        <div class="kv"><span class="k">This document</span><span class="v">Brand Guidelines (PDF)</span></div>
+        <div class="kv" style="border-bottom:none;"><span class="k">Live system</span><span class="v"><a href="https://capitaluniquedesignsystemfigma.vercel.app/">The full design system</a><br><span style="color:var(--n);font-size:7.5pt;">Interactive reference for digital builds — live tokens, components, and specimens.</span></span></div>
+      </div>
+    </div>
+
+    <div class="hairline" style="margin:9mm 0 6mm;"></div>
+
+    <div class="grid g3">
+      <div>
+        <div class="eyebrow" style="font-size:6.5pt;">Requests</div>
+        <p style="font-size:8pt;margin-top:2mm;">Interview requests, embargo coordination, and
+          background on a specific topic — email the press desk directly.</p>
+      </div>
+      <div>
+        <div class="eyebrow" style="font-size:6.5pt;">Bespoke assets</div>
+        <p style="font-size:8pt;margin-top:2mm;">Event photography, specific compositions, or
+          the two missing logo pairings can be produced on request.</p>
+      </div>
+      <div>
+        <div class="eyebrow" style="font-size:6.5pt;">Approval</div>
+        <p style="font-size:8pt;margin-top:2mm;">New wording describing the firm's services, or
+          any quote attributed to John Codrington, should be checked before publication.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:auto;padding-top:12mm;display:flex;align-items:flex-end;justify-content:space-between;">
+      <div>
+        <img src="{{LOGO_RECT_BRONZE}}" style="width:40mm;" alt="Capital Unique">
+        <p style="font-family:var(--serif);font-style:italic;font-size:11pt;color:var(--brandy-light);margin-top:4mm;">Capital Intelligently Applied</p>
+      </div>
+      <div style="text-align:right;font-size:6.5pt;letter-spacing:.1em;text-transform:uppercase;color:var(--n-dark);line-height:1.9;">
+        Brand Guidelines v1.0<br>August 2026<br>© 2026 Capital Unique
+      </div>
+    </div>
+
+    <p style="font-size:6.5pt;color:var(--n-dark);margin-top:9mm;line-height:1.6;max-width:150mm;">
+      <strong style="color:var(--n);">General information only.</strong> Information in this
+      document is general in nature and does not constitute personal financial, legal, or tax
+      advice. Capital Unique does not hold an Australian Credit Licence and does not provide
+      consumer credit, credit assistance, or financial product advice.
+    </p>
+  </div>
+  <div class="foot"><span>11 · Assets &amp; Contact</span><span class="pg">13</span></div>
+</section>
+
+</body>
+</html>
