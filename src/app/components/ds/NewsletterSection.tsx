@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { LOGO_SRC, LOGO_URL } from "./BrandLogo";
+import { EMAIL, SERIF, SANS, BUILD_LABEL, Scheme, Palette } from "./email/kit";
 import { CopyableToken } from "./CopyableToken";
 
 /* ─────────────────────────────────────────────────────────────────────
@@ -21,72 +21,8 @@ import { CopyableToken } from "./CopyableToken";
    what you see rather than a re-interpretation of it.
 ───────────────────────────────────────────────────────────────────── */
 
-type Scheme = "dark" | "light";
-
-interface Palette {
-  outer: string;
-  body: string;
-  surface: string;
-  rule: string;
-  ruleStrong: string;
-  text: string;
-  textSoft: string;
-  textQuiet: string;
-  accent: string;   /* eyebrows, rules, button fill */
-  link: string;     /* inline + footer links — AA on `body` */
-  btnBg: string;
-  btnText: string;
-  logoSrc: string;   /* bundled — preview only */
-  logoUrl: string;   /* absolute — what the export ships */
-}
-
-const EMAIL: Record<Scheme, Palette> = {
-  dark: {
-    outer:      "#000000",
-    body:       "#080808",  /* Void        — --cu-surface-void  */
-    surface:    "#111111",  /* Vault       — --cu-surface-vault */
-    rule:       "#1F1F1F",
-    ruleStrong: "#2E2E2E",
-    text:       "#F2F2F2",  /* --cu-neutral-lightest */
-    textSoft:   "#B5B5B5",  /* --cu-neutral-light    */
-    textQuiet:  "#878787",  /* --cu-neutral          */
-    accent:     "#C56A31",  /* Brandy Punch */
-    link:       "#D79B7A",  /* Brandy Light — 8.45:1 on Void */
-    btnBg:      "#C56A31",
-    btnText:    "#080808",  /* matches --primary-foreground in .dark */
-    logoSrc:    LOGO_SRC.square.bronze,
-    logoUrl:    LOGO_URL.square.bronze,
-  },
-  /* Blue on white. Inkwell rather than Brandy, matching the system's own
-     light-mode icon treatment (--cu-icon-fg is Inkwell in light, Brandy in
-     dark). Every value clears AA on white, including the button. */
-  light: {
-    outer:      "#E4EDF2",  /* --cu-inkwell-lightest — pale blue gutter */
-    body:       "#FFFFFF",
-    surface:    "#F2F7FA",  /* email-only step between white and Inkwell Lightest */
-    rule:       "#DAE5EC",
-    ruleStrong: "#C3D5E0",
-    text:       "#091C2C",  /* --cu-inkwell-darker — near-black with a blue cast */
-    textSoft:   "#46616F",  /* email-only slate — 6.6:1 */
-    textQuiet:  "#5C7484",  /* email-only slate — 4.9:1 */
-    accent:     "#2C628D",  /* --cu-inkwell — 6.5:1 on white */
-    link:       "#2C628D",
-    btnBg:      "#2C628D",
-    btnText:    "#FFFFFF",  /* 6.5:1 — AA at any size */
-    logoSrc:    LOGO_SRC.square.silver,
-    logoUrl:    LOGO_URL.square.silver,
-  },
-};
-
-const SERIF = "'Source Serif 4', Georgia, 'Times New Roman', serif";
-const SANS  = "'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
 
 /* ── Preview chrome ───────────────────────────────────────────────── */
-
-const BUILD_LABEL: Record<Scheme, string> = {
-  dark: "Dark — The Vault",
-  light: "Light — Inkwell",
-};
 
 /* Renders the same markup once per selected build, so nothing is hidden
    behind toggle state when "Both" is active. */
@@ -672,6 +608,20 @@ export function NewsletterSection() {
         <Frame id="BLOCK-ARTICLE" builds={builds}
           caption="Article — eyebrow, serif headline, body, underlined link."
           render={(p) => <BlockArticle p={p} />} />
+
+        <div className="rounded-xl border border-cu-amber-dark/40 dark:border-cu-amber/30 bg-cu-amber/10 p-4 mb-6 max-w-3xl">
+          <p className="text-xs font-semibold tracking-widest uppercase text-cu-amber-dark dark:text-cu-amber-light mb-2">
+            The placeholder copy below is not shippable
+          </p>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            The pull quote and the three figures are lorem — invented to show the layout.
+            Capital Unique has no named testimonials and no published settlement, deal-count
+            or repeat-client figures, and the knowledge base prohibits inventing them. Swap
+            in real content from the proof and evidence bank before any of these blocks ship.
+            The <a href="#campaign" className="text-cu-brandy underline">eight-week series</a>{" "}
+            below uses compliant copy throughout.
+          </p>
+        </div>
 
         <Frame id="BLOCK-CALLOUT" builds={builds}
           caption="Pull quote — tinted surface, led by the same short accent rule as the masthead."
