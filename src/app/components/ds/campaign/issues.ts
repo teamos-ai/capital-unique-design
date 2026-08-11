@@ -50,7 +50,7 @@ export interface Issue {
   figure?: Figure;
   qualification: string[];
   close: string[];
-  ask?: string;         /* zero or one. Usually zero */
+  ask?: string;         /* zero or one. Usually zero. Always links to /contact */
   next?: string;        /* footer teaser for the following issue */
   sources: string[];    /* database provenance — review only, never shipped */
   topic: string;        /* which of the client's original flyer topics this carries */
@@ -78,7 +78,7 @@ export const ISSUES: Issue[] = [
       "Take an engagement of about $1.9M. A corporate facility had expired and fallen into default. Exit fees and a default rate were both running. The principal was overseas on a family matter, and a previous broker had not been able to move it.",
       "None of that was a policy question. The structure ran in two steps — a temporary facility to discharge the outgoing lender, then a long-term refinance once the position was stable, at a materially lower rate than the default the client had been sitting on.",
       "The borrower's credit position on the day of the decline and on the day of the refinance was the same. What changed was the sequence.",
-      "There is a structural reason these scenarios are becoming more common rather than less. Major bank exposure to commercial real estate has roughly halved since 2009. That capital did not stop being needed — it moved, and the borrowers moved with it. A decline in 2026 often reflects where a balance sheet has retreated from, not what the borrower did.",
+      "There is a structural reason these scenarios are becoming more common rather than less. Major bank exposure to commercial real estate has roughly halved since 2009. That capital did not stop being needed — it moved, and the borrowers moved with it. A decline today often reflects where a balance sheet has retreated from, not what the borrower did.",
     ],
     qualification: [
       "Sometimes the decline is right. If a project does not stack on its own numbers, more expensive capital makes the problem worse rather than later. Rate-driven enquiries, speculative ideas before anything is executed, and anything consumer or residential sit outside what we do. In those cases a decline is information the borrower should act on rather than route around. The distinction worth holding is between a scenario that does not work and a scenario that has not been structured. The first is a verdict. The second is only a starting position, and telling them apart is most of the judgement.",
@@ -197,7 +197,7 @@ export const ISSUES: Issue[] = [
     close: [
       "A lower headline rate with heavier fees often costs more than a higher one. The only honest comparison is the total cost over the actual term.",
     ],
-    ask: "Run the true cost of capital",
+    ask: "Talk through the numbers",
     next: "Next week — why the working-capital gap is rarely a cash problem.",
     sources: ["07/lending-benchmarks.md — LINK CM published deal economics", "02/calculators.md — True Cost of Capital", "04/messaging-pillars.md — Pillar 1"],
   },
@@ -307,7 +307,7 @@ export const ISSUES: Issue[] = [
     close: [
       "The weak points in a feasibility are findable before a credit team finds them. It is a considerably better conversation when the developer has already found them.",
     ],
-    ask: "Run the feasibility sanity-check",
+    ask: "Talk through a feasibility",
     next: "Next week — the last one. What we do not do, and why that is useful to you.",
     sources: ["07/lending-benchmarks.md — GRV, TDC, margin thresholds", "05/tools/feasibility-sanity-check.md", "08/proof-and-evidence-bank.md — Construction case study"],
   },

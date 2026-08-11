@@ -69,6 +69,15 @@ export const EMAIL: Record<Scheme, Palette> = {
   },
 };
 
+/* Every outbound destination, in one place. Changing a URL here changes
+   it in the previews and in the generated HTML at the same time. */
+export const LINKS = {
+  contact:     "https://www.capitalunique.com/contact",
+  guides:      "https://www.capitalunique.com/guides",
+  freeTools:   "https://www.capitalunique.com/free-tools",
+  calculators: "https://www.capitalunique.com/calculators",
+};
+
 export const SERIF = "'Source Serif 4', Georgia, 'Times New Roman', serif";
 export const SANS  = "'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
 
@@ -108,7 +117,7 @@ export function Eyebrow({ p, children, align = "left" }: { p: Palette; children:
 }
 
 /* Bulletproof button — fill lives on the table cell, not the anchor. */
-export function Button({ p, label, pad = "4px 32px 30px" }: { p: Palette; label: string; pad?: string }) {
+export function Button({ p, label, href = LINKS.contact, pad = "4px 32px 30px" }: { p: Palette; label: string; href?: string; pad?: string }) {
   return (
     <tr>
       <td style={{ padding: pad, textAlign: "center" }}>
@@ -116,7 +125,7 @@ export function Button({ p, label, pad = "4px 32px 30px" }: { p: Palette; label:
           <tbody>
             <tr>
               <td style={{ background: p.btnBg, borderRadius: "6px", padding: "14px 30px", textAlign: "center" }}>
-                <a href="#" style={{ fontFamily: SANS, fontSize: "15px", fontWeight: 600, color: p.btnText, textDecoration: "none", display: "inline-block", letterSpacing: "0.01em" }}>
+                <a href={href} style={{ fontFamily: SANS, fontSize: "15px", fontWeight: 600, color: p.btnText, textDecoration: "none", display: "inline-block", letterSpacing: "0.01em" }}>
                   {label}
                 </a>
               </td>

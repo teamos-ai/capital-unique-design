@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  EMAIL, SERIF, SANS, Palette,
+  EMAIL, SERIF, SANS, Palette, LINKS,
   Spacer, Eyebrow, Button, Hairline, Gap, Para,
 } from "./email/kit";
 import { ISSUES, TOPIC_MAP, Issue } from "./campaign/issues";
@@ -21,13 +21,11 @@ import { ISSUES, TOPIC_MAP, Issue } from "./campaign/issues";
 const P: Palette = EMAIL.light;
 const TOTAL = ISSUES.length;
 
-/* Issue dates — one per week. Passed in rather than computed so the
-   preview is deterministic and the client can move the schedule. */
-const START = { day: 2, month: "September", year: 2026 };
-function issueDate(week: number) {
-  const d = START.day + (week - 1) * 7;
-  return `${d} ${START.month} ${START.year}`;
-}
+/* No dates anywhere. The playbook wants a visible date on the perpetual
+   newsletter, but a finite campaign whose send schedule is still moving
+   is better off carrying the issue number alone — a stale date on a
+   resend is worse than no date at all. Issue N of 8 does the same
+   orienting work without pinning the send. */
 
 /* ── Campaign masthead ────────────────────────────────────────────── */
 
@@ -102,7 +100,7 @@ function CampaignMasthead({ p, issue }: { p: Palette; issue: Issue }) {
           </div>
           <Spacer h={14} />
           <div style={{ fontFamily: SANS, fontSize: "12px", letterSpacing: "0.04em", color: p.textQuiet }}>
-            John Codrington&nbsp; ·&nbsp; {issueDate(issue.week)}
+            John Codrington
           </div>
         </td>
       </tr>
@@ -239,10 +237,15 @@ function CampaignFooter({ p, issue }: { p: Palette; issue: Issue }) {
           </div>
           <Spacer h={16} />
           <div style={{ fontFamily: SANS, fontSize: "12px", fontWeight: 600, color: p.link }}>
-            {["Guides", "Free tools", "Calculators"].map((l, i) => (
+            {[
+              { l: "Guides",      href: LINKS.guides },
+              { l: "Free tools",  href: LINKS.freeTools },
+              { l: "Calculators", href: LINKS.calculators },
+              { l: "Contact",     href: LINKS.contact },
+            ].map(({ l, href }, i) => (
               <React.Fragment key={l}>
                 {i > 0 && <span style={{ color: p.ruleStrong, padding: "0 8px" }}>·</span>}
-                <a href="#" style={{ color: p.link, textDecoration: "none" }}>{l}</a>
+                <a href={href} style={{ color: p.link, textDecoration: "none" }}>{l}</a>
               </React.Fragment>
             ))}
           </div>
@@ -417,9 +420,11 @@ export function CampaignSection() {
       <div className="mb-10">
         <h3 className="text-foreground mb-2">The schedule</h3>
         <p className="text-sm text-muted-foreground max-w-xl leading-relaxed mb-5">
-          One issue a week for eight weeks. The playbook's standing cadence for the
-          perpetual newsletter is monthly — a finite campaign runs hotter, but the list
-          should drop back to monthly when the series ends rather than continuing weekly.
+          Eight issues, in this order. No dates are baked into the templates — the send
+          schedule stays yours to set in GoHighLevel, and a resent issue never carries a
+          stale date. The playbook's standing cadence for the perpetual newsletter is
+          monthly; a finite campaign runs hotter, but the list should drop back to monthly
+          once the series ends.
         </p>
         <div className="rounded-xl border border-border overflow-hidden overflow-x-auto">
           <table className="w-full text-left">
@@ -436,7 +441,7 @@ export function CampaignSection() {
               {ISSUES.map((s) => (
                 <tr key={s.id} className="border-t border-border">
                   <td className="px-4 py-2.5 text-xs font-mono text-muted-foreground whitespace-nowrap">
-                    {String(s.week).padStart(2, "0")} · {issueDate(s.week).replace(" 2026", "")}
+                    Week {String(s.week).padStart(2, "0")}
                   </td>
                   <td className="px-4 py-2.5 text-xs text-foreground">{s.subject}</td>
                   <td className="px-4 py-2.5 text-xs text-muted-foreground hidden md:table-cell">{s.topic}</td>
