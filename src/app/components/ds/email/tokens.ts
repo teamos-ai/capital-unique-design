@@ -69,12 +69,23 @@ export const BUILD_LABEL: Record<Scheme, string> = {
 };
 
 /* Every outbound destination, in one place. Changing a URL here changes
-   it in the previews and in the generated HTML at the same time. */
+   it in the previews and in the generated HTML at the same time.
+
+   SITE_BASE is separated out because the paths below are correct and the
+   host is the open question. As at the last check, www.capitalunique.com
+   returns a GoHighLevel 404 on every path including "/" — the domain is
+   still pointed at GHL rather than at the Vercel deployment of the site,
+   where all four of these pages return 200. Swapping the one line below
+   to the vercel.app host and re-running the build repoints all eight
+   emails; do that only as a stopgap, because a staging URL sent to a
+   list lives in those inboxes permanently. The real fix is DNS. */
+export const SITE_BASE = "https://www.capitalunique.com";
+
 export const LINKS = {
-  contact:     "https://www.capitalunique.com/contact",
-  guides:      "https://www.capitalunique.com/guides",
-  freeTools:   "https://www.capitalunique.com/free-tools",
-  calculators: "https://www.capitalunique.com/calculators",
+  contact:     `${SITE_BASE}/contact`,
+  guides:      `${SITE_BASE}/guides`,
+  freeTools:   `${SITE_BASE}/free-tools`,
+  calculators: `${SITE_BASE}/calculators`,
 };
 
 /* Absolute logo URLs — email cannot resolve a bundler path. */
