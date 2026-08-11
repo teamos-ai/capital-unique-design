@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import logoSquare from "../../../imports/Logo_Square.png";
+import { LOGO_SRC, LOGO_URL } from "./BrandLogo";
 import { CopyableToken } from "./CopyableToken";
 
 /* ─────────────────────────────────────────────────────────────────────
@@ -36,6 +36,8 @@ interface Palette {
   link: string;     /* inline + footer links — AA on `body` */
   btnBg: string;
   btnText: string;
+  logoSrc: string;   /* bundled — preview only */
+  logoUrl: string;   /* absolute — what the export ships */
 }
 
 const EMAIL: Record<Scheme, Palette> = {
@@ -52,6 +54,8 @@ const EMAIL: Record<Scheme, Palette> = {
     link:       "#D79B7A",  /* Brandy Light — 8.45:1 on Void */
     btnBg:      "#C56A31",
     btnText:    "#080808",  /* matches --primary-foreground in .dark */
+    logoSrc:    LOGO_SRC.square.bronze,
+    logoUrl:    LOGO_URL.square.bronze,
   },
   /* Blue on white. Inkwell rather than Brandy, matching the system's own
      light-mode icon treatment (--cu-icon-fg is Inkwell in light, Brandy in
@@ -69,16 +73,13 @@ const EMAIL: Record<Scheme, Palette> = {
     link:       "#2C628D",
     btnBg:      "#2C628D",
     btnText:    "#FFFFFF",  /* 6.5:1 — AA at any size */
+    logoSrc:    LOGO_SRC.square.silver,
+    logoUrl:    LOGO_URL.square.silver,
   },
 };
 
 const SERIF = "'Source Serif 4', Georgia, 'Times New Roman', serif";
 const SANS  = "'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
-
-/* Absolute URL the email will actually reference. Local import is only
-   for this preview — email clients cannot resolve bundler paths. */
-const LOGO_URL =
-  "https://raw.githubusercontent.com/teamos-ai/capital-unique-design/main/src/imports/Logo_Square.png";
 
 /* ── Preview chrome ───────────────────────────────────────────────── */
 
@@ -170,7 +171,7 @@ function HeaderMasthead({ p }: { p: Palette }) {
   return (
     <tr>
       <td style={{ padding: "36px 32px 30px", textAlign: "center", borderBottom: `1px solid ${p.rule}` }}>
-        <img src={logoSquare} width={44} height={44} alt="Capital Unique" style={{ display: "inline-block", border: 0 }} />
+        <img src={p.logoSrc} width={44} height={44} alt="Capital Unique" style={{ display: "inline-block", border: 0 }} />
         <Spacer h={16} />
         <div style={{ fontFamily: SERIF, fontSize: "23px", fontWeight: 600, letterSpacing: "0.005em", color: p.text, lineHeight: 1.1 }}>
           capital unique
@@ -198,7 +199,7 @@ function HeaderCompact({ p }: { p: Palette }) {
                   <tbody>
                     <tr>
                       <td style={{ verticalAlign: "middle", paddingRight: "12px" }}>
-                        <img src={logoSquare} width={30} height={30} alt="Capital Unique" style={{ display: "block", border: 0 }} />
+                        <img src={p.logoSrc} width={30} height={30} alt="Capital Unique" style={{ display: "block", border: 0 }} />
                       </td>
                       <td style={{ verticalAlign: "middle", fontFamily: SERIF, fontSize: "17px", fontWeight: 600, color: p.text, whiteSpace: "nowrap" }}>
                         capital unique
@@ -428,7 +429,7 @@ function FooterStandard({ p }: { p: Palette }) {
   return (
     <tr>
       <td style={{ padding: "32px", textAlign: "center", borderTop: `1px solid ${p.rule}` }}>
-        <img src={logoSquare} width={32} height={32} alt="Capital Unique" style={{ display: "inline-block", border: 0 }} />
+        <img src={p.logoSrc} width={32} height={32} alt="Capital Unique" style={{ display: "inline-block", border: 0 }} />
         <Spacer h={14} />
         <div style={{ fontFamily: SANS, fontSize: "13px", lineHeight: 1.6, color: p.textSoft, maxWidth: "380px", margin: "0 auto" }}>
           Non-bank lending for complex scenarios where traditional finance falls short.
@@ -821,12 +822,22 @@ export function NewsletterSection() {
           a footer, and a build (dark or light) and the paste-ready HTML + CSS gets added
           to this section, sized for a GoHighLevel custom-code block.
         </p>
+        <p className="text-xs text-muted-foreground leading-relaxed mb-2">
+          Each build ships its own coin — bronze on the dark one, silver-on-navy on the
+          light one — since email has no way to swap an image by theme the way the rest
+          of this system does. The export references these absolute URLs:
+        </p>
+        <ul className="text-xs text-muted-foreground leading-relaxed space-y-1 mb-3">
+          {(["dark", "light"] as Scheme[]).map((s) => (
+            <li key={s} className="flex flex-wrap items-baseline gap-x-2">
+              <span className="font-semibold text-foreground w-12 shrink-0">{s}</span>
+              <code className="text-cu-brandy text-xs px-1 py-0.5 bg-muted rounded break-all">{EMAIL[s].logoUrl}</code>
+            </li>
+          ))}
+        </ul>
         <p className="text-xs text-muted-foreground leading-relaxed">
-          One thing to settle at the same time: the logo needs a permanent public URL. These
-          previews use{" "}
-          <code className="text-cu-brandy text-xs px-1 py-0.5 bg-muted rounded break-all">{LOGO_URL}</code>{" "}
-          which works, but hosting it in GoHighLevel's own media library is the more durable
-          choice for mail that stays in circulation.
+          Those raw GitHub URLs work, but hosting both coins in GoHighLevel's own media
+          library is the more durable choice for mail that stays in circulation.
         </p>
       </div>
     </section>

@@ -1,5 +1,4 @@
 import React from "react";
-import logoRect from "../../../imports/Logo_Retangle_Long.png";
 
 // Trust/logo strip
 function TrustStrip() {

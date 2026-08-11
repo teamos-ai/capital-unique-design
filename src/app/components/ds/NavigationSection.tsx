@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import logoSquare from "../../../imports/Logo_Square.png";
-import logoRect from "../../../imports/Logo_Retangle_Long.png";
+import { BrandLogo } from "./BrandLogo";
 
 export function NavigationSection() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -29,7 +28,7 @@ export function NavigationSection() {
             <div className="flex items-center gap-8 h-[72px]">
               {/* Brand */}
               <a href="#" className="flex items-center gap-3 shrink-0">
-                <img src={logoSquare} alt="Capital Unique" className="w-8 h-8" />
+                <BrandLogo variant="square" className="w-8 h-8" />
                 <span className="text-foreground text-sm font-semibold tracking-wide hidden sm:block" style={{ fontFamily: "'Source Serif 4', Georgia, serif" }}>
                   capital unique
                 </span>
@@ -80,7 +79,7 @@ export function NavigationSection() {
           >
             <div className="flex items-center gap-8 h-[72px]">
               <a href="#" className="flex items-center gap-3 shrink-0">
-                <img src={logoSquare} alt="Capital Unique" className="w-8 h-8" />
+                <BrandLogo variant="square" className="w-8 h-8" />
                 <span className="text-foreground text-sm font-semibold tracking-wide" style={{ fontFamily: "'Source Serif 4', Georgia, serif" }}>
                   capital unique
                 </span>
@@ -113,7 +112,7 @@ export function NavigationSection() {
           </div>
           <div className="bg-background">
             <div className="flex items-center justify-between p-4 border-b border-white/6">
-              <img src={logoSquare} alt="" className="w-8 h-8" />
+              <BrandLogo variant="square" className="w-8 h-8" alt="" />
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
                 className="w-10 h-10 flex items-center justify-center rounded-md border border-white/10 text-muted-foreground hover:text-cu-brandy hover:border-cu-brandy/30 cursor-pointer transition-colors"
@@ -158,7 +157,7 @@ export function NavigationSection() {
           <footer className="bg-background border-t border-white/6 px-8 py-10">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
               <div>
-                <img src={logoRect} alt="Capital Unique" className="h-5 mb-4 opacity-90" />
+                <BrandLogo variant="rect" className="h-5 mb-4 opacity-90 w-auto" />
                 <p className="text-xs text-cu-neutral leading-relaxed">
                   Non-bank lending for complex scenarios where traditional finance falls short.
                 </p>

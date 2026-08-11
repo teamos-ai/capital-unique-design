@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import logoSquare from "../../imports/Logo_Square.png";
-import logoRect from "../../imports/Logo_Retangle_Long.png";
+import { BrandLogo } from "./ds/BrandLogo";
 import { ColorSection }        from "./ds/ColorSection";
 import { TypographySection }   from "./ds/TypographySection";
 import { SpacingSection }      from "./ds/SpacingSection";
@@ -199,7 +198,7 @@ export function DesignSystem() {
               <path d="M3 12h18M3 6h18M3 18h18"/>
             </svg>
           </button>
-          <img src={logoSquare} alt="Capital Unique" className="w-7 h-7" />
+          <BrandLogo variant="square" className="w-7 h-7" />
           <div className="h-5 w-px bg-border mx-1" />
           <span className="text-xs font-semibold tracking-widest uppercase text-muted-foreground">Design System</span>
           <span className="hidden sm:inline px-2 py-0.5 rounded-full text-xs font-semibold bg-white/6 text-cu-brandy border border-cu-brandy/30">
@@ -273,7 +272,7 @@ export function DesignSystem() {
           <div className="p-5">
             {/* Intro */}
             <div className="mb-6 pb-5 border-b border-white/6">
-              <img src={logoRect} alt="Capital Unique" className="h-4 opacity-60 mb-2" />
+              <BrandLogo variant="rect" className="h-4 opacity-60 mb-2 w-auto" />
               <p className="text-xs text-cu-neutral leading-relaxed">
                 All tokens, components & patterns for the Capital Unique product suite.
               </p>
