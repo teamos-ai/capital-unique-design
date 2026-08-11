@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   EMAIL, SERIF, SANS, Palette, LINKS,
   Spacer, Eyebrow, Button, Hairline, Gap, Para,
 } from "./email/kit";
 import { ISSUES, TOPIC_MAP, Issue } from "./campaign/issues";
+import { renderIssueHtml, issueFilename } from "./campaign/emailHtml";
 
 /* ─────────────────────────────────────────────────────────────────────
    EIGHT-WEEK CAMPAIGN — Light · Inkwell
@@ -297,62 +298,153 @@ function wordCount(issue: Issue) {
   return all.trim().split(/\s+/).length;
 }
 
-function IssueFrame({ issue }: { issue: Issue }) {
+/* Copies the exact document email-templates/build.mjs writes to disk —
+   both call renderIssueHtml, so the clipboard and the file cannot differ. */
+function CopyHtmlButton({ issue, total }: { issue: Issue; total: number }) {
+  const [copied, setCopied] = useState(false);
+  const [failed, setFailed] = useState(false);
+
+  const onCopy = async () => {
+    const html = renderIssueHtml(issue, total);
+    try {
+      if (!navigator.clipboard) throw new Error("no clipboard");
+      await navigator.clipboard.writeText(html);
+      setCopied(true);
+      setFailed(false);
+      setTimeout(() => setCopied(false), 2000);
+      window.dispatchEvent(
+        new CustomEvent("cu-toast", { detail: `Copied  ${issueFilename(issue)}` })
+      );
+    } catch {
+      /* Clipboard needs a secure context — say so rather than failing mute. */
+      setFailed(true);
+      setTimeout(() => setFailed(false), 3000);
+    }
+  };
+
+  const kb = Math.round(renderIssueHtml(issue, total).length / 1024);
+
+  return (
+    <button
+      type="button"
+      onClick={onCopy}
+      title={`Copy the full ${issueFilename(issue)} document — ${kb}KB — for GoHighLevel's HTML editor`}
+      className={`shrink-0 self-stretch px-3 flex items-center gap-1.5 border-l border-border text-xs font-medium cursor-pointer
+        transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-cu-brandy-light
+        ${copied ? "text-cu-brandy bg-cu-brandy/10" : failed ? "text-cu-amber-dark dark:text-cu-amber-light" : "text-muted-foreground hover:text-foreground hover:bg-muted"}`}
+    >
+      {copied ? (
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="20 6 9 17 4 12" />
+        </svg>
+      ) : (
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+        </svg>
+      )}
+      <span className="hidden sm:inline whitespace-nowrap">
+        {copied ? "Copied" : failed ? "Select manually" : "Copy HTML"}
+      </span>
+    </button>
+  );
+}
+
+function IssueFrame({
+  issue,
+  total,
+  open,
+  onToggle,
+}: {
+  issue: Issue;
+  total: number;
+  open: boolean;
+  onToggle: () => void;
+}) {
   const words = wordCount(issue);
   const inRange = words >= 400 && words <= 700;
+  const panelId = `issue-panel-${issue.id}`;
+
   return (
-    <div className="rounded-xl border border-border overflow-hidden mb-8">
-      <div className="px-3 py-2 bg-background border-b border-border flex flex-wrap items-center gap-x-3 gap-y-1">
-        <span className="font-mono text-xs text-cu-brandy font-semibold">{issue.id}</span>
-        <span className="font-mono text-xs text-muted-foreground opacity-40">·</span>
-        <span className="font-mono text-xs text-foreground">{issue.subject}</span>
-        <span className="ml-auto flex items-center gap-3">
-          <span className="font-mono text-xs text-muted-foreground">{issue.pillar}</span>
-          <span
-            className={`font-mono text-xs px-1.5 py-0.5 rounded border ${
-              inRange
-                ? "text-muted-foreground border-border"
-                : "text-cu-amber-dark dark:text-cu-amber-light border-cu-amber/40"
-            }`}
-            title="Newsletter playbook target: 400–700 words"
-          >
-            {words}w
-          </span>
-        </span>
-      </div>
-
-      <div className="px-3 py-2 bg-muted border-b border-border">
-        <p className="font-mono text-xs text-muted-foreground">
-          <span className="text-foreground">Preheader:</span> {issue.preheader}
-        </p>
-      </div>
-
-      <div style={{ background: P.outer, padding: "28px 20px" }}>
-        <table
-          role="presentation"
-          cellPadding={0}
-          cellSpacing={0}
-          border={0}
-          style={{ width: "600px", maxWidth: "100%", margin: "0 auto", background: P.body, borderCollapse: "collapse" }}
+    <div className="rounded-xl border border-border overflow-hidden mb-3">
+      {/* Header row — the bar toggles, the copy button sits beside it so
+          the two are never nested. */}
+      <div className={`flex items-stretch ${open ? "border-b border-border" : ""}`}>
+        <button
+          type="button"
+          onClick={onToggle}
+          aria-expanded={open}
+          aria-controls={panelId}
+          className="flex-1 min-w-0 flex flex-wrap items-center gap-x-3 gap-y-1 px-3 py-2.5 text-left bg-background
+            cursor-pointer transition-colors duration-150 hover:bg-muted
+            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-cu-brandy-light"
         >
-          <tbody>
-            <CampaignMasthead p={P} issue={issue} />
-            <IssueBody p={P} issue={issue} />
-            <CampaignFooter p={P} issue={issue} />
-          </tbody>
-        </table>
+          <svg
+            width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+            aria-hidden="true"
+            className={`shrink-0 text-muted-foreground transition-transform duration-200 ${open ? "rotate-90" : ""}`}
+          >
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+          <span className="font-mono text-xs text-cu-brandy font-semibold shrink-0">{issue.id}</span>
+          <span className="text-xs text-foreground font-medium truncate">{issue.subject}</span>
+          <span className="ml-auto flex items-center gap-3 shrink-0">
+            <span className="font-mono text-xs text-muted-foreground hidden md:inline">{issue.pillar}</span>
+            <span
+              className={`font-mono text-xs px-1.5 py-0.5 rounded border ${
+                inRange
+                  ? "text-muted-foreground border-border"
+                  : "text-cu-amber-dark dark:text-cu-amber-light border-cu-amber/40"
+              }`}
+              title="Newsletter playbook target: 400–700 words"
+            >
+              {words}w
+            </span>
+          </span>
+        </button>
+        <CopyHtmlButton issue={issue} total={total} />
       </div>
 
-      <div className="px-3 py-2 border-t border-border">
-        <p className="font-mono text-xs text-muted-foreground leading-relaxed">
-          <span className="text-foreground">Sources:</span> {issue.sources.join("  ·  ")}
-        </p>
-      </div>
+      {open && (
+        <div id={panelId}>
+          <div className="px-3 py-2 bg-muted border-b border-border">
+            <p className="font-mono text-xs text-muted-foreground">
+              <span className="text-foreground">Preheader:</span> {issue.preheader}
+            </p>
+          </div>
+
+          <div style={{ background: P.outer, padding: "28px 20px" }}>
+            <table
+              role="presentation"
+              cellPadding={0}
+              cellSpacing={0}
+              border={0}
+              style={{ width: "600px", maxWidth: "100%", margin: "0 auto", background: P.body, borderCollapse: "collapse" }}
+            >
+              <tbody>
+                <CampaignMasthead p={P} issue={issue} />
+                <IssueBody p={P} issue={issue} />
+                <CampaignFooter p={P} issue={issue} />
+              </tbody>
+            </table>
+          </div>
+
+          <div className="px-3 py-2 border-t border-border">
+            <p className="font-mono text-xs text-muted-foreground leading-relaxed">
+              <span className="text-foreground">Sources:</span> {issue.sources.join("  ·  ")}
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
 export function CampaignSection() {
+  /* Collapsed by default — eight full emails open at once is unreadable. */
+  const [openIds, setOpenIds] = useState<Set<string>>(new Set());
+
   return (
     <section id="campaign" aria-labelledby="campaign-heading">
       <div className="mb-8">
@@ -474,12 +566,51 @@ export function CampaignSection() {
       {/* The issues */}
       <div>
         <h3 className="text-foreground mb-2">The eight issues</h3>
-        <p className="text-sm text-muted-foreground max-w-xl leading-relaxed mb-6">
-          Each at true 600px, with its subject line, preheader, word count against the
-          playbook's 400–700 target, and the database files every claim traces to.
+        <p className="text-sm text-muted-foreground max-w-xl leading-relaxed mb-4">
+          Expand any issue to see it at true 600px, exactly as it will send. Copy HTML puts
+          the complete document on the clipboard — the same file{" "}
+          <code className="text-cu-brandy text-xs px-1 py-0.5 bg-muted rounded">email-templates/build.mjs</code>{" "}
+          writes to disk — ready to paste straight into GoHighLevel's HTML editor.
         </p>
+
+        <div className="flex items-center gap-2 mb-4">
+          <button
+            type="button"
+            onClick={() => setOpenIds(new Set(ISSUES.map((i) => i.id)))}
+            className="px-3 py-1.5 rounded-md border border-border text-xs font-medium text-muted-foreground
+              hover:text-foreground hover:border-cu-brandy/40 cursor-pointer transition-colors duration-150
+              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cu-brandy-light"
+          >
+            Expand all
+          </button>
+          <button
+            type="button"
+            onClick={() => setOpenIds(new Set())}
+            className="px-3 py-1.5 rounded-md border border-border text-xs font-medium text-muted-foreground
+              hover:text-foreground hover:border-cu-brandy/40 cursor-pointer transition-colors duration-150
+              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cu-brandy-light"
+          >
+            Collapse all
+          </button>
+          <span className="text-xs text-muted-foreground font-mono ml-1">
+            {openIds.size} of {ISSUES.length} open
+          </span>
+        </div>
+
         {ISSUES.map((issue) => (
-          <IssueFrame key={issue.id} issue={issue} />
+          <IssueFrame
+            key={issue.id}
+            issue={issue}
+            total={ISSUES.length}
+            open={openIds.has(issue.id)}
+            onToggle={() =>
+              setOpenIds((prev) => {
+                const next = new Set(prev);
+                next.has(issue.id) ? next.delete(issue.id) : next.add(issue.id);
+                return next;
+              })
+            }
+          />
         ))}
       </div>
     </section>

@@ -12,78 +12,23 @@ import { LOGO_SRC, LOGO_URL } from "../BrandLogo";
    flex/grid), inline styles only (no CSS variables), 600px body.
 ───────────────────────────────────────────────────────────────────── */
 
-export type Scheme = "dark" | "light";
+export type { Scheme, Colors } from "./tokens";
+export { SERIF, SANS, BUILD_LABEL, LINKS, LOGO_ABS, MERGE, COLORS } from "./tokens";
 
-export interface Palette {
-  outer: string;
-  body: string;
-  surface: string;
-  rule: string;
-  ruleStrong: string;
-  text: string;
-  textSoft: string;
-  textQuiet: string;
-  accent: string;   /* eyebrows, rules, button fill */
-  link: string;     /* inline + footer links — AA on `body` */
-  btnBg: string;
-  btnText: string;
+import { COLORS, type Colors, type Scheme } from "./tokens";
+import { SERIF, SANS, LINKS } from "./tokens";
+
+/* The React previews need bundled image paths on top of the pure colours;
+   the generated HTML needs the absolute ones. Both come off the same
+   COLORS table so they cannot diverge. */
+export interface Palette extends Colors {
   logoSrc: string;  /* bundled — preview only */
   logoUrl: string;  /* absolute — what the export ships */
 }
 
 export const EMAIL: Record<Scheme, Palette> = {
-  dark: {
-    outer:      "#000000",
-    body:       "#080808",  /* Void        — --cu-surface-void  */
-    surface:    "#111111",  /* Vault       — --cu-surface-vault */
-    rule:       "#1F1F1F",
-    ruleStrong: "#2E2E2E",
-    text:       "#F2F2F2",  /* --cu-neutral-lightest */
-    textSoft:   "#B5B5B5",  /* --cu-neutral-light    */
-    textQuiet:  "#878787",  /* --cu-neutral          */
-    accent:     "#C56A31",  /* Brandy Punch */
-    link:       "#D79B7A",  /* Brandy Light — 8.45:1 on Void */
-    btnBg:      "#C56A31",
-    btnText:    "#080808",  /* matches --primary-foreground in .dark */
-    logoSrc:    LOGO_SRC.square.bronze,
-    logoUrl:    LOGO_URL.square.bronze,
-  },
-  /* Blue on white. Inkwell rather than Brandy, matching the system's own
-     light-mode icon treatment (--cu-icon-fg is Inkwell in light, Brandy in
-     dark). Every value clears AA on white, including the button. */
-  light: {
-    outer:      "#E4EDF2",  /* --cu-inkwell-lightest — pale blue gutter */
-    body:       "#FFFFFF",
-    surface:    "#F2F7FA",  /* email-only step between white and Inkwell Lightest */
-    rule:       "#DAE5EC",
-    ruleStrong: "#C3D5E0",
-    text:       "#091C2C",  /* --cu-inkwell-darker — near-black with a blue cast */
-    textSoft:   "#46616F",  /* email-only slate — 6.6:1 */
-    textQuiet:  "#5C7484",  /* email-only slate — 4.9:1 */
-    accent:     "#2C628D",  /* --cu-inkwell — 6.5:1 on white */
-    link:       "#2C628D",
-    btnBg:      "#2C628D",
-    btnText:    "#FFFFFF",  /* 6.5:1 — AA at any size */
-    logoSrc:    LOGO_SRC.square.silver,
-    logoUrl:    LOGO_URL.square.silver,
-  },
-};
-
-/* Every outbound destination, in one place. Changing a URL here changes
-   it in the previews and in the generated HTML at the same time. */
-export const LINKS = {
-  contact:     "https://www.capitalunique.com/contact",
-  guides:      "https://www.capitalunique.com/guides",
-  freeTools:   "https://www.capitalunique.com/free-tools",
-  calculators: "https://www.capitalunique.com/calculators",
-};
-
-export const SERIF = "'Source Serif 4', Georgia, 'Times New Roman', serif";
-export const SANS  = "'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
-
-export const BUILD_LABEL: Record<Scheme, string> = {
-  dark: "Dark — The Vault",
-  light: "Light — Inkwell",
+  dark:  { ...COLORS.dark,  logoSrc: LOGO_SRC.square.bronze, logoUrl: LOGO_URL.square.bronze },
+  light: { ...COLORS.light, logoSrc: LOGO_SRC.square.silver, logoUrl: LOGO_URL.square.silver },
 };
 
 /* ── Primitives ───────────────────────────────────────────────────── */
