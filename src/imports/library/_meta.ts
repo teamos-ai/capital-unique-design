@@ -300,4 +300,11 @@ export const libraryImages: LibraryImage[] = [
   // lead-magnets — portrait heroes
   { src: 'lead-magnets/hero-lounge-consultation.jpg', alt: 'A woman in a charcoal blazer and a man in a navy suit sit facing each other in low bouclé armchairs in a dark lounge, a tan leather folio and coffee cups on the round table between them.', ratio: '4:5', license: 'Brand-owned' },
   { src: 'lead-magnets/hero-walking-conversation-verandah.jpg', alt: 'A man carrying a tan leather folio and a woman in a black blazer walk and talk along a brick verandah at golden hour, low sun flaring down the colonnade behind them.', ratio: '4:5', license: 'Brand-owned' },
+
+  // ── Codrington portrait import 2026-08-11 ──────────────────────
+  // `codrington-headshot-bw-wide` is the same frame as the existing
+  // 4:3 `codrington-headshot-bw`, recropped to 21:9 for banner use.
+  { src: 'editorial/codrington-seated-armchair-kitchen.jpg', alt: 'John Codrington in a navy suit and blue tie sits forward in a tan leather armchair with his hands clasped, smiling to camera, a sunlit timber kitchen counter and row of stools softly defocused behind him.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'editorial/codrington-headshot-bw-wide.jpg', alt: 'John Codrington in a grey double-breasted suit and dark tie, hands clasped, seated on a white Eames-style chair against a deep charcoal backdrop — black and white editorial portrait, wide 21:9 crop for banner use.', ratio: '21:9', license: 'Brand-owned' },
+  { src: 'people/codrington-client-meeting-table.jpg', alt: 'John Codrington in a navy suit sits with fingers steepled, listening across a timber table to a client in a blue-striped shirt who gestures mid-sentence; an open notebook of charts and a black mug between them, greenery and a street visible through full-height glazing behind.', ratio: '21:9', license: 'Brand-owned' },
 ];
