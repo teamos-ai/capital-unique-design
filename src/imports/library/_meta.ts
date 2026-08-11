@@ -26,7 +26,8 @@ export type LibraryCategory =
   | 'bank-cards'
   | 'money'
   | 'abstract'
-  | 'brand-deck';
+  | 'brand-deck'
+  | 'lead-magnets';
 
 export type LibraryRatio = '16:9' | '4:5' | '1:1' | '3:2' | '21:9' | '9:16' | '4:3';
 
@@ -231,4 +232,72 @@ export const libraryImages: LibraryImage[] = [
   { src: 'hero/hero-corporate-female-ceo-001.png', alt: 'An Asian female executive in a black top and cream pencil skirt steps out of a dark cafe doorway holding a tablet, smiling off-camera in clear daylight with greenery flanking the entrance.', ratio: '4:5', license: 'Brand-owned' },
   { src: 'hero/hero-corporate-handshake-meeting-001.png', alt: 'A mature blond executive in a navy suit and blue tie shakes hands across a low coffee table with a younger man in a pale blue shirt, both seated in a warm restaurant lounge with bokeh pendants and greenery behind.', ratio: '4:5', license: 'Brand-owned' },
   { src: 'hero/hero-retirement-planning-couple-001.png', alt: 'An Asian couple sit close on a bench in a warm wood-and-plant interior, the woman in a mustard blouse showing the man (in a grey sweater) a tablet, a small round timber side table with notebooks between them.', ratio: '4:5', license: 'Brand-owned' },
+
+  // ── Lead magnets import 2026-08-11 ─────────────────────────────
+  // Low-key chiaroscuro set shot for the lead-magnet funnel: dark grounds,
+  // warm copper key light, and deliberate negative space for headline overlay.
+  // Filename prefix = source series (deal-summary / lender-questions /
+  // document-list / lender-conversation / objection / cover / hero).
+
+  // lead-magnets — deal summary series
+  { src: 'lead-magnets/deal-summary-blank-sheet-lightfall.jpg', alt: 'A single blank cream sheet lies at an angle on a matte black surface, a narrow band of warm light falling across its middle — the left half of the frame is empty shadow.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/deal-summary-commercial-building-night.jpg', alt: 'A two-storey brick and timber-batten commercial building at night, ground-floor glazing glowing warm and uplit trees along the forecourt, the paved apron empty in the foreground.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/deal-summary-written-page-pen.jpg', alt: 'A close-written cream page rests at an angle on black felt with a matte black fountain pen laid across it, raked side light picking out the texture of the paper.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/deal-summary-door-ajar-light.jpg', alt: 'A timber door stands ajar in a dark plastered room, a hard wedge of warm light spilling through the gap and stretching across the polished concrete floor.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/deal-summary-adviser-two-points.jpg', alt: 'A woman in a dark blazer sits at a timber desk holding up two fingers mid-explanation while a man in a navy suit takes notes opposite her, a desk lamp lighting the scene from the right.', ratio: '16:9', license: 'Brand-owned' },
+
+  // lead-magnets — lender questions series
+  { src: 'lead-magnets/lender-questions-paper-stack-edge.jpg', alt: 'The cut edge of a thick stack of cream paper, top sheets fanned slightly apart, lit from the right against a black ground.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/lender-questions-stone-block-corner.jpg', alt: 'The corner of a dark pitted stone block, its top edge catching a thin copper rim of light, the right half of the frame falling away into black.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/lender-questions-adviser-desk-folio.jpg', alt: 'A woman in a dark blazer sits at a timber desk looking off to the left, both hands resting on a tan leather folio, an angled desk lamp and shelved books behind her in shadow.', ratio: '3:2', license: 'Brand-owned' },
+  { src: 'lead-magnets/lender-questions-brass-valve-wheel.jpg', alt: 'Close-up of a brass valve handwheel with a knurled rim, side-lit so the spokes and machined hub glow copper against a black background.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/lender-questions-padlock-key-open.jpg', alt: 'A brass padlock with its shackle sprung open sits on dark slate beside the key that released it, a single warm light raking across from the left.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/lender-questions-notebook-page-turn.jpg', alt: 'A dark hardcover notebook lies open on black, a single page caught mid-turn with warm light glowing along its underside and curled edge.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/lender-questions-construction-crane-dusk.jpg', alt: 'A multi-storey concrete frame under construction at dusk, its floors lit amber from within, a tower crane rising against a bruised blue sky with the last orange of sunset on the horizon.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/lender-questions-hand-pen-blank-page.jpg', alt: 'A hand poised with a black pen just above the corner of a blank cream sheet, about to make the first mark, lit hard from the left against black.', ratio: '16:9', license: 'Brand-owned' },
+
+  // lead-magnets — document list series
+  { src: 'lead-magnets/document-list-file-stack-blank-sheet.jpg', alt: 'A tall untidy stack of files and loose papers sits in soft focus behind a single clean blank sheet laid flat in the foreground, all on a black ground.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/document-list-site-plan-scale-ruler.jpg', alt: 'A site survey drawing curls up at one corner on dark textured stone, a brass triangular scale ruler weighting it down, warm light falling across the contour lines and lot boundaries.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/document-list-paper-stacks-tall-short.jpg', alt: 'Two stacks of paper side by side — one roughly twice the height of the other — side-lit so the cut page edges glow warm against a black background.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/document-list-development-aerial-night.jpg', alt: 'Elevated night view over a low-rise townhouse development, warm interiors and landscape uplighting picking out terraces and garden paths, suburban rooftops receding to the horizon.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/document-list-property-photo-prints.jpg', alt: 'Five bordered photographic prints of contemporary timber and glass houses at dusk lie scattered and overlapping on a dark textured surface, lit from above.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/document-list-brass-hierarchy-nodes.jpg', alt: 'A brass rod-and-node sculpture arranged as a branching tree — one node at the top splitting down through two tiers to four feet — standing against black with the right of frame empty.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/document-list-leather-ledgers-stacked.jpg', alt: 'Two tan leather-bound ledgers stacked on a timber surface, their gilded page edges catching warm light, the left of the frame dropping into shadow.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/document-list-broker-briefcase-portrait.jpg', alt: 'A man in a navy blazer and open-collar shirt stands resting a hand on a tan leather briefcase, looking off to the left, warm pendant lights and a dark bar interior behind him.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/document-list-townhouse-row-night.jpg', alt: 'A stepped row of concrete and timber townhouses at night, warm light glowing from recessed balconies and box windows, the upper half of the frame pure black sky.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/document-list-site-plans-review-dusk.jpg', alt: 'A woman in a dark coat and a bearded builder in a white hard hat and plaid shirt lean over a large plan together on a residential build site at dusk, the timber frame of a house behind them.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/document-list-pen-on-page-corner.jpg', alt: 'A black pen rests on the corner of a warm cream sheet at the lower left, the rest of the frame falling away into deep shadow.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/document-list-signing-at-home-lamp.jpg', alt: 'A woman in a cream cable-knit sweater sits writing on a single sheet at a dark timber table, lit by a shaded lamp with a dried arrangement and tray beside her.', ratio: '16:9', license: 'Brand-owned' },
+
+  // lead-magnets — lender conversation series
+  { src: 'lead-magnets/lender-conversation-adviser-explaining.jpg', alt: 'A woman in a dark blazer sits forward in a leather armchair mid-sentence, one hand raised in explanation, warm wall lights and a brick pier softly out of focus behind her.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/lender-conversation-key-on-envelope.jpg', alt: 'A worn brass key lies on a kraft envelope at the left of frame on a dark surface, warm light raking across the paper, the right side empty black.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/lender-conversation-plumb-bob.jpg', alt: 'A bronze plumb bob hangs motionless on a braided cord, centred against a pure black background and lit so the facets of the cone catch the light.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/lender-conversation-weight-on-pages.jpg', alt: 'A dark blackened steel block rests squarely on a stack of cream pages, compressing them slightly, warm light glowing along the exposed page edges beneath.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/lender-conversation-booth-meeting.jpg', alt: 'A man in a navy suit sits in a leather booth looking levelly across the table at another man seen from behind in the foreground, a pendant lamp lighting the table between them.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/lender-conversation-balance-scale.jpg', alt: 'An antique bronze balance scale with both pans empty and the beam perfectly level, centred against a black background with copper highlights along the arm.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/lender-conversation-empty-boardroom.jpg', alt: 'A long timber boardroom table recedes toward a single empty leather chair under a pendant light, the rest of the room lost in darkness.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/lender-conversation-corridor-handoff.jpg', alt: 'A woman in a rust suede jacket holding a tan folio stands talking with a man in a charcoal overcoat in a dark brick corridor, a receding line of warm wall lights behind them.', ratio: '16:9', license: 'Brand-owned' },
+
+  // lead-magnets — objection handling series
+  { src: 'lead-magnets/objection-living-room-through-glass.jpg', alt: 'A warmly lit living room seen at night from outside through sliding glazing — pale sofa, timber coffee table and plants — the left two-thirds of the frame in darkness.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/objection-panels-light-gap.jpg', alt: 'Two upright walnut panels stand almost touching on a dark surface, a single blade of warm light escaping the narrow gap between them.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/objection-balcony-night-reflection.jpg', alt: 'A woman in a rust suede jacket stands at a balcony rail at night looking down and away, a warmly lit living room visible through glazing to her right and dark garden beyond.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/objection-pavilion-house-dusk.jpg', alt: 'A single-storey timber pavilion house glows warm through full-height glazing at dusk, sitting above a dry-stone retaining wall with coastal scrub in the foreground.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/objection-leather-folio-open.jpg', alt: 'A tan leather presentation folio lies open on black felt with a blank cream sheet held in its corner mounts, a second closed folio behind it.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/objection-rebar-bundle.jpg', alt: 'A tight bundle of cut reinforcing bar stands upright on a gritty concrete surface, the sheared ends catching warm light against a black background.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/objection-entry-door-boots.jpg', alt: 'The entry of a modern home at night: a tall timber pivot door stands open onto a warm hallway, a pair of work boots left on the threshold beside a planter.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/objection-leather-strap-steel-blocks.jpg', alt: 'A stitched tan leather strap spans two blackened steel blocks on a timber surface, bridging the gap between them under warm directional light.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/objection-dovetail-joint.jpg', alt: 'Extreme close-up of the corner of a walnut box showing precisely cut dovetail joinery, the pins and tails interlocking, the left of frame pure black.', ratio: '16:9', license: 'Brand-owned' },
+  { src: 'lead-magnets/objection-booth-conversation.jpg', alt: 'A man gestures mid-explanation across a restaurant table while a woman in a cream sweater listens with her chin resting on her hand, a copper pendant lamp above them.', ratio: '16:9', license: 'Brand-owned' },
+
+  // lead-magnets — guide covers
+  { src: 'lead-magnets/cover-the-borrowers-guide.jpg', alt: 'A couple stand talking at a stone kitchen island in a dark timber kitchen at night, the man holding a white cup under a single warm pendant light.', ratio: '3:2', license: 'Brand-owned' },
+  { src: 'lead-magnets/cover-when-the-banks-say-no.jpg', alt: 'A row of brick and timber townhouses at night seen from across the street, warm light in the upper windows and landscape uplighting along the front gardens.', ratio: '3:2', license: 'Brand-owned' },
+  { src: 'lead-magnets/cover-private-lending.jpg', alt: 'A woman in a dark blazer stands at a full-height apartment window at dusk holding a cup, looking out over a city skyline of scattered lights, a lit shelf and desk lamp behind her.', ratio: '3:2', license: 'Brand-owned' },
+
+  // lead-magnets — portrait heroes
+  { src: 'lead-magnets/hero-lounge-consultation.jpg', alt: 'A woman in a charcoal blazer and a man in a navy suit sit facing each other in low bouclé armchairs in a dark lounge, a tan leather folio and coffee cups on the round table between them.', ratio: '4:5', license: 'Brand-owned' },
+  { src: 'lead-magnets/hero-walking-conversation-verandah.jpg', alt: 'A man carrying a tan leather folio and a woman in a black blazer walk and talk along a brick verandah at golden hour, low sun flaring down the colonnade behind them.', ratio: '4:5', license: 'Brand-owned' },
 ];

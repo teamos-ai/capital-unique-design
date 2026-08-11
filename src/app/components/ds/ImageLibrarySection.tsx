@@ -25,9 +25,11 @@ const categories: { id: "all" | LibraryCategory; label: string }[] = [
   { id: "footer",      label: "Footer" },
   { id: "editorial",   label: "Editorial" },
   { id: "hero",        label: "Hero" },
-  { id: "bank-cards",  label: "Bank Cards" },
-  { id: "money",       label: "Money" },
-  { id: "abstract",    label: "Abstract" },
+  { id: "bank-cards",   label: "Bank Cards" },
+  { id: "money",        label: "Money" },
+  { id: "abstract",     label: "Abstract" },
+  { id: "brand-deck",   label: "Brand Deck" },
+  { id: "lead-magnets", label: "Lead Magnets" },
 ];
 
 const ratioToTailwind: Record<LibraryImage["ratio"], string> = {
@@ -37,6 +39,7 @@ const ratioToTailwind: Record<LibraryImage["ratio"], string> = {
   "3:2":   "aspect-[3/2]",
   "21:9":  "aspect-[21/9]",
   "9:16":  "aspect-[9/16]",
+  "4:3":   "aspect-[4/3]",
 };
 
 const licenseStyle: Record<LibraryImage["license"], string> = {
